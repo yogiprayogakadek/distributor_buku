@@ -11,12 +11,12 @@ class Transaksi extends Model
 
     public function distributor()
     {
-        return $this->belongsTo(Distributor::class, 'id', 'distributor_id');
+        return $this->belongsTo(Distributor::class, 'distributor_id', 'id');
     }
 
     public function validator()
     {
-        return $this->belongsTo(User::class, 'id', 'user_id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function detailTransaksi()

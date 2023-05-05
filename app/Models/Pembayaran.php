@@ -14,11 +14,11 @@ class Pembayaran extends Model
 
     public function transaksi()
     {
-        return $this->belongsTo(Transaksi::class, 'id', 'transaksi_id');
+        return $this->belongsTo(Transaksi::class, 'transaksi_id', 'id');
     }
 
     public function validator()
     {
-        return $this->belongsTo(User::class, 'id', 'user_id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

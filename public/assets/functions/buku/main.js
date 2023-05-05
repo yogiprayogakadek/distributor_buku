@@ -26,8 +26,30 @@ function tambah() {
     });
 }
 
+var rupiah = $("#harga");
+function convertToRupiah(number, prefix) {
+    var number_string = number.replace(/[^,\d]/g, "").toString(),
+        split = number_string.split(","),
+        remaining = split[0].length % 3,
+        rupiah = split[0].substr(0, remaining),
+        thousand = split[0].substr(remaining).match(/\d{3}/gi);
+
+    if (thousand) {
+        separator = remaining ? "." : "";
+        rupiah += separator + thousand.join(".");
+    }
+
+    rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
+    return prefix == undefined ? rupiah : rupiah ? "Rp. " + rupiah : "";
+}
+
+
 $(document).ready(function () {
     getData();
+
+    $("body").on("keyup", '#harga', function (e) {
+        $("#harga").val(convertToRupiah($(this).val(), "Rp. "))
+    });
 
     $('body').on('click', '.btn-add', function () {
         tambah();

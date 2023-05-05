@@ -22,7 +22,7 @@ class User extends Authenticatable
 
     public function distributor()
     {
-        return $this->belongsTo(User::class, 'id', 'user_id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function transaksi() // validator transaksi

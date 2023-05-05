@@ -14,7 +14,7 @@ class DetailTransaksi extends Model
 
     public function transaksi()
     {
-        return $this->belongsTo(Transaksi::class, 'id', 'transaksi_id');
+        return $this->belongsTo(Transaksi::class, 'transaksi_id', 'id');
     }
 
     public function buku()

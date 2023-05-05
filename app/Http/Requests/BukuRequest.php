@@ -25,7 +25,7 @@ class BukuRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'kategori_id' => 'required|numeric',
+            'kategori' => 'required',
             'kode_buku' => 'required',
             'judul' => 'required',
             'tahun_terbit' => 'required|numeric',
@@ -33,6 +33,7 @@ class BukuRequest extends FormRequest
             'penulis' => 'required',
             'harga' => 'required|required',
             'deskripsi' => 'required',
+            'stok_buku' => 'required|numeric',
         ];
 
         if (!Request::instance()->has('id')) {
@@ -64,7 +65,7 @@ class BukuRequest extends FormRequest
     public function attributes()
     {
         return [
-            'kategori_id' => 'Kategori',
+            'kategori' => 'Kategori',
             'kode_buku' => 'Kode buku',
             'judul' => 'Judul',
             'tahun_terbit' => 'Tahun terbit',
@@ -72,6 +73,7 @@ class BukuRequest extends FormRequest
             'penulis' => 'Penulis',
             'harga' => 'Harga',
             'deskripsi' => 'Deskripsi',
+            'stok_buku' => 'Stok buku'
         ];
     }
 }

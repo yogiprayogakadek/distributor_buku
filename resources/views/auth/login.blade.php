@@ -22,6 +22,7 @@
     <link href="{{asset('assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
     <!-- App Css-->
     <link href="{{asset('assets/css/app.min.css')}}" id="app-style" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{{asset('assets/libs/sweetalert2/sweetalert2.min.css')}}">
 
 </head>
 
@@ -158,12 +159,22 @@
 
     <!-- App js -->
     <script src="{{asset('assets/js/app.js')}}"></script>
+    <script src="{{asset('assets/libs/sweetalert2/sweetalert2.min.js')}}"></script>
 
     <!-- Laravel Javascript Validation -->
     <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
 
     {!! JsValidator::formRequest('App\Http\Requests\AuthRequest', '#login') !!}
 
+    <script>
+        @if(session('status') == 'success')
+        Swal.fire(
+            "{{session('title')}}",
+            "{{session('message')}}",
+            "{{session('status')}}",
+        );
+        @endif
+    </script>
 </body>
 
 </html>

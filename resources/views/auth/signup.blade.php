@@ -23,6 +23,7 @@
     <!-- App Css-->
     <link href="{{asset('assets/css/app.min.css')}}" id="app-style" rel="stylesheet" type="text/css" />
 
+    <link rel="stylesheet" href="{{asset('assets/libs/sweetalert2/sweetalert2.min.css')}}">
 </head>
 
 <body class="auth-body-bg">
@@ -100,8 +101,9 @@
                                     </div>
 
                                     <div class="mt-4">
-                                        <form action="{{route('signup.signup')}}" id="signup" method="POST">
+                                        <form action="{{route('signup.signup')}}" id="signup" method="POST" enctype="multipart/form-data">
                                             @csrf
+                                            <input type="hidden" name="type" id="type" value="signup">
                                             <div class="mb-3">
                                                 <label for="nama" class="form-label">Nama</label>
                                                 <input type="text" class="form-control" id="nama" name="nama" placeholder="masukkan nama">
@@ -145,7 +147,7 @@
                                             </div>
 
                                             <div class="mt-3 d-grid">
-                                                <button class="btn btn-primary waves-effect waves-light" type="submit">Log In</button>
+                                                <button class="btn btn-primary waves-effect waves-light" type="submit">Daftar</button>
                                             </div>
                                         </form>
                                         <div class="mt-5 text-center">
@@ -187,12 +189,22 @@
 
     <!-- App js -->
     <script src="{{asset('assets/js/app.js')}}"></script>
+    <script src="{{asset('assets/libs/sweetalert2/sweetalert2.min.js')}}"></script>
 
     <!-- Laravel Javascript Validation -->
     <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
 
     {!! JsValidator::formRequest('App\Http\Requests\AuthRequest', '#signup') !!}
 
+    <script>
+        @if (session('status') == 'error')
+            Swal.fire(
+                "{{session('title')}}",
+                "{{session('message')}}",
+                "{{session('status')}}",
+            );
+        @endif
+    </script>
 </body>
 
 </html>

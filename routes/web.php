@@ -13,11 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('templates.master');
-});
+// Route::get('/', function () {
+//     return view('templates.master');
+// });
 
 Route::middleware('auth')->namespace('Main')->group(function () {
+    Route::get('/', 'DashboardController@index')->name('index');
+
+    Route::controller(MainController::class)
+        ->as('main.')
+        ->group(function () {
+            Route::get('/cart', 'cart')->name('cart');
+        });
+
     Route::controller(DashboardController::class)
         ->prefix('dashboard')
         ->as('dashboard.')
@@ -56,7 +64,7 @@ Route::middleware('auth')->namespace('Main')->group(function () {
         ->prefix('keranjang')
         ->as('keranjang.')
         ->group(function () {
-            Route::get('/tambah', 'tambah')->name('tambah');
+            Route::post('/tambah', 'tambah')->name('tambah');
             Route::post('/update', 'update')->name('update');
             Route::get('/remove/{id}', 'remove')->name('remove');
             Route::get('/check', 'check')->name('check');
@@ -70,7 +78,38 @@ Route::middleware('auth')->namespace('Main')->group(function () {
             Route::get('/cari-buku/{slug}', 'search')->name('search');
             Route::post('/checkout', 'checkout')->name('checkout');
         });
+
+    Route::controller('ProfilController')
+        ->prefix('/profil')
+        ->name('profil.')
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/edit/{id}', 'edit')->name('edit');
+            Route::post('/update', 'update')->name('update');
+        });
 });
+
+Route::middleware('auth')->prefix('distributor')
+    ->namespace('Distributor')->as('distributor.')->group(function () {
+        Route::controller(BukuController::class)
+            ->prefix('buku')
+            ->as('buku.')
+            ->group(function () {
+                Route::get('', 'index')->name('index');
+                Route::get('/render', 'render')->name('render');
+                Route::get('/search/{value}', 'search')->name('search');
+            });
+
+        Route::controller(KeranjangController::class)
+            ->prefix('keranjang')
+            ->as('keranjang.')
+            ->group(function () {
+                Route::get('', 'index')->name('index');
+                Route::get('/render', 'render')->name('render');
+                Route::post('/update', 'update')->name('update');
+                Route::post('/checkout', 'checkout')->name('checkout');
+            });
+    });
 
 Route::middleware('guest')->namespace('Main')->group(function () {
     Route::controller(SignupController::class)

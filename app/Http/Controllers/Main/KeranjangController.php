@@ -12,16 +12,15 @@ class KeranjangController extends Controller
     {
         $buku = Buku::find($request->id);
         $user_id = auth()->user()->id;
-
         try {
-            if(\Cart::session($user_id)->get($buku->id)){
+            if (\Cart::session($user_id)->get($buku->id)) {
                 return response()->json([
                     'status' => 'error',
                     'message' => 'Produk sudah ada di keranjang',
                     'title' => 'Gagal',
                 ]);
             } else {
-                if($buku->stok_buku <= 0) {
+                if ($buku->stok_buku <= 0) {
                     return response()->json([
                         'status' => 'error',
                         'message' => 'Tidak ada stok untuk produk ini',
@@ -30,8 +29,8 @@ class KeranjangController extends Controller
                 } else {
                     \Cart::session($user_id)->add([
                         'id' => $buku->id,
-                        'name' => $buku->nama,
-                        'price' => $buku->harga,
+                        'name' => json_decode($buku->data_buku, true)['judul'],
+                        'price' => json_decode($buku->data_buku, true)['harga'],
                         'quantity' => 1,
                         'associatedModel' => $buku,
                     ]);
@@ -48,7 +47,7 @@ class KeranjangController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' =>$e->getMessage(),
+                'message' => $e->getMessage(),
                 'title' => 'Gagal',
             ]);
         }
@@ -58,7 +57,7 @@ class KeranjangController extends Controller
     {
         $user_id = auth()->user()->id;
         $buku = Buku::find($request->id);
-        if($request->kuantitas > $buku->stok_buku) {
+        if ($request->kuantitas > $buku->stok_buku) {
             return response()->json([
                 'status' => 'info',
                 'message' => 'Stok tidak mencukupi, stok yang tersedia ' . $buku->stok_buku,
@@ -87,8 +86,8 @@ class KeranjangController extends Controller
         $user = auth()->user()->id;
         \Cart::session($user)->remove($id);
         return response()->json([
-            'cart' => cart(),
-            'subtotal' => subTotal(),
+            // 'cart' => cart(),
+            // 'subtotal' => subTotal(),
             'status' => 'success',
             'message' => 'Produk berhasil dihapus dari keranjang',
             'title' => 'Berhasil'

@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Request;
 
-class AuthRequest extends FormRequest
+class ProfilRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,19 +24,15 @@ class AuthRequest extends FormRequest
     public function rules()
     {
         $rules = [
+            'nama_pt' => 'required',
+            'alamat' => 'required',
+            'nama' => 'required',
+            'jenis_kelamin' => 'required',
+            'telp' => 'required|numeric',
+            'username' => 'required',
             'email' => 'required',
-            'password' => 'required',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ];
-
-        if (strpos($this->url(), '/signup') == false) {
-            $rules += [
-                'nama' => 'required',
-                'jenis_kelamin' => 'required',
-                'telp' => 'required|numeric',
-                'username' => 'required',
-                'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            ];
-        }
 
         return $rules;
     }
@@ -56,6 +51,8 @@ class AuthRequest extends FormRequest
     public function attributes()
     {
         return [
+            'nama_pt' => 'Nama PT.',
+            'alamat' => 'Alamat PT.',
             'nama' => 'Nama',
             'jenis_kelamin' => 'Jenis kelamin',
             'telp' => 'No. telp',

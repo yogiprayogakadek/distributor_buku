@@ -168,6 +168,7 @@ $(document).ready(function () {
                 );
             },
             error: function (error) {
+                console.log(error)
                 let formName = []
                 let errorName = []
 

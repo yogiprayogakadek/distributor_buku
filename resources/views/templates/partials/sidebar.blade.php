@@ -22,12 +22,29 @@
                     </a>
                 </li>
 
+                @cannot('distributor')
                 <li>
                     <a href="{{route('buku.index')}}" class="waves-effect {{Request::is('/buku') ? 'active' : '' }}">
                         <i class="bx bx-book-open"></i>
                         <span key="t-book">Buku</span>
                     </a>
                 </li>
+                @endcannot
+
+                @can('distributor')
+                <li>
+                    <a href="{{route('distributor.buku.index')}}" class="waves-effect {{Request::is('/distributor/buku') ? 'active' : '' }}">
+                        <i class="bx bx-book-open"></i>
+                        <span key="t-book">Buku</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('distributor.keranjang.index')}}" class="waves-effect {{Request::is('/distributor/keranjang') ? 'active' : '' }}">
+                        <i class="bx bx-cart-alt"></i>
+                        <span key="t-cart">Keranjang Belanja</span>
+                    </a>
+                </li>
+                @endcan
             </ul>
         </div>
         <!-- Sidebar -->

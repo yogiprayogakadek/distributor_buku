@@ -30,3 +30,13 @@ function subTotal()
 
     return convertToRupiah($subtotal);
 }
+
+function cartQuantity()
+{
+    $total = 0;
+    foreach (cart() as $key => $value) {
+        $total += $value->quantity;
+    }
+
+    return $total;
+}

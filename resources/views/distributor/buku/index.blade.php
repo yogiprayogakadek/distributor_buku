@@ -5,6 +5,7 @@
 
 @push('css')
 <link href="{{asset('assets/libs/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="{{asset('assets/css/slider.min.css')}}">
 <style>
     .image-container {
         position: relative;
@@ -43,14 +44,29 @@
 
 
                 <div class="mt-4 pt-3">
-                    <h5 class="font-size-14 mb-3">Kategori</h5>
-                    <div class="form-control mt-2">
-                        <select class="select2 form-control select2-multiple" multiple="multiple" data-placeholder="Choose ...">
-                            @foreach ($kategori as $key => $value)
-                                <option value="{{$key}}">{{$value}}</option>
-                            @endforeach
-                        </select>
+                    <div class="row">
+                        <div class="col-6">
+                            <h5 class="font-size-14 mb-3">Kategori</h5>
+                        </div>
+                        <div class="col-6 text-end">
+                            <button type="button" class="btn btn-secondary btn-clear btn-sm" hidden>Bersihkan</button>
+                        </div>
                     </div>
+                    <form id="formFilter">
+                        <div class="form-control mt-2">
+                            <select class="select2 form-control select2-multiple" multiple="multiple" data-placeholder="Choose ..." name="kategori[]">
+                                @foreach ($kategori as $key => $value)
+                                    <option value="{{$key}}">{{$value}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group mt-5">
+                            <input type="text" id="sampleSlider" />
+                        </div>
+                        <div class="form-group text-end mt-2">
+                            <button type="button" class="btn btn-primary btn-filter col-12">Filter</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -127,6 +143,7 @@
 
 @push('script')
 <script src="{{asset('assets/libs/select2/js/select2.min.js')}}"></script>
+<script src="{{asset('assets/js/slider.min.js')}}"></script>
 <script>
     function getBuku(url) {
         $.ajax({
@@ -192,6 +209,63 @@
 
             $.get("/distributor/buku/search/" + value, function(data) {
                 $('#buku').html(data)
+            });
+        })
+
+        // show btn clear
+        $('body').on('change', '.select2-multiple', function() {
+            let length = $(":selected", '.select2-multiple').length
+            if(length > 0) {
+                $('.btn-clear').prop('hidden', false)
+            } else {
+                $('.btn-clear').prop('hidden', true)
+            }
+        })
+
+        $('body').on('click', '.btn-clear', function() {
+            $('.select2-multiple').val('').trigger('change');
+        })
+
+        var mySlider = new rSlider({
+            target: '#sampleSlider',
+            values: [5000, 10000, 50000, 100000, 500000],
+            range: true,
+            tooltip: true,
+            scale: true,
+            labels: false,
+            set: [5000, 500000]
+        });
+
+        $('body').on('click', '.btn-filter', function() {
+            // let kategori = $('.select2-multiple').val()
+            let harga = mySlider.getValue()
+            let kat = []
+
+            if($('.select2-multiple').val().length > 0) {
+                $('.select2-multiple').val()
+            }
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            let form = $('#formFilter')[0]
+            let data = new FormData(form)
+            data.append('harga', harga)
+            data.append('kat', kat)
+            $.ajax({
+                type: "POST",
+                url: "/distributor/buku/filter",
+                data: data,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    $('#buku').html(response)
+                },
+                error: function (error) {
+                    console.log(error)
+                }
             });
         })
     });

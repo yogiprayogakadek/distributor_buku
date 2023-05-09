@@ -75,8 +75,8 @@ Route::middleware('auth')->namespace('Main')->group(function () {
         ->as('transaksi.')
         ->group(function () {
             Route::get('', 'index')->name('index');
-            Route::get('/cari-buku/{slug}', 'search')->name('search');
-            Route::post('/checkout', 'checkout')->name('checkout');
+            Route::get('/render', 'render')->name('search');
+            Route::post('/update', 'update')->name('update');
         });
 
     Route::controller('ProfilController')
@@ -98,6 +98,7 @@ Route::middleware('auth')->prefix('distributor')
                 Route::get('', 'index')->name('index');
                 Route::get('/render', 'render')->name('render');
                 Route::get('/search/{value}', 'search')->name('search');
+                Route::post('/filter', 'filter')->name('filter');
             });
 
         Route::controller(KeranjangController::class)

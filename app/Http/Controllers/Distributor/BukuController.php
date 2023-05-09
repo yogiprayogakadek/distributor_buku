@@ -49,8 +49,38 @@ class BukuController extends Controller
                 'buku' => $buku
             ])->render();
         } else {
-            return view('dashboard.pelajar.render')->with([
+            return view('distributor.buku.render')->with([
                 'buku' => Buku::where('status', true)->paginate($this->page)
+            ])->render();
+        }
+    }
+
+    public function filter(Request $request) {
+        $harga_dari = (int)explode(',', $request->harga)[0];
+        $harga_sampai = (int)explode(',', $request->harga)[1];
+        // $kategori = $request->kategori;
+        // dd($harga_dari);
+
+        if(!$request->has('kategori')) {
+            $buku = Buku::where('data_buku->harga', '>=', $harga_dari)
+            ->orWhere('data_buku->harga', '=<', $harga_sampai)
+            ->where('status', true)
+            ->where('stok_buku', '>', 0)
+            ->paginate($this->page);
+
+            return view('distributor.buku.search')->with([
+                'buku' => $buku
+            ])->render();
+        } else {
+            $buku = Buku::whereIn('kategori_id', $request->kategori)
+                    ->orWhere('data_buku->harga', '=', $harga_dari)
+                    ->orWhere('data_buku->harga', '=<', $harga_sampai)
+                    ->where('status', true)
+                    ->where('stok_buku', '>', 0)
+                    ->paginate($this->page);
+
+            return view('distributor.buku.search')->with([
+                'buku' => $buku
             ])->render();
         }
     }

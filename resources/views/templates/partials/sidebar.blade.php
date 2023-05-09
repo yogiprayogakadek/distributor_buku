@@ -15,18 +15,24 @@
                     </a>
                 </li>
 
+                
+                @cannot('distributor')
                 <li>
                     <a href="{{route('kategori.index')}}" class="waves-effect {{Request::is('/kategori') ? 'active' : '' }}">
                         <i class="bx bx-file"></i>
                         <span key="t-file-manager">Kategori</span>
                     </a>
                 </li>
-
-                @cannot('distributor')
                 <li>
                     <a href="{{route('buku.index')}}" class="waves-effect {{Request::is('/buku') ? 'active' : '' }}">
                         <i class="bx bx-book-open"></i>
                         <span key="t-book">Buku</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('transaksi.index')}}" class="waves-effect {{Request::is('/transaksi') ? 'active' : '' }}">
+                        <i class="bx bx-cart-alt"></i>
+                        <span key="t-cart">Transaksi</span>
                     </a>
                 </li>
                 @endcannot

@@ -12,61 +12,44 @@ use Illuminate\Support\Facades\DB;
 
 class TransaksiController extends Controller
 {
-    protected function kodePesanan()
-    {
-        return 'trans-'. time();
-    }
-
     public function index()
     {
         return view('main.transaksi.index');
     }
 
-    public function search($slug)
+    public function render()
     {
-        $buku = Buku::whereJsonContains('data_buku.judul', '%' . $slug . '%')
-                    ->orWhereJsonContains('data_buku.penerbit', '%' . $slug . '%')
-                    ->orWhereJsonContains('data_buku.penulis', '%' . $slug . '%')
-                    ->where('status', true)->get();
+        $transaksi = Transaksi::all();
 
-        return response()->json($buku);
+        $view = [
+            'data' => view('main.transaksi.render', compact('transaksi'))->render()
+        ];
+
+        return response()->json($view);
     }
 
-    public function checkout(TransaksiRequest $request)
+    public function update(Request $request)
     {
-        DB::transaction(function() use($request) {
-            $dataTransaksi = [
-                'kode_pesanan' => $this->kodePesanan(),
-                'tanggal_pesanan' => date('Y-m-d H:i:s'),
-                'distributor_id' => auth()->user()->distributor->id,
-                'total' => preg_replace('/[^0-9]/', '', $request->total),
-            ];
-            $transaksi = Transaksi::create($dataTransaksi);
+        try {
+            $transaksi = Transaksi::find($request->id);
+            $transaksi->update([
+                'status_pesanan' => $request->status,
+                'keterangan' => $request->keterangan,
+                'user_id' => auth()->user()->id
+            ]);
 
-            foreach(cart() as $cart) {
-                $buku = Buku::find($cart->id);
-                $dataDetailTransaki = [
-                    'transaksi_id' => $transaksi->id,
-                    'buku_id' => $buku->id,
-                    'kuantitas' => $request->kuantitas
-                ];
-
-                DetailTransaksi::create($dataDetailTransaki);
-
-                // update stok
-                $buku->update([
-                    'stok_buku' => $buku->stok_buku - $request->kuantitas
-                ]);
-            }
-
-            clearCart();
-
-        });
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Data berhasil disimpan',
-            'title' => 'Berhasil'
-        ]);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Transaksi berhasil diubah',
+                'title' => 'Berhasil',
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Transaksi gagal diubah',
+                'title' => 'Gagal',
+            ]);
+        }
     }
 
 }

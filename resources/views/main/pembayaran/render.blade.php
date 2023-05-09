@@ -13,19 +13,15 @@
                             <label for="status" class="col-sm-2 col-form-label">Status</label>
                             <div class="col-md-10">
                                 <select class="form-select status" name="status">
-                                    <option value="Menunggu Konfirmasi" disabled>Menunggu Konfirmasi</option>
-                                    <option value="Dikemas">Dikemas</option>
-                                    <option value="Dikirim">Dikirim</option>
+                                    <option value="Menunggu Konfirmasi">Menunggu Konfirmasi</option>
                                     <option value="Diterima">Diterima</option>
-                                    <option value="Dibatalkan">Dibatalkan</option>
+                                    <option value="Ditolak">Ditolak</option>
                                 </select>
                                 <div class="invalid-feedback error-status"></div>
                             </div>
                         </div>
 
-                        <div class="row mb-4 group-keterangan">
-                            {{-- <label for="keterangan" class="col-sm-2 col-form-label">Keterangan</label> --}}
-                        </div>
+                        <div class="row mb-4 group-keterangan"></div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
@@ -36,10 +32,9 @@
         </div>
     </div>
 
-
     <div class="card">
         <div class="card-header">
-            <div class="card-title">Data Transaksi</div>
+            <div class="card-title">Data Pembayaran</div>
         </div>
         <div class="card-body">
             <table class="table table-stripped" id="tableData">
@@ -47,28 +42,34 @@
                     <tr>
                         <th>No</th>
                         <th>Kode Pesanan</th>
-                        <th>Distributor</th>
-                        <th>Tanggal Pesanan</th>
-                        <th>Status Pesanaan</th>
-                        <th>Total</th>
-                        <th>Keterangan</th>
+                        <th>Tanggal Pembayaran</th>
+                        <th>Jenis Pembayaran</th>
+                        <th>Bukti Pembayaran</th>
+                        <th>Total Pembayaran</th>
+                        <th>Status Pembayaran</th>
                         <th>Validator</th>
+                        <th>Keterangan</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($transaksi as $transaksi)
+                    @foreach ($pembayaran as $pembayaran)
                     <tr>
                         <td>{{$loop->iteration}}</td>
-                        <td>{{$transaksi->kode_pesanan}}</td>
-                        <td>{{$transaksi->distributor->user->nama}}</td>
-                        <td>{{$transaksi->tanggal_pesanan}}</td>
-                        <td>{!! '<span class="badge bg-info">'.$transaksi->status_pesanan . '</span>' !!}</td>
-                        <td>{{convertToRupiah($transaksi->total)}}</td>
-                        <td>{{$transaksi->keterangan ?? '-'}}</td>
-                        <td>{{$transaksi->validator->nama ?? '-'}}</td>
+                        <td>{{$pembayaran->transaksi->kode_pesanan}}</td>
+                        <td>{{$pembayaran->tanggal_pembayaran}}</td>
+                        <td>{{$pembayaran->jenis_pembayaran}}</td>
                         <td>
-                            <button class="btn btn-success btn-edit" data-pembayaran="{{$transaksi->pembayaran->status_pembayaran}}" data-id="{{$transaksi->id}}" data-status="{{$transaksi->status_pesanan}}" data-keterangan="{{$transaksi->keterangan}}">
+                            <a href="{{asset($pembayaran->bukti_pembayaran)}}" target="_blank">
+                                <img src="{{asset($pembayaran->bukti_pembayaran)}}" height="70px">
+                            </a>
+                        </td>
+                        <td>{{convertToRupiah($pembayaran->transaksi->total)}}</td>
+                        <td>{!! '<span class="badge bg-info">'.$pembayaran->status_pembayaran . '</span>' !!}</td>
+                        <td>{{$pembayaran->validator->nama ?? '-'}}</td>
+                        <td>{{$pembayaran->keterangan ?? '-'}}</td>
+                        <td>
+                            <button class="btn btn-success btn-edit" data-id="{{$pembayaran->id}}" data-status="{{$pembayaran->status_pembayaran}}" data-keterangan="{{$pembayaran->keterangan}}">
                                 <i class="bx bx-pencil"></i>
                             </button>
                         </td>

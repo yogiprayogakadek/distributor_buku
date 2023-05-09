@@ -6,22 +6,24 @@ use App\Http\Controllers\Controller;
 use App\Models\Buku;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class BukuController extends Controller
+class KatalogController extends Controller
 {
     protected $page = 6;
+
     public function index(Request $request)
     {
         $kategori = Kategori::where('status', true)->pluck('nama', 'id')->toArray();
         $buku = Buku::where('status', true)->paginate($this->page);
         if ($request->ajax()) {
-            return view('distributor.buku.render')->with([
+            return view('distributor.katalog.render')->with([
                 'buku' => $buku,
                 'kategori' => $kategori
             ])->render();
         }
-        return view('distributor.buku.index', compact('buku', 'kategori'));
+        return view('distributor.katalog.index', compact('buku', 'kategori'));
     }
 
     public function render()
@@ -29,7 +31,7 @@ class BukuController extends Controller
         $buku = Buku::where('status', true)->paginate($this->page);
 
         $view = [
-            'data' => view('distributor.buku.render', compact('buku'))->render(),
+            'data' => view('distributor.katalog.render', compact('buku'))->render(),
         ];
 
         return response()->json($view);
@@ -45,11 +47,11 @@ class BukuController extends Controller
                 ->where('stok_buku', '>', 0)
                 ->paginate($this->page);
 
-            return view('distributor.buku.search')->with([
+            return view('distributor.katalog.search')->with([
                 'buku' => $buku
             ])->render();
         } else {
-            return view('distributor.buku.render')->with([
+            return view('distributor.katalog.render')->with([
                 'buku' => Buku::where('status', true)->paginate($this->page)
             ])->render();
         }
@@ -68,7 +70,7 @@ class BukuController extends Controller
             ->where('stok_buku', '>', 0)
             ->paginate($this->page);
 
-            return view('distributor.buku.search')->with([
+            return view('distributor.katalog.search')->with([
                 'buku' => $buku
             ])->render();
         } else {
@@ -79,7 +81,7 @@ class BukuController extends Controller
                     ->where('stok_buku', '>', 0)
                     ->paginate($this->page);
 
-            return view('distributor.buku.search')->with([
+            return view('distributor.katalog.search')->with([
                 'buku' => $buku
             ])->render();
         }

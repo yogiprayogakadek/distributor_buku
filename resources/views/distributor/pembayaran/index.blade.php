@@ -20,6 +20,7 @@
                             <th>Jenis Pembayaran</th>
                             <th>Bukti Pembayaran</th>
                             <th>Total Pembayaran</th>
+                            <th>Status Pembayaran</th>
                             <th>Validator</th>
                             <th>Keterangan</th>
                         </tr>
@@ -33,6 +34,7 @@
                             <td>{{$pembayaran->jenis_pembayaran}}</td>
                             <td><img src="{{asset($pembayaran->bukti_pembayaran)}}" height="70px"></td>
                             <td>{{convertToRupiah($pembayaran->transaksi->total)}}</td>
+                            <td>{!! '<span class="badge bg-info">'.$pembayaran->status_pembayaran . '</span>' !!}</td>
                             <td>{{$pembayaran->validator->nama ?? '-'}}</td>
                             <td>{{$pembayaran->keterangan ?? '-'}}</td>
                         </tr>

@@ -1,6 +1,6 @@
 @extends('templates.master')
 
-@section('title', 'Buku')
+@section('title', 'Katalog Buku')
 @section('sub-title', 'Data')
 
 @push('css')
@@ -37,7 +37,7 @@
 
 @section('content')
 <div class="row">
-    <div class="col-lg-3">
+    <div class="col-lg-3 div-filter">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title mb-4">Filter</h4>
@@ -54,14 +54,18 @@
                     </div>
                     <form id="formFilter">
                         <div class="form-control mt-2">
-                            <select class="select2 form-control select2-multiple" multiple="multiple" data-placeholder="Choose ..." name="kategori[]">
+                            <select class="select2 form-control col-12 select2-multiple" multiple="multiple" data-placeholder="Choose ..." name="kategori[]">
                                 @foreach ($kategori as $key => $value)
                                     <option value="{{$key}}">{{$value}}</option>
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group mt-5">
-                            <input type="text" id="sampleSlider" />
+                        <div class="mt-1 text-end">
+                            <span class="text-end btn-more" style="cursor: pointer">Lainnya</span>
+                        </div>
+                        <div class="form-group slider">
+                            <h5 class="font-size-14 mb-3 text-center">Harga</h5>
+                            <input type="text" class="mt-5 " id="sampleSlider" />
                         </div>
                         <div class="form-group text-end mt-2">
                             <button type="button" class="btn btn-primary btn-filter col-12">Filter</button>
@@ -72,11 +76,11 @@
         </div>
     </div>
 
-    <div class="col-lg-9">
+    <div class="col-lg-9 div-katalog">
         <div class="row mb-3">
             <div class="col-xl-4 col-sm-6">
                 <div class="mt-2">
-                    <h5>Buku</h5>
+                    <h5>Katalog Buku</h5>
                 </div>
             </div>
             <div class="col-lg-8 col-sm-6">
@@ -207,7 +211,7 @@
                 value = 'null';
             }
 
-            $.get("/distributor/buku/search/" + value, function(data) {
+            $.get("/distributor/katalog/search/" + value, function(data) {
                 $('#buku').html(data)
             });
         })
@@ -256,7 +260,7 @@
             data.append('kat', kat)
             $.ajax({
                 type: "POST",
-                url: "/distributor/buku/filter",
+                url: "/distributor/katalog/filter",
                 data: data,
                 processData: false,
                 contentType: false,
@@ -267,6 +271,24 @@
                     console.log(error)
                 }
             });
+        })
+
+        // hide slider
+        $('.slider').prop('hidden', true)
+        $('body').on('click', '.btn-more', function() {
+            if($('.div-filter').hasClass('col-lg-3')) {
+                $('.div-filter').removeClass('col-lg-3').addClass('col-lg-4')
+                $('.div-katalog').removeClass('col-lg-9').addClass('col-lg-8')
+                $('.slider').prop('hidden', false)
+                $(this).text('Tutup')
+                $('.select2-container ').css('width', '100%')
+            } else {
+                $('.div-filter').removeClass('col-lg-4').addClass('col-lg-3')
+                $('.div-katalog').removeClass('col-lg-8').addClass('col-lg-9')
+                $('.slider').prop('hidden', true)
+                $(this).text('Lainnya')
+                $('.select2-container ').css('width', '100%')
+            }
         })
     });
 </script>

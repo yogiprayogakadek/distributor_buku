@@ -13,15 +13,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('templates.master');
-// });
+Route::middleware('auth')->namespace('Main')->group(function() {
+    Route::controller(ErrorController::class)
+        ->as('error.')
+        ->group(function() {
+            Route::get('/forbidden', 'forbidden')->name('forbidden');
+            Route::get('/notfound', 'notfound')->name('notfound');
+        });
+});
 
 Route::middleware('auth')->namespace('Main')->group(function () {
     Route::get('/', 'DashboardController@index')->name('index');
 
     Route::controller(MainController::class)
         ->as('main.')
+        ->middleware('checkRole:Admin,Direktur')
         ->group(function () {
             Route::get('/cart', 'cart')->name('cart');
         });
@@ -39,6 +45,7 @@ Route::middleware('auth')->namespace('Main')->group(function () {
     Route::controller(KategoriController::class)
         ->prefix('kategori')
         ->as('kategori.')
+        ->middleware('checkRole:Admin,Direktur')
         ->group(function () {
             Route::get('', 'index')->name('index');
             Route::get('/render', 'render')->name('render');
@@ -51,6 +58,7 @@ Route::middleware('auth')->namespace('Main')->group(function () {
     Route::controller(BukuController::class)
         ->prefix('buku')
         ->as('buku.')
+        ->middleware('checkRole:Admin,Direktur')
         ->group(function () {
             Route::get('', 'index')->name('index');
             Route::get('/render', 'render')->name('render');
@@ -73,6 +81,17 @@ Route::middleware('auth')->namespace('Main')->group(function () {
     Route::controller(TransaksiController::class)
         ->prefix('transaksi')
         ->as('transaksi.')
+        ->middleware('checkRole:Admin,Direktur')
+        ->group(function () {
+            Route::get('', 'index')->name('index');
+            Route::get('/render', 'render')->name('search');
+            Route::post('/update', 'update')->name('update');
+        });
+
+    Route::controller(PembayaranController::class)
+        ->prefix('pembayaran')
+        ->as('pembayaran.')
+        ->middleware('checkRole:Admin,Direktur')
         ->group(function () {
             Route::get('', 'index')->name('index');
             Route::get('/render', 'render')->name('search');
@@ -82,6 +101,7 @@ Route::middleware('auth')->namespace('Main')->group(function () {
     Route::controller('ProfilController')
         ->prefix('/profil')
         ->name('profil.')
+        ->middleware('checkRole:Distributor')
         ->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/edit/{id}', 'edit')->name('edit');
@@ -89,11 +109,12 @@ Route::middleware('auth')->namespace('Main')->group(function () {
         });
 });
 
-Route::middleware('auth')->prefix('distributor')
+Route::middleware(['auth', 'checkProfile:Distributor', 'checkRole:Distributor'])->prefix('distributor')
     ->namespace('Distributor')->as('distributor.')->group(function () {
-        Route::controller(BukuController::class)
-            ->prefix('buku')
-            ->as('buku.')
+        Route::controller(KatalogController::class)
+            ->prefix('katalog')
+            ->as('katalog.')
+            // ->middleware(['checkProfile:Distributor'])
             ->group(function () {
                 Route::get('', 'index')->name('index');
                 Route::get('/render', 'render')->name('render');
@@ -104,6 +125,7 @@ Route::middleware('auth')->prefix('distributor')
         Route::controller(KeranjangController::class)
             ->prefix('keranjang')
             ->as('keranjang.')
+            // ->middleware(['checkProfile:Distributor'])
             ->group(function () {
                 Route::get('', 'index')->name('index');
                 Route::get('/render', 'render')->name('render');
@@ -114,6 +136,7 @@ Route::middleware('auth')->prefix('distributor')
         Route::controller(TransaksiController::class)
             ->prefix('transaksi')
             ->as('transaksi.')
+            // ->middleware(['checkProfile:Distributor'])
             ->group(function () {
                 Route::get('', 'index')->name('index');
                 Route::get('/render', 'render')->name('render');
@@ -122,6 +145,7 @@ Route::middleware('auth')->prefix('distributor')
         Route::controller(PembayaranController::class)
             ->prefix('pembayaran')
             ->as('pembayaran.')
+            ->middleware(['checkProfile:Distributor'])
             ->group(function () {
                 Route::get('', 'index')->name('index');
                 Route::get('/render', 'render')->name('render');

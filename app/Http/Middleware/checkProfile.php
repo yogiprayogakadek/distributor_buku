@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class checkRole
+class checkProfile
 {
     /**
      * Handle an incoming request.
@@ -16,10 +16,11 @@ class checkRole
      */
     public function handle(Request $request, Closure $next, $role): Response
     {
-        if(Auth::user()->role != $role) {
-            return redirect()->to(route('error.notfound'));
+        if(Auth::user()->role == $role) {
+            if(!Auth::user()->distributor) {
+                return redirect()->to(route('error.forbidden'));
+            }
         }
-        // dd($role);
         return $next($request);
     }
 }

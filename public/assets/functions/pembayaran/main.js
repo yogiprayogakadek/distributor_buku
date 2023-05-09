@@ -1,7 +1,7 @@
 function getData() {
     $.ajax({
         type: "get",
-        url: "/transaksi/render",
+        url: "/pembayaran/render",
         dataType: "json",
         success: function (response) {
             $(".render").html(response.data);
@@ -26,37 +26,22 @@ $(document).ready(function () {
         let status = $(this).data("status");
         let keterangan = $(this).data("keterangan");
         let id = $(this).data("id");
-        let status_pembayaran = $(this).data("pembayaran");
 
         $("#modal").modal("show");
         $(".status").val(status);
         $(".id").val(id);
         $(".btn-save").prop("disabled", true);
 
-        if (status == "Dibatalkan") {
+        if (status == "Ditolak") {
             $(".group-keterangan").append(fill);
             $(".keterangan").val(keterangan);
-        }
-
-        if (status_pembayaran == "Ditolak") {
-            $(".modal-body")
-                .empty()
-                .append('<h4 class="text-center">Pembayaran Ditolak</h4>');
-            $(".modal-footer").remove();
-        } else if (status_pembayaran == "Menunggu Konfirmasi") {
-            $(".modal-body")
-                .empty()
-                .append(
-                    '<h4 class="text-center">Menunggu Validasi Pembayaran</h4>'
-                );
-            $(".modal-footer").remove();
         }
     });
 
     $("body").on("change", ".status", function () {
         let value = $("select[name=status] option").filter(":selected").val();
 
-        if (value == "Dibatalkan") {
+        if (value == "Ditolak") {
             $(".group-keterangan").append(fill);
 
             // Invalid
@@ -95,7 +80,7 @@ $(document).ready(function () {
         let data = new FormData(form);
         $.ajax({
             type: "POST",
-            url: "/transaksi/update",
+            url: "/pembayaran/update",
             data: data,
             processData: false,
             contentType: false,

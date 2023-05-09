@@ -35,13 +35,20 @@
                         <span key="t-cart">Transaksi</span>
                     </a>
                 </li>
+
+                <li>
+                    <a href="{{route('pembayaran.index')}}" class="waves-effect {{Request::is('/pembayaran') ? 'active' : '' }}">
+                        <i class="bx bx-money"></i>
+                        <span key="t-cart">Pembayaran</span>
+                    </a>
+                </li>
                 @endcannot
 
                 @can('distributor')
                 <li>
-                    <a href="{{route('distributor.buku.index')}}" class="waves-effect {{Request::is('/distributor/buku') ? 'active' : '' }}">
+                    <a href="{{route('distributor.katalog.index')}}" class="waves-effect {{Request::is('/distributor/katalog') ? 'active' : '' }}">
                         <i class="bx bx-book-open"></i>
-                        <span key="t-book">Buku</span>
+                        <span key="t-book">Katalog</span>
                     </a>
                 </li>
                 <li>

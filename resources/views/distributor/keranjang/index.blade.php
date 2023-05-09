@@ -106,6 +106,7 @@
             $('#modalCheckout').modal('show')
             $('.group-bukti').html('')
             $('.pembayaran').val('Tunai')
+            $('.btn-checkout').prop('disabled', false)
         })
 
         $('body').on('change', '.pembayaran', function() {
@@ -119,8 +120,10 @@
 
             if (value == 'Transfer') {
                 $('.group-bukti').append(fill)
+                $('.btn-checkout').prop('disabled', true)
             } else {
                 $('.group-bukti').html('')
+                $('.btn-checkout').prop('disabled', false)
             }
         })
 
@@ -136,6 +139,8 @@
                     // Image is valid
                     $('.bukti').removeClass('is-invalid')
                     $('.error-bukti').text('');
+
+                    $('.btn-checkout').prop('disabled', false)
                 } else {
                     // Invalid image file type
                     $('.bukti').addClass('is-invalid')
@@ -143,39 +148,37 @@
                     // $('.error-bukti').text('Invalid image file type. Only JPEG, PNG, and GIF are allowed.');
                     // Clear the file input
                     $(this).val('');
+                    $('.btn-checkout').prop('disabled', true)
                 }
             } else {
                 // No file selected
                 $('.bukti').addClass('is-invalid')
                 $('.error-bukti').text('No file selected.');
+                $('.btn-checkout').prop('disabled', true)
             }
         });
 
         $('body').on('click', '.btn-checkout', function(e) {
             let pembayaran = $('select[name=pembayaran] option').filter(':selected').val()
             let error = $('.is-invalid').length
-            let bukti = '';
 
-            if (error > 0 && $('.bukti').val() == '') {
-                e.preventDefault();
-            }
-
-            if(pembayaran == 'Transfer') {
-                bukti = $('.bukti')[0].files[0]
-            }
+            // if(pembayaran == 'Transfer') {
+            //     bukti = $('.bukti')[0].files[0]
+            // }
 
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+            let form = $('#formCheckout')[0]
+            let data = new FormData(form)
             $.ajax({
                 type: 'POST',
                 url: '/distributor/keranjang/checkout',
-                data: {
-                    'bukti': bukti,
-                    'pembayaran': pembayaran
-                },
+                data: data,
+                processData: false,
+                contentType: false,
                 cache: false,
                 beforeSend: function () {
                     $('.btn-checkout').attr('disable', 'disabled')
@@ -193,6 +196,7 @@
                         response.status
                     );
                     getData();
+                    getCart();
                 },
                 error: function (error) {
                     //

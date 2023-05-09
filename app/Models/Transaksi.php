@@ -9,6 +9,9 @@ class Transaksi extends Model
 {
     use HasFactory;
 
+    protected $guarded = ['id'];
+    protected $table = 'transaksi';
+
     public function distributor()
     {
         return $this->belongsTo(Distributor::class, 'distributor_id', 'id');

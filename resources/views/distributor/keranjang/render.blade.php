@@ -88,40 +88,44 @@
                     <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <div class="row mb-4">
-                        <label for="kode-buku" class="col-sm-2 col-form-label">Total</label>
-                        <div class="col-md-10">
-                            <input type="text" class="form-control total" id="kode-buku" name="total" value="{{subTotal()}}" disabled>
+                <form id="formCheckout">
+                    <div class="modal-body">
+                        <div class="row mb-4">
+                            <label for="kode-buku" class="col-sm-2 col-form-label">Total</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control total" id="kode-buku" name="total" value="{{subTotal()}}" disabled>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <label for="pembayaran" class="col-sm-2 col-form-label">Pembayaran</label>
+                            <div class="col-md-10">
+                                <select class="form-select pembayaran" name="pembayaran" id="pembayaran">
+                                    <option value="Tunai">Tunai</option>
+                                    <option value="Transfer">Transfer</option>
+                                </select>
+                                <div class="invalid-feedback error-pembayaran"></div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4 group-bukti">
+                            <label for="bukti" class="col-sm-2 col-form-label">Bukti</label>
+                            {{-- <div class="col-md-10">
+                                <input type="file" class="form-control bukti" id="bukti" name="bukti">
+                                <div class="invalid-feedback error-bukti"></div>
+                            </div> --}}
                         </div>
                     </div>
-
-                    <div class="row mb-4">
-                        <label for="pembayaran" class="col-sm-2 col-form-label">Pembayaran</label>
-                        <div class="col-md-10">
-                            <select class="form-select pembayaran" name="pembayaran" id="pembayaran">
-                                <option value="Tunai">Tunai</option>
-                                <option value="Transfer">Transfer</option>
-                            </select>
-                            <div class="invalid-feedback error-pembayaran"></div>
-                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
+                        <button type="button" class="btn btn-primary btn-checkout">Proses</button>
                     </div>
-
-                    <div class="row mb-4 group-bukti">
-                        <label for="bukti" class="col-sm-2 col-form-label">Bukti</label>
-                        {{-- <div class="col-md-10">
-                            <input type="file" class="form-control bukti" id="bukti" name="bukti">
-                            <div class="invalid-feedback error-bukti"></div>
-                        </div> --}}
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
-                    <button type="button" class="btn btn-primary btn-checkout">Proses</button>
-                </div>
+                </form>
             </div>
         </div>
     </div>
+
+
     <div class="card">
         <div class="card-body">
             <h4 class="card-title mb-3">Order Summary</h4>

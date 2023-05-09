@@ -44,6 +44,18 @@
                         <span key="t-cart">Keranjang Belanja</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{route('distributor.transaksi.index')}}" class="waves-effect {{Request::is('/distributor/transaksi') ? 'active' : '' }}">
+                        <i class="bx bx-cart-alt"></i>
+                        <span key="t-cart">Transaksi</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('distributor.pembayaran.index')}}" class="waves-effect {{Request::is('/distributor/pembayaran') ? 'active' : '' }}">
+                        <i class="bx bx-money"></i>
+                        <span key="t-cart">Pembayaran</span>
+                    </a>
+                </li>
                 @endcan
             </ul>
         </div>

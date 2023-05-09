@@ -109,6 +109,22 @@ Route::middleware('auth')->prefix('distributor')
                 Route::post('/update', 'update')->name('update');
                 Route::post('/checkout', 'checkout')->name('checkout');
             });
+
+        Route::controller(TransaksiController::class)
+            ->prefix('transaksi')
+            ->as('transaksi.')
+            ->group(function () {
+                Route::get('', 'index')->name('index');
+                Route::get('/render', 'render')->name('render');
+            });
+
+        Route::controller(PembayaranController::class)
+            ->prefix('pembayaran')
+            ->as('pembayaran.')
+            ->group(function () {
+                Route::get('', 'index')->name('index');
+                Route::get('/render', 'render')->name('render');
+            });
     });
 
 Route::middleware('guest')->namespace('Main')->group(function () {

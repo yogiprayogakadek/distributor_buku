@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Distributor;
 
 use App\Http\Controllers\Controller;
 use App\Models\Buku;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -12,13 +13,15 @@ class BukuController extends Controller
     protected $page = 6;
     public function index(Request $request)
     {
+        $kategori = Kategori::where('status', true)->pluck('nama', 'id')->toArray();
         $buku = Buku::where('status', true)->paginate($this->page);
         if ($request->ajax()) {
             return view('distributor.buku.render')->with([
-                'buku' => $buku
+                'buku' => $buku,
+                'kategori' => $kategori
             ])->render();
         }
-        return view('distributor.buku.index', compact('buku'));
+        return view('distributor.buku.index', compact('buku', 'kategori'));
     }
 
     public function render()

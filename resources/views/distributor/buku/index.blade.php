@@ -138,6 +138,8 @@
         });
     }
     $(document).ready(function() {
+        $('.select2-multiple').select2();
+
         $('body').on('click', '.pagination a', function(e) {
             e.preventDefault();
             var url = $(this).attr('href');

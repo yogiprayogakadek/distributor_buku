@@ -27,7 +27,7 @@ Route::middleware('auth')->namespace('Main')->group(function () {
 
     Route::controller(MainController::class)
         ->as('main.')
-        ->middleware('checkRole:Admin,Direktur')
+        // ->middleware('checkRole:Admin,Direktur,Distribu')
         ->group(function () {
             Route::get('/cart', 'cart')->name('cart');
         });
@@ -38,7 +38,7 @@ Route::middleware('auth')->namespace('Main')->group(function () {
         ->group(function () {
             Route::get('/', 'index')->name('index');
             Route::post('/chart', 'chart')->name('chart');
-            Route::post('/chart-terlaris', 'chartTerlaris')->name('chart.terlaris');
+            Route::get('/chart-by-kategori', 'chartByKategori')->name('chart.kategori');
             Route::post('/chart-pendapatan', 'chartPendapatan')->name('chart.pendapatan');
         });
 

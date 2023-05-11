@@ -61,7 +61,7 @@
             @if (cart()->count() > 0)
             <div class="row mt-4">
                 <div class="col-sm-6">
-                    <a href="{{route('distributor.buku.index')}}" class="btn btn-secondary">
+                    <a href="{{route('distributor.katalog.index')}}" class="btn btn-secondary">
                         <i class="mdi mdi-arrow-left me-1"></i> Lanjutkan Belanja </a>
                 </div> <!-- end col -->
                 <div class="col-sm-6">

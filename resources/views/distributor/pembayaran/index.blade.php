@@ -32,7 +32,15 @@
                             <td>{{$pembayaran->transaksi->kode_pesanan}}</td>
                             <td>{{$pembayaran->tanggal_pembayaran}}</td>
                             <td>{{$pembayaran->jenis_pembayaran}}</td>
-                            <td><img src="{{asset($pembayaran->bukti_pembayaran)}}" height="70px"></td>
+                            <td>
+                                @if ($pembayaran->bukti_pembayaran != null)
+                                <a href="{{asset($pembayaran->bukti_pembayaran)}}" target="_blank">
+                                    <img src="{{asset($pembayaran->bukti_pembayaran)}}" height="70px">
+                                </a>
+                                @else
+                                -
+                                @endif
+                            </td>
                             <td>{{convertToRupiah($pembayaran->transaksi->total)}}</td>
                             <td>{!! '<span class="badge bg-info">'.$pembayaran->status_pembayaran . '</span>' !!}</td>
                             <td>{{$pembayaran->validator->nama ?? '-'}}</td>

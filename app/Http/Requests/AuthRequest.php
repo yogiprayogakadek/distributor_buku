@@ -25,7 +25,7 @@ class AuthRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'email' => 'required',
+            'email' => 'required|email',
             'password' => 'required',
         ];
 
@@ -50,6 +50,7 @@ class AuthRequest extends FormRequest
             'image' => ':attribute harus berupa file gambar',
             'date' => ':attribute harus berupa tanggal',
             'numeric' => ':attribute harus berupa angka',
+            'email' => ':attribute salah format'
         ];
     }
 

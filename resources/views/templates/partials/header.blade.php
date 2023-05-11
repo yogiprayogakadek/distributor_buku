@@ -41,7 +41,9 @@
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
                     <!-- item-->
+                    @can('Distributor')
                     <a class="dropdown-item" href="{{route('profil.index')}}"><i class="bx bx-user font-size-16 align-middle me-1"></i> <span key="t-user">Profil</span></a>
+                    @endcan
                     <a class="dropdown-item text-danger" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" href="{{route('logout')}}"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span key="t-logout">Logout</span></a>
 
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

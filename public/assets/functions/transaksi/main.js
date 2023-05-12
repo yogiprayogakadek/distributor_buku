@@ -118,4 +118,49 @@ $(document).ready(function () {
             },
         });
     });
+
+    $("body").on("click", ".btn-detail", function () {
+        let id = $(this).data("id");
+        $("#modalTransaksi").modal("show");
+
+        $("#tableDetail tbody").empty();
+        $(".grand-total").empty();
+        $.get("/transaksi/detail/" + id, function (data) {
+            let grandTotal = 0;
+            $.each(data, function (index, value) {
+                let tr_list =
+                    "<tr class='text-center'>" +
+                    "<td>" +
+                    (index + 1) +
+                    "</td>" +
+                    "<td>" +
+                    value.nama_kategori +
+                    "</td>" +
+                    "<td>" +
+                    value.judul +
+                    "</td>" +
+                    "<td>" +
+                    value.penerbit +
+                    "</td>" +
+                    "<td>" +
+                    value.penulis +
+                    "</td>" +
+                    "<td class='text-end'>" +
+                    convertToRupiah(value.harga) +
+                    "</td>" +
+                    "<td>" +
+                    value.kuantitas +
+                    "</td>" +
+                    "<td class='text-end'>" +
+                    convertToRupiah(value.kuantitas * value.harga) +
+                    "</td>" +
+                    "</tr>";
+
+                grandTotal += value.kuantitas * value.harga;
+
+                $("#tableDetail tbody").append(tr_list);
+            });
+            $(".grand-total").text(convertToRupiah(grandTotal));
+        });
+    });
 });

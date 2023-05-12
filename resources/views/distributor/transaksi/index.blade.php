@@ -6,6 +6,43 @@
 @section('content')
 <div class="row">
     <div class="col-12">
+        <div class="modal fade" id="modalTransaksi" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white bg-opacity-75">
+                        <h5 class="modal-title" id="staticBackdropLabel">Detail Transaksi</h5>
+                        {{-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-stripped" id="tableDetail">
+                            <thead class="text-center">
+                                <tr>
+                                    <th>No</th>
+                                    <th>Kategori</th>
+                                    <th>Nama Buku</th>
+                                    <th>Penerbit</th>
+                                    <th>Penulis</th>
+                                    <th>Harga</th>
+                                    <th>Kuantitas</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                            <tfoot>
+                                <tr style="font-weight: bold; font-style: italic">
+                                    <td colspan="7" class="text-end">Grand Total</td>
+                                    <td class="grand-total text-end"></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Keluar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="card">
             <div class="card-header">
                 <div class="card-title">Data Transaksi</div>
@@ -14,6 +51,7 @@
                 <table class="table table-stripped" id="tableData">
                     <thead>
                         <tr>
+                            <th></th>
                             <th>No</th>
                             <th>Kode Pesanan</th>
                             <th>Tanggal Pesanan</th>
@@ -26,6 +64,11 @@
                     <tbody>
                         @foreach ($transaksi as $transaksi)
                         <tr>
+                            <td>
+                                <button class="btn btn-rounded btn-primary btn-detail btn-sm" data-id="{{$transaksi->id}}">
+                                    <i class="bx bx-plus"></i>
+                                </button>
+                            </td>
                             <td>{{$loop->iteration}}</td>
                             <td>{{$transaksi->kode_pesanan}}</td>
                             <td>{{$transaksi->tanggal_pesanan}}</td>
@@ -65,6 +108,53 @@
             [5, 10, 15, 20, -1],
             [5, 10, 15, 20, "All"]
         ],
+    });
+
+    $(document).ready(function () {
+        $("body").on("click", ".btn-detail", function () {
+        let id = $(this).data("id");
+        $("#modalTransaksi").modal("show");
+
+        $("#tableDetail tbody").empty();
+        $(".grand-total").empty();
+        $.get("/distributor/transaksi/detail/" + id, function (data) {
+            let grandTotal = 0;
+            $.each(data, function (index, value) {
+                let tr_list =
+                    "<tr class='text-center'>" +
+                    "<td>" +
+                    (index + 1) +
+                    "</td>" +
+                    "<td>" +
+                    value.nama_kategori +
+                    "</td>" +
+                    "<td>" +
+                    value.judul +
+                    "</td>" +
+                    "<td>" +
+                    value.penerbit +
+                    "</td>" +
+                    "<td>" +
+                    value.penulis +
+                    "</td>" +
+                    "<td class='text-end'>" +
+                    convertToRupiah(value.harga) +
+                    "</td>" +
+                    "<td>" +
+                    value.kuantitas +
+                    "</td>" +
+                    "<td class='text-end'>" +
+                    convertToRupiah(value.kuantitas * value.harga) +
+                    "</td>" +
+                    "</tr>";
+
+                grandTotal += value.kuantitas * value.harga;
+
+                $("#tableDetail tbody").append(tr_list);
+            });
+            $(".grand-total").text(convertToRupiah(grandTotal));
+        });
+    });
     });
 </script>
 @endpush

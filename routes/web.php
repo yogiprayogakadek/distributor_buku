@@ -38,7 +38,7 @@ Route::middleware('auth')->namespace('Main')->group(function () {
         ->group(function () {
             Route::get('/', 'index')->name('index');
             Route::post('/chart', 'chart')->name('chart');
-            Route::get('/chart-by-kategori', 'chartByKategori')->name('chart.kategori');
+            Route::post('/chart-by-kategori', 'chartByKategori')->name('chart.kategori');
             Route::post('/chart-pendapatan', 'chartPendapatan')->name('chart.pendapatan');
         });
 
@@ -85,6 +85,7 @@ Route::middleware('auth')->namespace('Main')->group(function () {
         ->group(function () {
             Route::get('', 'index')->name('index');
             Route::get('/render', 'render')->name('search');
+            Route::get('/detail/{id}', 'detail')->name('detail');
             Route::post('/update', 'update')->name('update');
         });
 
@@ -140,6 +141,7 @@ Route::middleware(['auth', 'checkProfile:Distributor', 'checkRole:Distributor'])
             ->group(function () {
                 Route::get('', 'index')->name('index');
                 Route::get('/render', 'render')->name('render');
+                Route::get('/detail/{id}', 'detail')->name('detail');
             });
 
         Route::controller(PembayaranController::class)

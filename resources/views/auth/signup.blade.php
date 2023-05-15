@@ -41,7 +41,7 @@
                                 <div class="p-4 mt-auto">
                                     <div class="row justify-content-center">
                                         <div class="col-lg-7">
-                                            <div class="text-center">
+                                            {{-- <div class="text-center">
 
                                                 <h4 class="mb-3"><i class="bx bxs-quote-alt-left text-primary h1 align-middle me-3"></i><span class="text-primary">5k</span>+ Satisfied clients</h4>
 
@@ -72,7 +72,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -89,8 +89,8 @@
                             <div class="d-flex flex-column h-100">
                                 <div class="mb-4 mb-md-5">
                                     <a href="index.html" class="d-block auth-logo">
-                                        <img src="{{asset('assets/images/logo-dark.png')}}" alt="" height="18" class="auth-logo-dark">
-                                        <img src="{{asset('assets/images/logo-light.png')}}" alt="" height="18" class="auth-logo-light">
+                                        <img src="{{asset('assets/images/web/logo.png')}}" alt="" height="40" class="auth-logo-dark">
+                                        <img src="{{asset('assets/images/web/logo.png')}}" alt="" height="40" class="auth-logo-light">
                                     </a>
                                 </div>
                                 <div class="my-auto">

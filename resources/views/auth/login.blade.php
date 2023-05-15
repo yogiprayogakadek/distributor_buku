@@ -4,12 +4,12 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Distributor Buku | Buku</title>
+    <title>PT. PANUDUH ATMA WARAS | Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{asset('assets/images/favicon.ico')}}">
+    <link rel="shortcut icon" href="{{asset('assets/images/web/favicon.ico')}}">
 
     <!-- owl.carousel css -->
     <link rel="stylesheet" href="{{asset('assets/libs/owl.carousel/assets/owl.carousel.min.css')}}">
@@ -23,135 +23,96 @@
     <!-- App Css-->
     <link href="{{asset('assets/css/app.min.css')}}" id="app-style" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="{{asset('assets/libs/sweetalert2/sweetalert2.min.css')}}">
-
+    <style>
+        body {
+            background-image: url('https://c4.wallpaperflare.com/wallpaper/479/101/113/germany-saxony-gorlitz-hall-historical-literature-wallpaper-preview.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
 </head>
 
-<body class="auth-body-bg">
+<body>
 
-    <div>
-        <div class="container-fluid p-0">
-            <div class="row g-0">
-
-                <div class="col-xl-9">
-                    <div class="auth-full-bg pt-lg-5 p-4">
-                        <div class="w-100">
-                            <div class="bg-overlay"></div>
-                            <div class="d-flex h-100 flex-column">
-
-                                <div class="p-4 mt-auto">
-                                    <div class="row justify-content-center">
-                                        <div class="col-lg-7">
-                                            <div class="text-center">
-
-                                                <h4 class="mb-3"><i class="bx bxs-quote-alt-left text-primary h1 align-middle me-3"></i><span class="text-primary">5k</span>+ Satisfied clients</h4>
-
-                                                <div dir="ltr">
-                                                    <div class="owl-carousel owl-theme auth-review-carousel" id="auth-review-carousel">
-                                                        <div class="item">
-                                                            <div class="py-3">
-                                                                <p class="font-size-16 mb-4">" Fantastic theme with a ton of options. If you just want the HTML to integrate with your project, then this is the package. You can find the files in the 'dist' folder...no need to install git and all the other stuff the documentation talks about. "</p>
-
-                                                                <div>
-                                                                    <h4 class="font-size-16 text-primary">Abs1981</h4>
-                                                                    <p class="font-size-14 mb-0">- Skote User</p>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-
-                                                        <div class="item">
-                                                            <div class="py-3">
-                                                                <p class="font-size-16 mb-4">" If Every Vendor on Envato are as supportive as Themesbrand, Development with be a nice experience. You guys are Wonderful. Keep us the good work. "</p>
-
-                                                                <div>
-                                                                    <h4 class="font-size-16 text-primary">nezerious</h4>
-                                                                    <p class="font-size-14 mb-0">- Skote User</p>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+    <div class="account-pages my-5 pt-sm-5">
+        <div class="container mt-5">
+            <div class="row justify-content-center mt-5">
+                <div class="col-md-8 col-lg-6 col-xl-5">
+                    <div class="card overflow-hidden">
+                        <div class="bg-primary bg-soft">
+                            <div class="row">
+                                <div class="col-7">
+                                    <div class="text-primary p-4">
+                                        <h5 class="text-primary">PT. PANUDUH ATMA WARAS | Distribusi Buku</h5>
+                                        <p>Log in dengan identitas anda</p>
                                     </div>
+                                </div>
+                                <div class="col-5 align-self-end">
+                                    <img src="{{asset('assets/images/web/logo.png')}}" alt="" class="img-fluid">
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <!-- end col -->
+                        <div class="card-body pt-0">
+                            <div class="auth-logo">
+                                <a href="{{route('login')}}" class="auth-logo-light">
+                                    <div class="avatar-md profile-user-wid mb-4">
+                                        <span class="avatar-title rounded-circle bg-light">
+                                            <img src="{{asset('assets/images/web/logo.png')}}" alt="" class="rounded-circle" height="34">
+                                        </span>
+                                    </div>
+                                </a>
 
-                <div class="col-xl-3">
-                    <div class="auth-full-page-content p-md-5 p-4">
-                        <div class="w-100">
-
-                            <div class="d-flex flex-column h-100">
-                                <div class="mb-4 mb-md-5">
-                                    <a href="index.html" class="d-block auth-logo">
-                                        <img src="{{asset('assets/images/logo-dark.png')}}" alt="" height="18" class="auth-logo-dark">
-                                        <img src="{{asset('assets/images/logo-light.png')}}" alt="" height="18" class="auth-logo-light">
-                                    </a>
-                                </div>
-                                <div class="my-auto">
-
-                                    <div>
-                                        <h5 class="text-primary">Selamat datang !</h5>
-                                        <p class="text-muted">Sign in untuk melanjutkan</p>
+                                <a href="{{route('login')}}" class="auth-logo-dark">
+                                    <div class="avatar-md profile-user-wid mb-4">
+                                        <span class="avatar-title rounded-circle bg-light">
+                                            <img src="{{asset('assets/images/web/logo.png')}}" alt="" class="rounded-circle" height="34">
+                                        </span>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="p-2">
+                                <form role="form" action="{{route('login')}}" id="login" method="POST">
+                                    @csrf
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="text" class="form-control @error('email') is-invalid @enderror" placeholder="masukkan email" name="email" id="email" value="{{ old('email') }}">
+                                        @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
                                     </div>
 
-                                    <div class="mt-4">
-                                        <form action="{{route('login')}}" id="login" method="POST">
-                                            @csrf
-                                            <div class="mb-3">
-                                                <label for="email" class="form-label">Email</label>
-                                                <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="masukkan email">
-                                                @error('email')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-
-                                            <div class="mb-3">
-                                                <label class="form-label">Password</label>
-                                                <div class="input-group auth-pass-inputgroup">
-                                                    <input type="password" class="form-control @error('password') is-invalid @enderror" placeholder="masukkan password" aria-label="Password" aria-describedby="password-addon" name="password">
-                                                    <button class="btn btn-light " type="button" id="password-addon"><i class="mdi mdi-eye-outline"></i></button>
-                                                </div>
-                                                @error('password')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-
-                                            <div class="mt-3 d-grid">
-                                                <button class="btn btn-primary waves-effect waves-light" type="submit">Log In</button>
-                                            </div>
-                                        </form>
-                                        <div class="mt-5 text-center">
-                                            <p>Belum punya akun ? <a href="{{route('signup.index')}}" class="fw-medium text-primary"> Daftar sekarang </a> </p>
+                                    <div class="mb-3">
+                                        <label class="form-label">Password</label>
+                                        <div class="input-group auth-pass-inputgroup">
+                                            <input type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Enter password" name="password" aria-label="Password" aria-describedby="password-addon">
+                                            <button class="btn btn-light " type="button" id="password-addon"><i class="mdi mdi-eye-outline"></i></button>
                                         </div>
+                                        @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
                                     </div>
-                                </div>
 
-                                <div class="mt-4 mt-md-5 text-center">
-                                    <p class="mb-0">© <script>
-                                            document.write(new Date().getFullYear())
-                                        </script> Skote. Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand</p>
+                                    <div class="mt-3 d-grid">
+                                        <button class="btn btn-primary waves-effect waves-light" type="submit">Log In</button>
+                                    </div>
+                                </form>
+                                <div class="mt-2 text-end">
+
+                                    <p>Belum punya akun? <a href="{{route('signup.index')}}" class="fw-medium text-primary"> Daftar </a> </p>
                                 </div>
                             </div>
 
-
                         </div>
                     </div>
+
                 </div>
-                <!-- end col -->
             </div>
-            <!-- end row -->
         </div>
-        <!-- end container-fluid -->
     </div>
 
     <!-- JAVASCRIPT -->

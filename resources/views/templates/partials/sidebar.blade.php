@@ -15,7 +15,7 @@
                     </a>
                 </li>
 
-                
+
                 @cannot('distributor')
                 <li>
                     <a href="{{route('kategori.index')}}" class="waves-effect {{Request::is('/kategori') ? 'active' : '' }}">
@@ -30,16 +30,15 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{route('transaksi.index')}}" class="waves-effect {{Request::is('/transaksi') ? 'active' : '' }}">
-                        <i class="bx bx-cart-alt"></i>
-                        <span key="t-cart">Transaksi</span>
-                    </a>
-                </li>
-
-                <li>
                     <a href="{{route('pembayaran.index')}}" class="waves-effect {{Request::is('/pembayaran') ? 'active' : '' }}">
                         <i class="bx bx-money"></i>
                         <span key="t-cart">Pembayaran</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('transaksi.index')}}" class="waves-effect {{Request::is('/transaksi') ? 'active' : '' }}">
+                        <i class="bx bx-cart-alt"></i>
+                        <span key="t-cart">Transaksi</span>
                     </a>
                 </li>
                 @endcannot
@@ -58,15 +57,15 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{route('distributor.transaksi.index')}}" class="waves-effect {{Request::is('/distributor/transaksi') ? 'active' : '' }}">
-                        <i class="bx bx-cart-alt"></i>
-                        <span key="t-cart">Transaksi</span>
-                    </a>
-                </li>
-                <li>
                     <a href="{{route('distributor.pembayaran.index')}}" class="waves-effect {{Request::is('/distributor/pembayaran') ? 'active' : '' }}">
                         <i class="bx bx-money"></i>
                         <span key="t-cart">Pembayaran</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('distributor.transaksi.index')}}" class="waves-effect {{Request::is('/distributor/transaksi') ? 'active' : '' }}">
+                        <i class="bx bx-cart-alt"></i>
+                        <span key="t-cart">Transaksi</span>
                     </a>
                 </li>
                 @endcan

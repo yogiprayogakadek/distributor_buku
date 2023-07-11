@@ -14,6 +14,11 @@ function cart()
     return \Cart::session(auth()->user()->id)->getContent();
 }
 
+function cartByUserId($user_id)
+{
+    return \Cart::session($user_id)->getContent();
+}
+
 function clearCart()
 {
     return \Cart::session(auth()->user()->id)->clear();

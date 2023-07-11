@@ -36,6 +36,57 @@
 @endpush
 
 @section('content')
+
+<!-- Modal -->
+<div class="modal fade" id="modalDetail" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+                <div class="modal-header">
+                        <h5 class="modal-title">Detail Buku</h5>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" >
+                                <i class="fa fa-times"></i>
+                            </button>
+                    </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-6 text-end">
+                            <img id="cover-buku" class="img-thumbnail">
+                        </div>
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-4">Judul Buku</div>
+                                <div class="col-1 text-end">:</div>
+                                <div class="col-7 judul">Dongeng</div>
+
+                                <div class="col-4">Tahun Terbit</div>
+                                <div class="col-1 text-end">:</div>
+                                <div class="col-7 tahun">2023</div>
+
+                                <div class="col-4">Penerbit</div>
+                                <div class="col-1 text-end">:</div>
+                                <div class="col-7 penerbit">2023</div>
+
+                                <div class="col-4">Penulis</div>
+                                <div class="col-1 text-end">:</div>
+                                <div class="col-7 penulis">2023</div>
+
+                                <div class="col-4">Harga</div>
+                                <div class="col-1 text-end">:</div>
+                                <div class="col-7 harga">2023</div>
+
+                                <div class="col-4">Deskripsi</div>
+                                <div class="col-1 text-end">:</div>
+                                <div class="col-7 deskripsi">2023</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-lg-3 div-filter">
         <div class="card">
@@ -115,6 +166,9 @@
                                 <button class="middle-button btn-keranjang" data-id="{{$item->id}}">
                                     <i class="bx bxs-cart-alt"></i> Tambahkan
                                 </button>
+                                <button class="middle-button btn-detail mt-5" data-buku="{{$item->data_buku}}" data-id="{{$item->id}}" style="background-color: rgb(0,0,128, 0.8) !important;">
+                                    <i class="fa fa-eye"></i> Detail
+                                </button>
                             </div>
                         </div>
                         <div class="mt-4 text-center">
@@ -149,6 +203,10 @@
 <script src="{{asset('assets/libs/select2/js/select2.min.js')}}"></script>
 <script src="{{asset('assets/js/slider.min.js')}}"></script>
 <script>
+    function assets(url) {
+        var url = '{{ url("") }}/' + url;
+        return url;
+    }
     function getBuku(url) {
         $.ajax({
             url: url
@@ -289,6 +347,20 @@
                 $(this).text('Lainnya')
                 $('.select2-container ').css('width', '100%')
             }
+        })
+
+        $('body').on('click', '.btn-detail', function() {
+            $('#modalDetail').modal('show');
+            let data = $(this).data('buku');
+            let buku = $.parseJSON(JSON.stringify(data))
+
+            $('#cover-buku').attr('src', assets(buku.foto))
+            $('.judul').text(buku.judul)
+            $('.tahun').text(buku.tahun_terbit)
+            $('.penerbit').text(buku.penerbit)
+            $('.penulis').text(buku.penulis)
+            $('.harga').text(buku.harga.toLocaleString("id-ID", {style: "currency",currency: "IDR",minimumFractionDigits: 0,}))
+            $('.deskripsi').text(buku.deskripsi)
         })
     });
 </script>

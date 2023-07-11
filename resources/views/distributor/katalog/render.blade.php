@@ -8,6 +8,9 @@
                     <button class="middle-button btn-keranjang" data-id="{{$item->id}}">
                         <i class="bx bxs-cart-alt"></i> Tambahkan
                     </button>
+                    <button class="middle-button btn-detail mt-5" data-id="{{$item->id}}" style="background-color: rgb(0,0,128, 0.8) !important;">
+                        <i class="fa fa-eye"></i> Detail
+                    </button>
                 </div>
             </div>
             <div class="mt-4 text-center">

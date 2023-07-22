@@ -151,4 +151,15 @@ class BukuController extends Controller
             ]);
         }
     }
+
+    public function print()
+    {
+        $buku = Buku::all();
+
+        $view = [
+            'data' => view('main.buku.print', compact('buku'))->render(),
+        ];
+
+        return response()->json($view);
+    }
 }

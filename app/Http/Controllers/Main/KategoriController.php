@@ -96,4 +96,15 @@ class KategoriController extends Controller
         }
     }
 
+    public function print()
+    {
+        $kategori = Kategori::all();
+
+        $view = [
+            'data' => view('main.kategori.print', compact('kategori'))->render(),
+        ];
+
+        return response()->json($view);
+    }
+
 }

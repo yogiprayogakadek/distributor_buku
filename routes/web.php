@@ -13,16 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth')->namespace('Main')->group(function() {
+Route::middleware('auth')->namespace('Main')->group(function () {
     Route::controller(ErrorController::class)
         ->as('error.')
-        ->group(function() {
+        ->group(function () {
             Route::get('/forbidden', 'forbidden')->name('forbidden');
             Route::get('/notfound', 'notfound')->name('notfound');
         });
 });
 
-Route::middleware('auth')->namespace('Main')->group(function () {
+Route::middleware(['auth', 'checkActiveUser'])->namespace('Main')->group(function () {
     Route::get('/', 'DashboardController@index')->name('index');
 
     Route::controller(MainController::class)
@@ -53,12 +53,14 @@ Route::middleware('auth')->namespace('Main')->group(function () {
             Route::get('/edit/{id}', 'edit')->name('edit');
             Route::post('/store', 'store')->name('store');
             Route::post('/update', 'update')->name('update');
+            Route::get('/print', 'print')->name('print');
         });
 
     Route::controller(BukuController::class)
         ->prefix('buku')
         ->as('buku.')
         ->middleware('checkRole:Admin,Direktur')
+        // ->middleware(['checkRole:Admin','checkRole:Direktur'])
         ->group(function () {
             Route::get('', 'index')->name('index');
             Route::get('/render', 'render')->name('render');
@@ -66,6 +68,7 @@ Route::middleware('auth')->namespace('Main')->group(function () {
             Route::get('/edit/{id}', 'edit')->name('edit');
             Route::post('/store', 'store')->name('store');
             Route::post('/update', 'update')->name('update');
+            Route::get('/print', 'print')->name('print');
         });
 
     Route::controller(KeranjangController::class)
@@ -87,6 +90,7 @@ Route::middleware('auth')->namespace('Main')->group(function () {
             Route::get('/render', 'render')->name('search');
             Route::get('/detail/{id}', 'detail')->name('detail');
             Route::post('/update', 'update')->name('update');
+            Route::get('/print', 'print')->name('print');
         });
 
     Route::controller(PembayaranController::class)
@@ -97,6 +101,7 @@ Route::middleware('auth')->namespace('Main')->group(function () {
             Route::get('', 'index')->name('index');
             Route::get('/render', 'render')->name('search');
             Route::post('/update', 'update')->name('update');
+            Route::get('/print', 'print')->name('print');
         });
 
     Route::controller('ProfilController')
@@ -108,9 +113,20 @@ Route::middleware('auth')->namespace('Main')->group(function () {
             Route::get('/edit/{id}', 'edit')->name('edit');
             Route::post('/update', 'update')->name('update');
         });
+
+    Route::controller(PenggunaController::class)
+        ->prefix('pengguna')
+        ->as('pengguna.')
+        ->middleware('checkRole:Direktur')
+        ->group(function () {
+            Route::get('', 'index')->name('index');
+            Route::get('/render', 'render')->name('render');
+            Route::post('/update', 'update')->name('update');
+            Route::get('/print', 'print')->name('print');
+        });
 });
 
-Route::middleware(['auth', 'checkProfile:Distributor', 'checkRole:Distributor'])->prefix('distributor')
+Route::middleware(['auth', 'checkProfile:Distributor', 'checkRole:Distributor', 'checkActiveUser'])->prefix('distributor')
     ->namespace('Distributor')->as('distributor.')->group(function () {
         Route::controller(KatalogController::class)
             ->prefix('katalog')
@@ -142,6 +158,7 @@ Route::middleware(['auth', 'checkProfile:Distributor', 'checkRole:Distributor'])
                 Route::get('', 'index')->name('index');
                 Route::get('/render', 'render')->name('render');
                 Route::get('/detail/{id}', 'detail')->name('detail');
+                Route::get('/print', 'print')->name('print');
             });
 
         Route::controller(PembayaranController::class)
@@ -151,6 +168,7 @@ Route::middleware(['auth', 'checkProfile:Distributor', 'checkRole:Distributor'])
             ->group(function () {
                 Route::get('', 'index')->name('index');
                 Route::get('/render', 'render')->name('render');
+                Route::get('/print', 'print')->name('print');
             });
     });
 

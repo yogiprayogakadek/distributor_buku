@@ -8,8 +8,8 @@
 
 @section('content')
     <div class="row">
-        <div class="col-3"></div>
-        <div class="col-6">
+        <div class="col-2"></div>
+        <div class="col-8">
             <div class="card">
                 <div class="card-header bg-primary text-white bg-opacity-75">
                     <div class="row">
@@ -54,7 +54,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-3"></div>
+        <div class="col-2"></div>
     </div>
 @endsection
 

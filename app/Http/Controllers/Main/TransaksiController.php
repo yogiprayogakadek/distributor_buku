@@ -64,4 +64,15 @@ class TransaksiController extends Controller
         return response()->json($data);
     }
 
+    public function print()
+    {
+        $transaksi = Transaksi::all();
+
+        $view = [
+            'data' => view('main.transaksi.print', compact('transaksi'))->render()
+        ];
+
+        return response()->json($view);
+    }
+
 }

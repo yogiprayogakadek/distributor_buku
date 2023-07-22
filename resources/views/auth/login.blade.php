@@ -145,6 +145,13 @@
             "{{session('status')}}",
         );
         @endif
+        @if(session('status') == 'error')
+        Swal.fire(
+            "{{session('title')}}",
+            "{{session('message')}}",
+            "{{session('status')}}",
+        );
+        @endif
     </script>
 </body>
 

@@ -8,7 +8,18 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <div class="card-title">Data Pembayaran</div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="card-title">Data Pembayaran</div>
+                    </div>
+                    <div class="col-6 text-end">
+                        <div class="card-options">
+                            <button class="btn btn-success btn-print" style="margin-left: 2px">
+                                <i class="fa fa-print"></i> Print
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="card-body">
                 <table class="table table-stripped" id="tableData">
@@ -77,6 +88,42 @@
             [5, 10, 15, 20, -1],
             [5, 10, 15, 20, "All"]
         ],
+    });
+
+    $("body").on("click", ".btn-print", function () {
+        Swal.fire({
+            title: "Cetak data pembayaran?",
+            text: "Laporan akan dicetak",
+            icon: "success",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Ya, cetak!",
+        }).then((result) => {
+            if (result.value) {
+                var mode = "iframe"; //popup
+                var close = mode == "popup";
+                var options = {
+                    mode: mode,
+                    popClose: close,
+                    popTitle: "LaporanDataPembayaran",
+                    // popOrient: "landscape",
+                };
+                $.ajax({
+                    type: "GET",
+                    url: "/distributor/pembayaran/print/",
+                    dataType: "json",
+                    success: function (response) {
+                        document.title =
+                            "PT. PANUDUH ATMA WARAS | Distribusi Buku - Print" +
+                            new Date().toJSON().slice(0, 10).replace(/-/g, "/");
+                        $(response.data)
+                            .find("div.printableArea")
+                            .printArea(options);
+                    },
+                });
+            }
+        });
     });
 </script>
 @endpush

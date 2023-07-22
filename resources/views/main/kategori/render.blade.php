@@ -9,6 +9,9 @@
                     <button class="btn btn-primary btn-add" style="margin-left: 2px">
                         <i class="bx bx-plus-medical"></i> Tambah
                     </button>
+                    <button class="btn btn-success btn-print ml-2" style="margin-left: 2px">
+                        <i class="fa fa-print"></i> Print
+                    </button>
                 </div>
             </div>
         </div>

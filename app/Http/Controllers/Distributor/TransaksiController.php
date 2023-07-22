@@ -28,4 +28,15 @@ class TransaksiController extends Controller
 
         return response()->json($data);
     }
+
+    public function print()
+    {
+        $transaksi = Transaksi::where('distributor_id', auth()->user()->distributor->id)->get();
+
+        $view = [
+            'data' => view('distributor.transaksi.print', compact('transaksi'))->render()
+        ];
+
+        return response()->json($view);
+    }
 }

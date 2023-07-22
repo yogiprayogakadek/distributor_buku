@@ -73,5 +73,16 @@ class PembayaranController extends Controller
         }
     }
 
+    public function print()
+    {
+        $pembayaran = Pembayaran::all();
+
+        $view = [
+            'data' => view('main.pembayaran.print', compact('pembayaran'))->render()
+        ];
+
+        return response()->json($view);
+    }
+
 }
 

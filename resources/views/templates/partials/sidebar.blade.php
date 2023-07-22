@@ -15,6 +15,15 @@
                     </a>
                 </li>
 
+                @can('direktur')
+                <li>
+                    <a href="{{route('pengguna.index')}}" class="waves-effect {{Request::is('/pengguna') ? 'active' : '' }}">
+                        <i class="bx bx-user"></i>
+                        <span key="t-file-user">Pengguna</span>
+                    </a>
+                </li>
+                @endcan
+
 
                 @cannot('distributor')
                 <li>

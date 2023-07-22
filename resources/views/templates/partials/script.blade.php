@@ -9,4 +9,5 @@
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 <script src="{{asset('assets/libs/sweetalert2/sweetalert2.min.js')}}"></script>
 <script src="{{asset('assets/functions/main.js')}}"></script>
+<script src="{{asset('assets/functions/print/main.js')}}"></script>
 @stack('script')

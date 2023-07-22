@@ -2,13 +2,10 @@
     <div class="card-header">
         <div class="row">
             <div class="col-6">
-                <div class="card-title">Data Buku</div>
+                <div class="card-title">Data Pengguna</div>
             </div>
             <div class="col-6 text-end">
                 <div class="card-options">
-                    <button class="btn btn-primary btn-add" style="margin-left: 2px">
-                        <i class="bx bx-plus-medical"></i> Tambah
-                    </button>
                     <button class="btn btn-success btn-print ml-2" style="margin-left: 2px">
                         <i class="fa fa-print"></i> Print
                     </button>
@@ -21,38 +18,32 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Kategori</th>
-                    <th>Kode Buku</th>
-                    <th>Judul</th>
-                    <th>Penerbit</th>
-                    <th>Penulis</th>
-                    <th>Tahun Terbit</th>
-                    <th>Harga</th>
-                    <th>Foto</th>
-                    <th>Stok Buku</th>
+                    <th>Nama</th>
+                    <th>Email</th>
+                    <th>Username</th>
+                    <th>Telp</th>
+                    <th>Nama PT</th>
+                    <th>Alamat PT</th>
                     <th>Status</th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($buku as $buku)
+                @foreach ($pengguna as $pengguna)
                 <tr>
                     <td>{{$loop->iteration}}</td>
-                    <td>{{$buku->kategori->nama}}</td>
-                    <td>{{json_decode($buku->data_buku, true)['kode_buku']}}</td>
-                    <td>{{json_decode($buku->data_buku, true)['judul']}}</td>
-                    <td>{{json_decode($buku->data_buku, true)['penerbit']}}</td>
-                    <td>{{json_decode($buku->data_buku, true)['penulis']}}</td>
-                    <td>{{json_decode($buku->data_buku, true)['tahun_terbit']}}</td>
-                    <td>{{convertToRupiah(json_decode($buku->data_buku, true)['harga'])}}</td>
-                    <td><img src="{{json_decode($buku->data_buku, true)['foto']}}" width="70px"></td>
-                    <td>{{$buku->stok_buku}}</td>
-                    <td>{!! $buku->status == true ? '<span class="badge bg-success">Aktif</span>' : '<span class="badge bg-danger">Tidak Aktif</span>' !!}</td>
+                    <td>{{$pengguna->nama}}</td>
+                    <td>{{$pengguna->email}}</td>
+                    <td>{{$pengguna->username}}</td>
+                    <td>{{$pengguna->telp}}</td>
+                    <td>{{$pengguna->distributor->nama_pt}}</td>
+                    <td>{{$pengguna->distributor->alamat_pt}}</td>
                     <td>
-                        <button class="btn btn-success btn-edit" data-id="{{$buku->id}}">
-                            <i class="bx bx-pencil"></i>
-                        </button>
+                        <select name="status" class="form-control status" data-id="{{$pengguna->id}}">
+                            <option value="1" {{$pengguna->is_active == true ? 'selected' : ''}}>Aktif</option>
+                            <option value="0" {{$pengguna->is_active == false ? 'selected' : ''}}>Tidak Aktif</option>
+                        </select>
                     </td>
+                    {{-- <td>{!! $pengguna->is_active == true ? '<span class="badge bg-success">Aktif</span>' : '<span class="badge bg-danger">Tidak Aktif</span>' !!}</td> --}}
                 </tr>
                 @endforeach
             </tbody>

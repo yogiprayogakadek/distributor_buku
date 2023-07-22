@@ -76,7 +76,18 @@
 
     <div class="card">
         <div class="card-header">
-            <div class="card-title">Data Transaksi</div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="card-title">Data Transaksi</div>
+                </div>
+                <div class="col-6 text-end">
+                    <div class="card-options">
+                        <button class="btn btn-success btn-print" style="margin-left: 2px">
+                            <i class="fa fa-print"></i> Print
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="card-body">
             <table class="table table-stripped" id="tableData">

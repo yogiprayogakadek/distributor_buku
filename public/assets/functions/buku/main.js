@@ -43,31 +43,30 @@ function convertToRupiah(number, prefix) {
     return prefix == undefined ? rupiah : rupiah ? "Rp. " + rupiah : "";
 }
 
-
 $(document).ready(function () {
     getData();
 
-    $("body").on("keyup", '#harga', function (e) {
-        $("#harga").val(convertToRupiah($(this).val(), "Rp. "))
+    $("body").on("keyup", "#harga", function (e) {
+        $("#harga").val(convertToRupiah($(this).val(), "Rp. "));
     });
 
-    $('body').on('click', '.btn-add', function () {
+    $("body").on("click", ".btn-add", function () {
         tambah();
     });
 
-    $('body').on('click', '.btn-data', function () {
+    $("body").on("click", ".btn-data", function () {
         getData();
     });
 
     // on save button
-    $('body').on('click', '.btn-save', function (e) {
+    $("body").on("click", ".btn-save", function (e) {
         $.ajaxSetup({
             headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
         });
-        let form = $('#formAdd')[0]
-        let data = new FormData(form)
+        let form = $("#formAdd")[0];
+        let data = new FormData(form);
         $.ajax({
             type: "POST",
             url: "/buku/store",
@@ -76,50 +75,51 @@ $(document).ready(function () {
             contentType: false,
             cache: false,
             beforeSend: function () {
-                $('.btn-save').attr('disable', 'disabled')
-                $('.btn-save').html('<i class="fa fa-spin fa-spinner"></i>')
+                $(".btn-save").attr("disable", "disabled");
+                $(".btn-save").html('<i class="fa fa-spin fa-spinner"></i>');
             },
             complete: function () {
-                $('.btn-save').removeAttr('disable')
-                $('.btn-save').html('Simpan')
+                $(".btn-save").removeAttr("disable");
+                $(".btn-save").html("Simpan");
             },
             success: function (response) {
-                $('#formAdd').trigger('reset')
-                $(".invalid-feedback").html('')
+                $("#formAdd").trigger("reset");
+                $(".invalid-feedback").html("");
                 getData();
-                Swal.fire(
-                    response.title,
-                    response.message,
-                    response.status
-                );
+                Swal.fire(response.title, response.message, response.status);
             },
             error: function (error) {
-                let formName = []
-                let errorName = []
+                let formName = [];
+                let errorName = [];
 
-                $.each($('#formAdd').serializeArray(), function (i, field) {
-                    formName.push(field.name.replace(/\[|\]/g, ''))
+                $.each($("#formAdd").serializeArray(), function (i, field) {
+                    formName.push(field.name.replace(/\[|\]/g, ""));
                 });
                 if (error.status == 422) {
                     if (error.responseJSON.errors) {
-                        $.each(error.responseJSON.errors, function (key, value) {
-                            errorName.push(key)
-                            if($('.'+key).val() == '') {
-                                $('.' + key).addClass('is-invalid')
-                                $('.error-' + key).html(value)
+                        $.each(
+                            error.responseJSON.errors,
+                            function (key, value) {
+                                errorName.push(key);
+                                if ($("." + key).val() == "") {
+                                    $("." + key).addClass("is-invalid");
+                                    $(".error-" + key).html(value);
+                                }
                             }
-                        })
+                        );
                         $.each(formName, function (i, field) {
-                            $.inArray(field, errorName) == -1 ? $('.'+field).removeClass('is-invalid') : $('.'+field).addClass('is-invalid');
+                            $.inArray(field, errorName) == -1
+                                ? $("." + field).removeClass("is-invalid")
+                                : $("." + field).addClass("is-invalid");
                         });
                     }
                 }
-            }
+            },
         });
     });
 
-    $('body').on('click', '.btn-edit', function () {
-        let id = $(this).data('id')
+    $("body").on("click", ".btn-edit", function () {
+        let id = $(this).data("id");
         $.ajax({
             type: "get",
             url: "/buku/edit/" + id,
@@ -134,14 +134,14 @@ $(document).ready(function () {
     });
 
     // on update button
-    $('body').on('click', '.btn-update', function (e) {
+    $("body").on("click", ".btn-update", function (e) {
         $.ajaxSetup({
             headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
         });
-        let form = $('#formEdit')[0]
-        let data = new FormData(form)
+        let form = $("#formEdit")[0];
+        let data = new FormData(form);
         $.ajax({
             type: "POST",
             url: "/buku/update",
@@ -150,45 +150,82 @@ $(document).ready(function () {
             contentType: false,
             cache: false,
             beforeSend: function () {
-                $('.btn-update').attr('disable', 'disabled')
-                $('.btn-update').html('<i class="fa fa-spin fa-spinner"></i>')
+                $(".btn-update").attr("disable", "disabled");
+                $(".btn-update").html('<i class="fa fa-spin fa-spinner"></i>');
             },
             complete: function () {
-                $('.btn-update').removeAttr('disable')
-                $('.btn-update').html('Simpan')
+                $(".btn-update").removeAttr("disable");
+                $(".btn-update").html("Simpan");
             },
             success: function (response) {
-                $('#formEdit').trigger('reset')
-                $(".invalid-feedback").html('')
+                $("#formEdit").trigger("reset");
+                $(".invalid-feedback").html("");
                 getData();
-                Swal.fire(
-                    response.title,
-                    response.message,
-                    response.status
-                );
+                Swal.fire(response.title, response.message, response.status);
             },
             error: function (error) {
-                console.log(error)
-                let formName = []
-                let errorName = []
+                console.log(error);
+                let formName = [];
+                let errorName = [];
 
-                $.each($('#formEdit').serializeArray(), function (i, field) {
-                    formName.push(field.name.replace(/\[|\]/g, ''))
+                $.each($("#formEdit").serializeArray(), function (i, field) {
+                    formName.push(field.name.replace(/\[|\]/g, ""));
                 });
                 if (error.status == 422) {
                     if (error.responseJSON.errors) {
-                        $.each(error.responseJSON.errors, function (key, value) {
-                            errorName.push(key)
-                            if($('.'+key).val() == '') {
-                                $('.' + key).addClass('is-invalid')
-                                $('.error-' + key).html(value)
+                        $.each(
+                            error.responseJSON.errors,
+                            function (key, value) {
+                                errorName.push(key);
+                                if ($("." + key).val() == "") {
+                                    $("." + key).addClass("is-invalid");
+                                    $(".error-" + key).html(value);
+                                }
                             }
-                        })
+                        );
                         $.each(formName, function (i, field) {
-                            $.inArray(field, errorName) == -1 ? $('.'+field).removeClass('is-invalid') : $('.'+field).addClass('is-invalid');
+                            $.inArray(field, errorName) == -1
+                                ? $("." + field).removeClass("is-invalid")
+                                : $("." + field).addClass("is-invalid");
                         });
                     }
                 }
+            },
+        });
+    });
+
+    $("body").on("click", ".btn-print", function () {
+        Swal.fire({
+            title: "Cetak data buku?",
+            text: "Laporan akan dicetak",
+            icon: "success",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Ya, cetak!",
+        }).then((result) => {
+            if (result.value) {
+                var mode = "iframe"; //popup
+                var close = mode == "popup";
+                var options = {
+                    mode: mode,
+                    popClose: close,
+                    popTitle: "LaporanDataBuku",
+                    popOrient: "landscape",
+                };
+                $.ajax({
+                    type: "GET",
+                    url: "/buku/print/",
+                    dataType: "json",
+                    success: function (response) {
+                        document.title =
+                            "PT. PANUDUH ATMA WARAS | Distribusi Buku - Print" +
+                            new Date().toJSON().slice(0, 10).replace(/-/g, "/");
+                        $(response.data)
+                            .find("div.printableArea")
+                            .printArea(options);
+                    },
+                });
             }
         });
     });

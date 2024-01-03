@@ -6,10 +6,12 @@
     <link rel="stylesheet" href="{{asset('assets/css/loading.css')}}">
 @endpush
 
+@section('title', 'Dashboard')
+
 @section('content')
-    <div class="row">
-        <div class="col-2"></div>
-        <div class="col-8">
+    {{-- <div class="row">
+        <div class="col-2"></div> --}}
+        <div class="col-12">
             <div class="card">
                 <div class="card-header bg-primary text-white bg-opacity-75">
                     <div class="row">
@@ -29,7 +31,7 @@
                         </div>
                         <div class="col-3">
                             <div class="form-group">
-                                <label for="kategori" class="col-form-label">Kategori</label>
+                                <label for="kategori" class="col-form-label">Filter</label>
                                 <select class="form-control" id="kategori" name="kategori">
                                     <option value="Kategori">Kategori</option>
                                     <option value="Transaksi">Transaksi</option>
@@ -47,15 +49,15 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div id="main" style="width: 800px;height:700px;"></div>
-                </div>
-                <div class="card-footer">
-                    {{--  --}}
+                    <div id="main" style="width: 100%;height:700px;"></div>
+                    <div class="card-footer">
+                        {{--  --}}
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-2"></div>
-    </div>
+        {{-- <div class="col-2"></div>
+    </div> --}}
 @endsection
 
 

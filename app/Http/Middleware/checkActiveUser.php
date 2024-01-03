@@ -16,11 +16,11 @@ class checkActiveUser
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::user()->is_active == false) {
+        if (Auth::user()->is_active == false) {
             Auth::logout();
             return redirect()->route('login')->with([
                 'status' => 'error',
-                'message' => 'Akun anda di nonaktifkan, mohon menghubingi admin!',
+                'message' => 'Akun anda di nonaktifkan, mohon menghubungi admin!',
                 'title' => 'gagal login'
             ]);
         }

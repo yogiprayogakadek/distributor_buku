@@ -13,7 +13,7 @@
             <div class="pull-left py-5">
                 <address>
                     <p class="m-t-30">
-                        <img src="{{ asset('assets/images/web/favicon.ico') }}" height="100">
+                        <img src="{{ asset('assets/images/web/logo_pt.png') }}" height="100">
                     </p>
                     <p class="m-t-30">
                         <b>Dicetak oleh :</b>

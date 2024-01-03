@@ -17,7 +17,7 @@ return new class extends Migration
             $table->enum('jenis_kelamin', ['Laki - Laki', 'Perempuan']);
             $table->char('telp', 16);
             $table->string('username', 100);
-            $table->string('password');
+            $table->string('password', 100);
             $table->string('email', 100);
             $table->enum('role', ['Admin', 'Direktur', 'Distributor']);
             $table->string('foto', 100)->default('assets/uploads/users/default.png');

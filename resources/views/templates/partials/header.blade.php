@@ -5,19 +5,19 @@
             <div class="navbar-brand-box">
                 <a href="{{route('index')}}" class="logo logo-dark">
                     <span class="logo-sm">
-                        <img src="{{asset('assets/images/logo.svg')}}" alt="" height="22">
+                        <img src="{{asset('assets/images/web/logo_pt.png')}}" alt="" height="15">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{asset('assets/images/logo-dark.png')}}" alt="" height="17">
+                        <img src="{{asset('assets/images/web/logo_pt.png')}}" alt="" height="17">
                     </span>
                 </a>
 
                 <a href="{{route('index')}}" class="logo logo-light">
                     <span class="logo-sm">
-                        <img src="{{asset('assets/images/logo-light.svg')}}" alt="" height="22">
+                        <img src="{{asset('assets/images/web/logo_pt.png')}}" alt="" height="15">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{asset('assets/images/logo-light.png')}}" alt="" height="19">
+                        <img src="{{asset('assets/images/web/logo_pt.png')}}" alt="" height="35">
                     </span>
                 </a>
             </div>
@@ -28,11 +28,11 @@
         </div>
 
         <div class="d-flex">
-
+            @can('distributor')
             <div class="dropdown d-inline-block cart-render">
                 <!-- render cart -->
             </div>
-
+            @endcan
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img class="rounded-circle header-profile-user" src="{{asset(auth()->user()->foto)}}" alt="Header Avatar">

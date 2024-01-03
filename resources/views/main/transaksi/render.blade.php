@@ -93,7 +93,6 @@
             <table class="table table-stripped" id="tableData">
                 <thead>
                     <tr>
-                        <th></th>
                         <th>No</th>
                         <th>Kode Pesanan</th>
                         <th>Distributor</th>
@@ -108,11 +107,6 @@
                 <tbody>
                     @foreach ($transaksi as $transaksi)
                     <tr>
-                        <td>
-                            <button class="btn btn-rounded btn-primary btn-detail btn-sm" data-id="{{$transaksi->id}}">
-                                <i class="bx bx-plus"></i>
-                            </button>
-                        </td>
                         <td>{{$loop->iteration}}</td>
                         <td>{{$transaksi->kode_pesanan}}</td>
                         <td>{{$transaksi->distributor->user->nama}}</td>
@@ -124,6 +118,9 @@
                         <td>
                             <button class="btn btn-success btn-edit" data-pembayaran="{{$transaksi->pembayaran->status_pembayaran}}" data-id="{{$transaksi->id}}" data-status="{{$transaksi->status_pesanan}}" data-keterangan="{{$transaksi->keterangan}}">
                                 <i class="bx bx-pencil"></i>
+                            </button>
+                            <button class="btn btn-rounded btn-primary btn-detail btn-sm" data-id="{{$transaksi->id}}">
+                                <i class="bx bx-plus"></i>
                             </button>
                         </td>
                     </tr>
@@ -138,22 +135,23 @@
     $('#tableData').DataTable({
         language: {
             paginate: {
-                previous: "<i class='fa fa-arrow-left'>",
-                next: "<i class='fa fa-arrow-right'>"
-            },
-            info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
-            infoEmpty: "Menampilkan 0 sampai 0 dari 0 data",
-            lengthMenu: "Menampilkan _MENU_ data",
-            search: "Cari:",
-            emptyTable: "Tidak ada data tersedia",
-            zeroRecords: "Tidak ada data yang cocok",
-            loadingRecords: "Memuat data...",
-            processing: "Memproses...",
-            infoFiltered: "(difilter dari _MAX_ total data)"
-        },
-        lengthMenu: [
-            [5, 10, 15, 20, -1],
-            [5, 10, 15, 20, "All"]
-        ],
-    });
+                previous: "<i class='fa fa-arrow-left'>"
+                , next: "<i class='fa fa-arrow-right'>"
+            }
+            , info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data"
+            , infoEmpty: "Menampilkan 0 sampai 0 dari 0 data"
+            , lengthMenu: "Menampilkan _MENU_ data"
+            , search: "Cari:"
+            , emptyTable: "Tidak ada data tersedia"
+            , zeroRecords: "Tidak ada data yang cocok"
+            , loadingRecords: "Memuat data..."
+            , processing: "Memproses..."
+            , infoFiltered: "(difilter dari _MAX_ total data)"
+        }
+        , lengthMenu: [
+            [5, 10, 15, 20, -1]
+            , [5, 10, 15, 20, "All"]
+        ]
+    , });
+
 </script>

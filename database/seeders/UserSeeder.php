@@ -23,5 +23,15 @@ class UserSeeder extends Seeder
             'role' => 'Admin',
             'is_active' => true
         ]);
+        User::create([
+            'nama' => 'Direktur',
+            'jenis_kelamin' => 'Laki - Laki',
+            'telp' => '081234567890',
+            'username' => 'direktur',
+            'password' => bcrypt(12345678),
+            'email' => 'direktur@gmail.com',
+            'role' => 'Direktur',
+            'is_active' => true
+        ]);
     }
 }

@@ -22,8 +22,9 @@
                     <th>Email</th>
                     <th>Username</th>
                     <th>Telp</th>
-                    <th>Nama PT</th>
-                    <th>Alamat PT</th>
+                    <th>Role</th>
+                    {{-- <th>Nama PT</th>
+                    <th>Alamat PT</th> --}}
                     <th>Status</th>
                 </tr>
             </thead>
@@ -35,8 +36,9 @@
                     <td>{{$pengguna->email}}</td>
                     <td>{{$pengguna->username}}</td>
                     <td>{{$pengguna->telp}}</td>
-                    <td>{{$pengguna->distributor->nama_pt}}</td>
-                    <td>{{$pengguna->distributor->alamat_pt}}</td>
+                    <td>{{$pengguna->role}}</td>
+                    {{-- <td>{{$pengguna->distributor->nama_pt}}</td>
+                    <td>{{$pengguna->distributor->alamat_pt}}</td> --}}
                     <td>
                         <select name="status" class="form-control status" data-id="{{$pengguna->id}}">
                             <option value="1" {{$pengguna->is_active == true ? 'selected' : ''}}>Aktif</option>

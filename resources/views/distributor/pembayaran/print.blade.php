@@ -1,6 +1,6 @@
 @extends('templates.master')
 
-@section('title', 'Transaksi')
+@section('title', 'Pembayaran')
 @section('sub-title', 'Laporan')
 
 @section('content')
@@ -8,12 +8,12 @@
         <div class="col-md-12" style="text-align: center">
             <h2><strong>PT. PANUDUH ATMA WARAS</strong></h2>
             <h3>
-                <b>Laporan Data Transaksi</b>
+                <b>Laporan Data Pembayaran</b>
             </h3>
             <div class="pull-left py-5">
                 <address>
                     <p class="m-t-30">
-                        <img src="{{ asset('assets/images/web/favicon.ico') }}" height="100">
+                        <img src="{{ asset('assets/images/web/logo_pt.png') }}" height="100">
                     </p>
                     <p class="m-t-30">
                         <b>Dicetak oleh :</b>

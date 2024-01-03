@@ -5,28 +5,20 @@
 
 @section('content')
 <div class="row render p-2">
-    <div class="col-3">
+    <div class="col-4">
         <div class="card">
             <div class="card-header text-center">
                 <img src="{{asset(auth()->user()->foto)}}" class="img-fluid">
             </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-4 font-weight-bold">Nama</div>
-                    <div class="col-8">: {{$user->nama}}</div>
-                </div>
-                <div class="row">
-                    <div class="col-4 font-weight-bold">Email</div>
-                    <div class="col-8">: {{$user->email}}</div>
-                </div>
-                <div class="row">
-                    <div class="col-4 font-weight-bold">Jenis Kelamin</div>
-                    <div class="col-8">: {{$user->jenis_kelamin}}</div>
-                </div>
-                <div class="row">
-                    <div class="col-4 font-weight-bold">No. Telp</div>
-                    <div class="col-8">: {{$user->telp}}</div>
-                </div>
+            <div class="card-body pb-2">
+                <label class="font-weight-bold">Nama</label>
+                <div class="mb-2">{{ $user->nama }}</div>
+                <label class="font-weight-bold">Email</label>
+                <div class="mb-2">{{ $user->email }}</div>
+                <label class="font-weight-bold">Jenis Kelamin</label>
+                <div class="mb-2">{{ $user->jenis_kelamin }}</div>
+                <label class="font-weight-bold">No. Telp</label>
+                <div class="mb-2">{{ $user->telp }}</div>
             </div>
             <div class="card-footer bg-primary text-white text-center btn-profil" style="cursor: pointer">
                 Ubah
@@ -34,102 +26,115 @@
         </div>
     </div>
 
-    <div class="col-9 detail-profil" hidden>
+    <div class="col-8 detail-profil" hidden>
         <div class="card">
             <form id="formProfil">
                 <div class="card-body">
                     <div class="form-group row mt-2">
-                        <label for="username" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                        <label for="username" class="ul-form__label ul-form--margin col-lg-3 mt-2 col-form-label ">
                             Username
                         </label>
-                        <div class="col-lg-11 mt-2">
-                            <input type="text" class="form-control username" name="username" id="username" placeholder="masukkan username" value="{{$user->username}}">
+                        <div class="col-lg-9 mt-2">
+                            <input type="text" class="form-control username" name="username" id="username"
+                                placeholder="masukkan username" value="{{ $user->username }}">
                             <div class="invalid-feedback error-username"></div>
                         </div>
                     </div>
                     <div class="form-group row mt-2">
-                        <label for="nama" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                        <label for="nama" class="ul-form__label ul-form--margin col-lg-3 mt-2 col-form-label ">
                             Nama
                         </label>
-                        <div class="col-lg-11 mt-2">
-                            <input type="text" class="form-control nama" name="nama" id="nama" placeholder="masukkan nama" value="{{$user->nama}}">
+                        <div class="col-lg-9 mt-2">
+                            <input type="text" class="form-control nama" name="nama" id="nama"
+                                placeholder="masukkan nama" value="{{ $user->nama }}">
                             <div class="invalid-feedback error-nama"></div>
                         </div>
                     </div>
                     <div class="form-group row mt-2">
-                        <label for="jenis-kelamin" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                        <label for="jenis-kelamin" class="ul-form__label ul-form--margin col-lg-3 mt-2 col-form-label ">
                             Jenis Kelamin
                         </label>
-                        <div class="col-lg-11 mt-2">
+                        <div class="col-lg-9 mt-2">
                             <select name="jenis_kelamin" id="jenis-kelamin" class="form-control jenis_kelamin">
                                 <option value="">Pilih jenis kelamin...</option>
-                                <option value="Laki - Laki" {{$user->jenis_kelamin == 'Laki - Laki' ? 'selected' : ''}}>Laki - Laki</option>
-                                <option value="Perempuan" {{$user->jenis_kelamin == 'Perempuan' ? 'selected' : ''}}>Perempuan</option>
+                                <option value="Laki - Laki"
+                                    {{ $user->jenis_kelamin == 'Laki - Laki' ? 'selected' : '' }}>Laki - Laki</option>
+                                <option value="Perempuan" {{ $user->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>
+                                    Perempuan</option>
                             </select>
                             <div class="invalid-feedback error-jenis_kelamin"></div>
                         </div>
                     </div>
                     <div class="form-group row mt-2">
-                        <label for="telp" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                        <label for="telp" class="ul-form__label ul-form--margin col-lg-3 mt-2 col-form-label ">
                             No. telp
                         </label>
-                        <div class="col-lg-11 mt-2">
-                            <input type="text" class="form-control telp" name="telp" id="telp" placeholder="masukkan no. telp" value="{{$user->telp}}">
+                        <div class="col-lg-9 mt-2">
+                            <input type="text" class="form-control telp" name="telp" id="telp"
+                                placeholder="masukkan no. telp" value="{{ $user->telp }}">
                             <div class="invalid-feedback error-telp"></div>
                         </div>
                     </div>
                     <div class="form-group row mt-2">
-                        <label for="email" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                        <label for="email" class="ul-form__label ul-form--margin col-lg-3 mt-2 col-form-label ">
                             Email
                         </label>
-                        <div class="col-lg-11 mt-2">
-                            <input type="text" class="form-control email" name="email" id="email" placeholder="masukkan email" value="{{$user->email}}">
+                        <div class="col-lg-9 mt-2">
+                            <input type="text" class="form-control email" name="email" id="email"
+                                placeholder="masukkan email" value="{{ $user->email }}">
                             <div class="invalid-feedback error-email"></div>
                         </div>
                     </div>
                     <div class="form-group row mt-2">
-                        <label for="password" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                        <label for="password" class="ul-form__label ul-form--margin col-lg-3 mt-2 col-form-label ">
                             Password
                         </label>
-                        <div class="col-lg-11 mt-2">
-                            <input type="password" class="form-control password" name="password" id="password" placeholder="masukkan password">
+                        <div class="col-lg-9 mt-2">
+                            <input type="password" class="form-control password" name="password" id="password"
+                                placeholder="masukkan password">
                             <span class="text-muted text-small">*kosongkan apabila tidak ingin mengganti password</span>
                             <div class="invalid-feedback error-password"></div>
                         </div>
                     </div>
                     <div class="form-group row mt-2">
-                        <label for="password-confirmation" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                        <label for="password-confirmation"
+                            class="ul-form__label ul-form--margin col-lg-3 mt-2 col-form-label ">
                             Konfirmasi Password
                         </label>
-                        <div class="col-lg-11 mt-2">
-                            <input type="password" class="form-control password_confirmation" name="password_confirmation" id="password-confirmation" placeholder="masukkan konfirmasi password">
+                        <div class="col-lg-9 mt-2">
+                            <input type="password" class="form-control password_confirmation"
+                                name="password_confirmation" id="password-confirmation"
+                                placeholder="masukkan konfirmasi password">
                             <div class="invalid-feedback error-password_confirmation"></div>
                         </div>
                     </div>
                     <div class="form-group row mt-2">
-                        <label for="nama_pt" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                        <label for="nama_pt" class="ul-form__label ul-form--margin col-lg-3 mt-2 col-form-label ">
                             Nama PT
                         </label>
-                        <div class="col-lg-11 mt-2">
-                            <input type="text" class="form-control nama_pt" name="nama_pt" id="nama_pt" placeholder="masukkan nama pt" value="{{$user->distributor->nama_pt ?? ''}}">
+                        <div class="col-lg-9 mt-2">
+                            <input type="text" class="form-control nama_pt" name="nama_pt" id="nama_pt"
+                                placeholder="masukkan nama pt" value="{{ $user->distributor->nama_pt ?? '' }}">
                             <div class="invalid-feedback error-nama_pt"></div>
                         </div>
                     </div>
                     <div class="form-group row mt-2">
-                        <label for="alamat" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                        <label for="alamat" class="ul-form__label ul-form--margin col-lg-3 mt-2 col-form-label ">
                             Alamat PT
                         </label>
-                        <div class="col-lg-11 mt-2">
-                            <input type="text" class="form-control alamat" name="alamat" id="alamat" placeholder="masukkan alamat pt" value="{{$user->distributor->alamat_pt ?? ''}}">
+                        <div class="col-lg-9 mt-2">
+                            <input type="text" class="form-control alamat" name="alamat" id="alamat"
+                                placeholder="masukkan alamat pt" value="{{ $user->distributor->alamat_pt ?? '' }}">
                             <div class="invalid-feedback error-alamat"></div>
                         </div>
                     </div>
                     <div class="form-group row mt-2">
-                        <label for="foto" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                        <label for="foto" class="ul-form__label ul-form--margin col-lg-3 mt-2 col-form-label ">
                             Foto
                         </label>
-                        <div class="col-lg-11 mt-2">
-                            <input type="file" class="form-control foto" name="foto" id="foto" placeholder="masukkan foto">
+                        <div class="col-lg-9 mt-2">
+                            <input type="file" class="form-control foto" name="foto" id="foto"
+                                placeholder="masukkan foto">
                             <span class="text-muted text-small">*kosongkan apabila tidak ingin mengganti foto</span>
                             <div class="invalid-feedback error-foto"></div>
                         </div>

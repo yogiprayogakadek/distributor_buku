@@ -13,7 +13,7 @@
             <div class="pull-left py-5">
                 <address>
                     <p class="m-t-30">
-                        <img src="{{ asset('assets/images/web/favicon.ico') }}" height="100">
+                        <img src="{{ asset('assets/images/web/logo_pt.png') }}" height="100">
                     </p>
                     <p class="m-t-30">
                         <b>Dicetak oleh :</b>
@@ -35,19 +35,19 @@
                             <th>No</th>
                             <th>Nama</th>
                             <th>Email</th>
+                            <th>Username</th>
                             <th>Telp</th>
-                            <th>Nama PT</th>
-                            <th>Alamat PT</th>
+                            <th>Role</th>
                             <th>Status</th>
                         </tr>
                         @foreach ($pengguna as $pengguna)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $pengguna->nama }}</td>
-                                <td>{{ $pengguna->email }}</td>
-                                <td>{{ $pengguna->telp }}</td>
-                                <td>{{ $pengguna->distributor->nama_pt }}</td>
-                                <td>{{ $pengguna->distributor->alamat_pt }}</td>
+                                <td>{{$loop->iteration}}</td>
+                                <td>{{$pengguna->nama}}</td>
+                                <td>{{$pengguna->email}}</td>
+                                <td>{{$pengguna->username}}</td>
+                                <td>{{$pengguna->telp}}</td>
+                                <td>{{$pengguna->role}}</td>
                                 <td>{!! $pengguna->is_active == true
                                     ? '<span class="badge bg-success">Aktif</span>'
                                     : '<span class="badge bg-danger">Tidak Aktif</span>' !!}</td>

@@ -3,8 +3,8 @@
         <meta charset="utf-8" />
         <title>Distributor Buku</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="shortcut icon" href="{{asset('assets/images/favicon.ico')}}">
-    
+        <link rel="shortcut icon" href="{{asset('assets/images/web/logo_pt.png')}}">
+
         <!-- Bootstrap Css -->
         <link href="{{asset('assets/css/bootstrap.min.css')}}" id="bootstrap-style" rel="stylesheet" type="text/css" />
         <!-- Icons Css -->
@@ -36,7 +36,7 @@
                 </div>
             </div>
         </div>
-        
+
         <script src="{{asset('assets/libs/jquery/jquery.min.js')}}"></script>
         <script src="{{asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
         <script src="{{asset('assets/libs/metismenu/metisMenu.min.js')}}"></script>
@@ -45,5 +45,5 @@
 
         <script src="{{asset('assets/js/app.js')}}"></script>
     </body>
-    
+
 </html>

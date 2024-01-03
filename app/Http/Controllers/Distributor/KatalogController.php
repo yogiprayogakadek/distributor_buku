@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class KatalogController extends Controller
 {
-    protected $page = 6;
+    protected $page = 2;
 
     public function index(Request $request)
     {

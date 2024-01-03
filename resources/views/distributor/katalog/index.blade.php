@@ -354,6 +354,8 @@
             let data = $(this).data('buku');
             let buku = $.parseJSON(JSON.stringify(data))
 
+            console.log(buku)
+
             $('#cover-buku').attr('src', assets(buku.foto))
             $('.judul').text(buku.judul)
             $('.tahun').text(buku.tahun_terbit)

@@ -5,11 +5,13 @@
                 <div class="card-title">Data Kategori</div>
             </div>
             <div class="col-6 text-end">
-                <div class="card-options">
-                    <button class="btn btn-primary btn-add" style="margin-left: 2px">
-                        <i class="bx bx-plus-medical"></i> Tambah
-                    </button>
-                </div>
+                @can('admin')
+                    <div class="card-options">
+                        <button class="btn btn-primary btn-add" style="margin-left: 2px">
+                            <i class="bx bx-plus-medical"></i> Tambah
+                        </button>
+                    </div>
+                @endcan
             </div>
         </div>
     </div>
@@ -20,21 +22,27 @@
                     <th>No</th>
                     <th>Kategori</th>
                     <th>Status</th>
-                    <th></th>
+                    @can('admin')
+                        <th></th>
+                    @endcan
                 </tr>
             </thead>
             <tbody>
                 @foreach ($kategori as $kategori)
-                <tr>
-                    <td>{{$loop->iteration}}</td>
-                    <td>{{$kategori->nama}}</td>
-                    <td>{!! $kategori->status == true ? '<span class="badge bg-success">Aktif</span>' : '<span class="badge bg-danger">Tidak Aktif</span>' !!}</td>
-                    <td>
-                        <button class="btn btn-success btn-edit" data-id="{{$kategori->id}}">
-                            <i class="bx bx-pencil"></i>
-                        </button>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $kategori->nama }}</td>
+                        <td>{!! $kategori->status == true
+                            ? '<span class="badge bg-success">Aktif</span>'
+                            : '<span class="badge bg-danger">Tidak Aktif</span>' !!}</td>
+                        @can('admin')
+                            <td>
+                                <button class="btn btn-success btn-edit" data-id="{{ $kategori->id }}">
+                                    <i class="bx bx-pencil"></i>
+                                </button>
+                            </td>
+                        @endcan
+                    </tr>
                 @endforeach
             </tbody>
         </table>

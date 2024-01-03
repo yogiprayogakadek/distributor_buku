@@ -60,7 +60,9 @@
                         <th>Status Pembayaran</th>
                         <th>Validator</th>
                         <th>Keterangan</th>
+                        @can('admin')
                         <th></th>
+                        @endcan
                     </tr>
                 </thead>
                 <tbody>
@@ -83,11 +85,13 @@
                         <td>{!! '<span class="badge bg-info">'.$pembayaran->status_pembayaran . '</span>' !!}</td>
                         <td>{{$pembayaran->validator->nama ?? '-'}}</td>
                         <td>{{$pembayaran->keterangan ?? '-'}}</td>
+                        @can('admin')
                         <td>
                             <button class="btn btn-success btn-edit" data-id="{{$pembayaran->id}}" data-status="{{$pembayaran->status_pembayaran}}" data-keterangan="{{$pembayaran->keterangan}}">
                                 <i class="bx bx-pencil"></i>
                             </button>
                         </td>
+                        @endcan
                     </tr>
                     @endforeach
                 </tbody>

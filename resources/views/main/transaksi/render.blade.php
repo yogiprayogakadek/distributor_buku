@@ -101,7 +101,9 @@
                         <th>Total</th>
                         <th>Keterangan</th>
                         <th>Validator</th>
+                        @can('admin')
                         <th></th>
+                        @endcan
                     </tr>
                 </thead>
                 <tbody>
@@ -115,6 +117,7 @@
                         <td>{{convertToRupiah($transaksi->total)}}</td>
                         <td>{{$transaksi->keterangan ?? '-'}}</td>
                         <td>{{$transaksi->validator->nama ?? '-'}}</td>
+                        @can('admin')
                         <td>
                             <button class="btn btn-success btn-edit" data-pembayaran="{{$transaksi->pembayaran->status_pembayaran}}" data-id="{{$transaksi->id}}" data-status="{{$transaksi->status_pesanan}}" data-keterangan="{{$transaksi->keterangan}}">
                                 <i class="bx bx-pencil"></i>
@@ -123,6 +126,7 @@
                                 <i class="bx bx-plus"></i>
                             </button>
                         </td>
+                        @endcan
                     </tr>
                     @endforeach
                 </tbody>

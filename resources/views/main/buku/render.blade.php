@@ -6,9 +6,11 @@
             </div>
             <div class="col-6 text-end">
                 <div class="card-options">
+                    @can('admin')
                     <button class="btn btn-primary btn-add" style="margin-left: 2px">
                         <i class="bx bx-plus-medical"></i> Tambah
                     </button>
+                    @endcan
                     <button class="btn btn-success btn-print ml-2" style="margin-left: 2px">
                         <i class="fa fa-print"></i> Print
                     </button>
@@ -31,7 +33,9 @@
                     <th>Foto</th>
                     <th>Stok Buku</th>
                     <th>Status</th>
+                    @can('admin')
                     <th></th>
+                    @endcan
                 </tr>
             </thead>
             <tbody>
@@ -48,11 +52,13 @@
                     <td><img src="{{json_decode($buku->data_buku, true)['foto']}}" width="70px"></td>
                     <td>{{$buku->stok_buku}}</td>
                     <td>{!! $buku->status == true ? '<span class="badge bg-success">Aktif</span>' : '<span class="badge bg-danger">Tidak Aktif</span>' !!}</td>
+                    @can('admin')
                     <td>
                         <button class="btn btn-success btn-edit" data-id="{{$buku->id}}">
                             <i class="bx bx-pencil"></i>
                         </button>
                     </td>
+                    @endcan
                 </tr>
                 @endforeach
             </tbody>

@@ -39,13 +39,17 @@
                     <td>{{$pengguna->role}}</td>
                     {{-- <td>{{$pengguna->distributor->nama_pt}}</td>
                     <td>{{$pengguna->distributor->alamat_pt}}</td> --}}
+                    @can('admin')
                     <td>
                         <select name="status" class="form-control status" data-id="{{$pengguna->id}}">
                             <option value="1" {{$pengguna->is_active == true ? 'selected' : ''}}>Aktif</option>
                             <option value="0" {{$pengguna->is_active == false ? 'selected' : ''}}>Tidak Aktif</option>
                         </select>
                     </td>
-                    {{-- <td>{!! $pengguna->is_active == true ? '<span class="badge bg-success">Aktif</span>' : '<span class="badge bg-danger">Tidak Aktif</span>' !!}</td> --}}
+                    @endcan
+                    @can('direktur')
+                        <td>{!! $pengguna->is_active == true ? '<span class="badge bg-success">Aktif</span>' : '<span class="badge bg-danger">Tidak Aktif</span>' !!}</td>
+                    @endcan
                 </tr>
                 @endforeach
             </tbody>

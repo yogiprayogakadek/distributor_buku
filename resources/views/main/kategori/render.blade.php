@@ -6,9 +6,11 @@
             </div>
             <div class="col-6 text-end">
                 <div class="card-options">
+                    @can('admin')
                     <button class="btn btn-primary btn-add" style="margin-left: 2px">
                         <i class="bx bx-plus-medical"></i> Tambah
                     </button>
+                    @endcan
                     <button class="btn btn-success btn-print ml-2" style="margin-left: 2px">
                         <i class="fa fa-print"></i> Print
                     </button>
@@ -23,7 +25,9 @@
                     <th>No</th>
                     <th>Kategori</th>
                     <th>Status</th>
+                    @can('admin')
                     <th></th>
+                    @endcan
                 </tr>
             </thead>
             <tbody>
@@ -32,11 +36,13 @@
                     <td>{{$loop->iteration}}</td>
                     <td>{{$kategori->nama}}</td>
                     <td>{!! $kategori->status == true ? '<span class="badge bg-success">Aktif</span>' : '<span class="badge bg-danger">Tidak Aktif</span>' !!}</td>
+                    @can('admin')
                     <td>
                         <button class="btn btn-success btn-edit" data-id="{{$kategori->id}}">
                             <i class="bx bx-pencil"></i>
                         </button>
                     </td>
+                    @endcan
                 </tr>
                 @endforeach
             </tbody>

@@ -45,7 +45,7 @@
                                 {{convertToRupiah($cart->quantity*$cart->price)}}
                             </td>
                             <td>
-                                <a href="javascript:void(0);" class="action-icon text-danger"> <i class="mdi mdi-trash-can font-size-18"></i></a>
+                                <a href="javascript:void(0);" class="action-icon text-danger btn-hapus-cart" data-id="{{$cart->id}}"> <i class="mdi mdi-trash-can font-size-18"></i></a>
                             </td>
                         </tr>
                         @empty

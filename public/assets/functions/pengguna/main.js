@@ -53,7 +53,7 @@ $(document).ready(function () {
     });
 
     $("body").on("change", ".status", function () {
-        let status = $("select[name=status] option").filter(":selected").val();
+        let status = $(this).val();
         let user_id = $(this).data("id");
 
         $.ajaxSetup({

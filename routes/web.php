@@ -117,7 +117,7 @@ Route::middleware(['auth', 'checkActiveUser'])->namespace('Main')->group(functio
     Route::controller(PenggunaController::class)
         ->prefix('pengguna')
         ->as('pengguna.')
-        ->middleware('checkRole:Direktur')
+        ->middleware('checkRole:Admin,Direktur')
         ->group(function () {
             Route::get('', 'index')->name('index');
             Route::get('/render', 'render')->name('render');

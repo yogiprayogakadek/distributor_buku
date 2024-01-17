@@ -15,7 +15,7 @@
                     </a>
                 </li>
 
-                @can('direktur')
+                @can('admin')
                 <li>
                     <a href="{{route('pengguna.index')}}" class="waves-effect {{Request::is('/pengguna') ? 'active' : '' }}">
                         <i class="bx bx-user"></i>

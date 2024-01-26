@@ -88,7 +88,9 @@
 </div>
 
 <div class="row">
-    <div class="col-lg-3 div-filter">
+
+    {{-- FILTER HIDDEN --}}
+    {{-- <div class="col-lg-3 div-filter">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title mb-4">Filter</h4>
@@ -125,9 +127,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
-    <div class="col-lg-9 div-katalog">
+    <div class="col-lg-12 div-katalog">
         <div class="row mb-3">
             <div class="col-xl-4 col-sm-6">
                 <div class="mt-2">
@@ -253,9 +255,10 @@
                                 text: response.message,
                             })
 
-                            if (response.status == 'success') {
-                                getCart();
-                            }
+                            // BECAUSE CART IS HIDDEN
+                            // if (response.status == 'success') {
+                            //     getCart();
+                            // }
                         }
                     });
                 }

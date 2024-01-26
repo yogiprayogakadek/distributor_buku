@@ -196,7 +196,9 @@
                             response.status
                         );
                         getData();
-                        getCart();
+
+                        // BECAUSE CART IS HIDDEN
+                        // getCart();
                     },
                     error: function(error) {
                         //
@@ -223,7 +225,9 @@
                             success: function(result) {
                                 Swal.fire(result.title, result.message, result.status);
                                 getData();
-                                getCart();
+
+                                // BECAUSE CART IS HIDDEN
+                                // getCart();
                             },
                         });
                     }

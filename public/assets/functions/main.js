@@ -6,9 +6,9 @@ function convertToRupiah(angka) {
     return (
         "Rp" +
         rupiah
-            .split("", rupiah.length - 1)
-            .reverse()
-            .join("")
+        .split("", rupiah.length - 1)
+        .reverse()
+        .join("")
     );
 }
 
@@ -72,7 +72,7 @@ function getCart() {
 }
 
 $(document).ready(function () {
-    getCart();
+    // getCart();
 
     $("body").on("click", ".btn-hapus-item", function () {
         var id = $(this).data("id");

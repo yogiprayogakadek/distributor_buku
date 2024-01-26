@@ -71,6 +71,20 @@ Route::middleware(['auth', 'checkActiveUser'])->namespace('Main')->group(functio
             Route::get('/print', 'print')->name('print');
         });
 
+    Route::controller(DistribusiController::class)
+        ->prefix('distribusi')
+        ->as('distribusi.')
+        ->middleware('checkRole:Admin')
+        ->group(function () {
+            Route::get('', 'index')->name('index');
+            Route::get('/render', 'render')->name('render');
+            Route::get('/create', 'create')->name('create');
+            Route::get('/edit/{id}', 'edit')->name('edit');
+            Route::post('/store', 'store')->name('store');
+            Route::post('/update', 'update')->name('update');
+            Route::get('/print', 'print')->name('print');
+        });
+
     Route::controller(KeranjangController::class)
         ->prefix('keranjang')
         ->as('keranjang.')
@@ -169,6 +183,16 @@ Route::middleware(['auth', 'checkProfile:Distributor', 'checkRole:Distributor', 
                 Route::get('', 'index')->name('index');
                 Route::get('/render', 'render')->name('render');
                 Route::get('/print', 'print')->name('print');
+            });
+
+        Route::controller(DistribusiController::class)
+            ->prefix('distribusi')
+            ->as('distribusi.')
+            ->middleware(['checkProfile:Distributor'])
+            ->group(function () {
+                Route::get('', 'index')->name('index');
+                Route::get('/find/{id}', 'find')->name('find');
+                Route::post('/validasi', 'validasi')->name('validasi');
             });
     });
 

@@ -6,9 +6,9 @@
                     <div class="image-container">
                         <img src="{{ asset(json_decode($item->data_buku, true)['foto']) }}" alt=""
                             class="img-fluid mx-auto d-block">
-                        <button class="middle-button btn-keranjang" data-id="{{ $item->id }}">
+                        {{-- <button class="middle-button btn-keranjang" data-id="{{ $item->id }}">
                             <i class="bx bxs-cart-alt"></i> Tambahkan
-                        </button>
+                        </button> --}}
                         <button class="middle-button btn-detail mt-5" data-buku="{{ $item->data_buku }}"
                             data-id="{{ $item->id }}" style="background-color: rgb(0,0,128, 0.8) !important;">
                             <i class="fa fa-eye"></i> Detail

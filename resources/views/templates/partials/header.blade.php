@@ -28,11 +28,15 @@
         </div>
 
         <div class="d-flex">
-            @can('distributor')
-            <div class="dropdown d-inline-block cart-render">
-                <!-- render cart -->
-            </div>
-            @endcan
+
+            {{-- HIDDEN MENU --}}
+                {{-- @can('distributor')
+                <div class="dropdown d-inline-block cart-render">
+                    <!-- render cart -->
+                </div>
+                @endcan --}}
+
+
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img class="rounded-circle header-profile-user" src="{{asset(auth()->user()->foto)}}" alt="Header Avatar">

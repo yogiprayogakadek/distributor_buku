@@ -112,88 +112,93 @@
             ],
         });
 
+        const itemsPerPage = 10;
+
+        function getDistribusiDetail(data) {
+            // Initialize pagination variables
+            let currentPage = 1;
+            let totalPages = Math.ceil(data.length / itemsPerPage);
+
+            // Function to update the table content based on the current page
+            function updateTable(pageNumber) {
+                $('#tableDetail tbody').empty();
+
+                // Calculate the start and end indices for the current page
+                let startIndex = (pageNumber - 1) * itemsPerPage;
+                let endIndex = Math.min(startIndex + itemsPerPage, data
+                    .length);
+
+                // Populate the table with the current page data
+                for (let i = startIndex; i < endIndex; i++) {
+                    let validate =
+                        "<button class='btn btn-rounded btn-success btn-validate' style='margin-right: 10px;' data-id=" +
+                        data[i].distribusi_id + " data-kode-buku=" +
+                        data[i].kode_buku +
+                        " data-status=1><span class='fa fa-check'></span></button>";
+                    validate +=
+                        "<button class='btn btn-rounded btn-danger btn-validate' data-id=" +
+                        data[i].distribusi_id + " data-kode-buku=" +
+                        data[i].kode_buku +
+                        " data-status=0><i class='fa fa-times'></button>";
+                    let tr_list = "<tr>" +
+                        '<td>' + (i + 1) + '</td>' +
+                        '<td>' + data[i].kode_buku + '</td>' +
+                        '<td>' + data[i].judul + '</td>' +
+                        '<td>' + data[i].penerbit + '</td>' +
+                        '<td>' + data[i].penulis + '</td>' +
+                        '<td class="text-end">' + data[i].harga +
+                        '</td>' +
+                        '<td>' + data[i].kuantitas + " eksemplar" +
+                        '</td>' +
+                        '<td class="text-center">' + (data[i].updated_at != null ? '<i>updated</i>' : validate) +
+                        '</td>' +
+                        '<td class="text-center">' + (data[i].updated_at == null ? 'Belum di terima' : (data[i].status == true ? 'Diterima (' + data[i].updated_at +')' : 'Dibatalkan') ) + '</td>' +
+                        '</tr>';
+
+                    $('#tableDetail tbody').append(tr_list);
+                }
+            }
+
+            // Function to update pagination controls
+            function updatePagination() {
+                $('#pagination').empty();
+
+                for (let i = 1; i <= totalPages; i++) {
+                    let liClass = (i === currentPage) ?
+                        'page-item active' : 'page-item';
+                    let li = '<li class="' + liClass +
+                        '"><a class="page-link" href="#">' +
+                        i + '</a></li>';
+                    $('#pagination').append(li);
+                }
+            }
+
+            // Initial table and pagination update
+            updateTable(currentPage);
+            updatePagination();
+
+            // Handle pagination click events
+            $('#pagination').on('click', 'a', function(event) {
+                event.preventDefault();
+                currentPage = parseInt($(this).text());
+                
+                updateTable(currentPage);
+                updatePagination();
+            });
+        }
+
         $(document).ready(function() {
+            localStorage.clear();
             $('body').on('click', '.btn-view', function() {
                 $('#modalDistribusi').modal('show');
-
                 // get data
                 let distribusi_id = $(this).data('id');
 
-                // $('#tableDetail tbody').empty();
-                // $.get("/distributor/distribusi/find/"+distribusi_id, function (data) {
-                //     $.each(data, function (index, value) {
-                //         let tr_list = "<tr>" +
-                //             '<td>' + (index+1) + '</td>' +
-                //             '<td>' + value.kode_buku + '</td>' +
-                //             '<td>' + value.judul + '</td>' +
-                //             '<td>' + value.penerbit + '</td>' +
-                //             '<td>' + value.penulis + '</td>' +
-                //             '<td class="text-end">' + value.harga + '</td>' +
-                //             '<td>' + 'test' + '</td>' +
-                //             '</tr>';
+                // set session storage
+                localStorage.setItem("distribusiId", distribusi_id);
 
-                //         $('#tableDetail tbody').append(tr_list);
-                //     });
-                // });
-
-                let itemsPerPage = 5; // Set the number of items per page
-                // Fetch data from the server
                 $.get("/distributor/distribusi/find/" + distribusi_id, function(data) {
-                    // Initialize pagination variables
-                    let currentPage = 1;
-                    let totalPages = Math.ceil(data.length / itemsPerPage);
-
-                    // Function to update the table content based on the current page
-                    function updateTable(pageNumber) {
-                        $('#tableDetail tbody').empty();
-
-                        // Calculate the start and end indices for the current page
-                        let startIndex = (pageNumber - 1) * itemsPerPage;
-                        let endIndex = Math.min(startIndex + itemsPerPage, data.length);
-
-                        // Populate the table with the current page data
-                        for (let i = startIndex; i < endIndex; i++) {
-                            let validate = "<button class='btn btn-rounded btn-success btn-validate' style='margin-right: 10px;' data-id="+data[i].distribusi_id+" data-kode-buku="+data[i].kode_buku+" data-status=1><span class='fa fa-check'></span></button>";
-                                validate += "<button class='btn btn-rounded btn-danger btn-validate' data-id="+data[i].distribusi_id+" data-kode-buku="+data[i].kode_buku+" data-status=0><i class='fa fa-times'></button>";
-                            let tr_list = "<tr>" +
-                                '<td>' + (i + 1) + '</td>' +
-                                '<td>' + data[i].kode_buku + '</td>' +
-                                '<td>' + data[i].judul + '</td>' +
-                                '<td>' + data[i].penerbit + '</td>' +
-                                '<td>' + data[i].penulis + '</td>' +
-                                '<td class="text-end">' + data[i].harga + '</td>' +
-                                '<td>' + data[i].kuantitas + " eksemplar" + '</td>' +
-                                '<td class="text-center">' + validate + '</td>' +
-                                '<td class="text-center">' + (data[i].status == false ? 'Belum di terima' : 'Diterima ('+data[i].updated_at+') <br> <i class="btn-detail" style="cursor: pointer;">Detail</i> ') + '</td>' +
-                                '</tr>';
-
-                            $('#tableDetail tbody').append(tr_list);
-                        }
-                    }
-
-                    // Function to update pagination controls
-                    function updatePagination() {
-                        $('#pagination').empty();
-
-                        for (let i = 1; i <= totalPages; i++) {
-                            let liClass = (i === currentPage) ? 'page-item active' : 'page-item';
-                            let li = '<li class="' + liClass + '"><a class="page-link" href="#">' +
-                                i + '</a></li>';
-                            $('#pagination').append(li);
-                        }
-                    }
-
-                    // Initial table and pagination update
-                    updateTable(currentPage);
-                    updatePagination();
-
-                    // Handle pagination click events
-                    $('#pagination').on('click', 'a', function(event) {
-                        event.preventDefault();
-                        currentPage = parseInt($(this).text());
-                        updateTable(currentPage);
-                        updatePagination();
-                    });
+                    getDistribusiDetail(data);
                 });
             })
 
@@ -217,8 +222,14 @@
                         'status': status,
                     },
                     json: "json",
-                    success: function (response) {
-                        // $(this).closest('tr').find('.btn-validate').remove();
+                    success: function(response) {
+                        // get session id
+                        let distribusi_id = localStorage.getItem('distribusiId');
+
+                        // Fetch data from the server
+                        $.get("/distributor/distribusi/find/" + distribusi_id, function(data) {
+                            getDistribusiDetail(data);
+                        });
                     }
                 });
             })

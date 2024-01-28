@@ -25,7 +25,7 @@
                     <th>No</th>
                     <th>Tanggal Distribusi</th>
                     @can('admin')
-                    <th></th>
+                    <th>Aksi</th>
                     @endcan
                 </tr>
             </thead>
@@ -36,8 +36,8 @@
                     <td>{{$distribusi->tanggal_distribusi}}</td>
                     @can('admin')
                     <td>
-                        <button class="btn btn-success btn-edit" data-id="{{$distribusi->id}}">
-                            <i class="bx bx-pencil"></i>
+                        <button class="btn btn-primary btn-detail" data-id="{{$distribusi->id}}" data-date="{{$distribusi->tanggal_distribusi}}">
+                            <i class="fa fa-eye"></i>
                         </button>
                     </td>
                     @endcan

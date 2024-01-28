@@ -84,6 +84,49 @@ class DistribusiController extends Controller
         }
     }
 
+    public function detail($date)
+    {
+        $new_date = str_replace('a', '-', $date);
+        $distribusi = DistribusiBuku::where('tanggal_distribusi', $new_date)->pluck('distributor_id')->toArray();
+        // dd($distribusi);
+        $distributor = Distributor::whereIn('id', $distribusi)->get();
+        $view = [
+            'data' => view('main.distribusi.detail', compact('distributor'))->render()
+        ];
+
+        return response()->json($view);
+    }
+
+    public function listBuku($param)
+    {
+        $params = explode('id', str_replace('a', '-', $param));
+        // dd($param);
+        $distribusi = DistribusiBuku::where('distributor_id', str_replace('id', '', $params[1]))->where('tanggal_distribusi', $params['0'])->first();
+        // dd($distribusi);
+        $data_buku = json_decode($distribusi->data_buku, true);
+
+        foreach ($data_buku as $key => &$item) {
+            $kode_buku = $data_buku[$key]['kode_buku'];
+
+            $existing = Buku::whereJsonContains('data_buku->kode_buku', $kode_buku)->first();
+
+            $item['penulis'] = json_decode($existing->data_buku, true)['penulis'];
+            $item['judul'] = json_decode($existing->data_buku, true)['judul'];
+            $item['penerbit'] = json_decode($existing->data_buku, true)['penerbit'];
+            $item['harga'] = convertToRupiah(json_decode($existing->data_buku, true)['harga']);
+            $item['distribusi_id'] = $distribusi->id;
+        }
+
+        $view = [
+            'data' => view('main.distribusi.list-buku')->with([
+                'distribusi' => $data_buku,
+                'distributor' => $distribusi->distributor->nama_pt
+            ])->render()
+        ];
+
+        return response()->json($view);
+    }
+
 
 //     Distribusi Buku
 //  - id (pk)

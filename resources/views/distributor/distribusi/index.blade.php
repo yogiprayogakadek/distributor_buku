@@ -74,12 +74,12 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $distribusi->tanggal_distribusi }}</td>
                                     <td class="text-center">
-                                        <button class="btn btn-dark btn-view" data-id="{{ $distribusi->id }}">
+                                        <button class="btn btn-primary btn-view" data-id="{{ $distribusi->id }}">
                                             <i class="fa fa-eye"></i> Validasi Buku
                                         </button>
-                                        <button class="btn btn-primary btn-view-book" data-id="{{ $distribusi->id }}">
+                                        {{-- <button class="btn btn-primary btn-view-book" data-id="{{ $distribusi->id }}">
                                             <i class="fa fa-book"></i> List Buku
-                                        </button>
+                                        </button> --}}
                                     </td>
                                 </tr>
                             @endforeach

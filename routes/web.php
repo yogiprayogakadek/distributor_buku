@@ -79,7 +79,8 @@ Route::middleware(['auth', 'checkActiveUser'])->namespace('Main')->group(functio
             Route::get('', 'index')->name('index');
             Route::get('/render', 'render')->name('render');
             Route::get('/create', 'create')->name('create');
-            Route::get('/edit/{id}', 'edit')->name('edit');
+            Route::get('/detail/{id}', 'detail')->name('detail');
+            Route::get('/list-buku/{id}', 'listBuku')->name('list-buku');
             Route::post('/store', 'store')->name('store');
             Route::post('/update', 'update')->name('update');
             Route::get('/print', 'print')->name('print');

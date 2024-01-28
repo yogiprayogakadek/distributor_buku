@@ -12,10 +12,10 @@ class DistribusiBuku extends Model
     protected $table = 'distribusi_buku';
     protected $guarded = ['id'];
 
-    // public function user()
-    // {
-    //     return $this->hasOne(User::class, 'id', 'user_id');
-    // }
+    public function distributor()
+    {
+        return $this->belongsTo(Distributor::class, 'distributor_id', 'id');
+    }
 
     // public function transaksi()
     // {

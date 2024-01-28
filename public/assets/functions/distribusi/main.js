@@ -28,6 +28,7 @@ function tambah() {
 
 
 $(document).ready(function () {
+    localStorage.clear();
     getData();
 
 
@@ -99,11 +100,13 @@ $(document).ready(function () {
         });
     });
 
-    $("body").on("click", ".btn-edit", function () {
-        let id = $(this).data("id");
+    $("body").on("click", ".btn-detail", function () {
+        let date = $(this).data("date").replaceAll('-', 'a');
+        // let id = $(this).data("id");
+        localStorage.setItem('date', date)
         $.ajax({
             type: "get",
-            url: "/buku/edit/" + id,
+            url: "/distribusi/detail/" + date,
             dataType: "json",
             success: function (response) {
                 $(".render").html(response.data);

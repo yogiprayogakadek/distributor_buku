@@ -221,6 +221,9 @@
                             response.message,
                             response.status
                         );
+                        setTimeout(() => {
+                            location.reload();
+                        }, 1000);
                     },
                     error: function(error) {
                         //

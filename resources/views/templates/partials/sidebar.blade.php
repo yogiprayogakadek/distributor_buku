@@ -35,7 +35,7 @@
                 <li>
                     <a href="{{route('buku.index')}}" class="waves-effect {{Request::is('/buku') ? 'active' : '' }}">
                         <i class="bx bx-book-open"></i>
-                        <span key="t-book">Buku</span>
+                        <span key="t-book">Daftar Buku</span>
                     </a>
                 </li>
                 <li>
@@ -50,12 +50,12 @@
                         <span key="t-cart">Transaksi</span>
                     </a>
                 </li>
-                <li>
+                {{-- <li>
                     <a href="{{route('pembayaran.index')}}" class="waves-effect {{Request::is('/pembayaran') ? 'active' : '' }}">
                         <i class="bx bx-money"></i>
                         <span key="t-cart">Pembayaran</span>
                     </a>
-                </li>
+                </li> --}}
                 @endcannot
 
                 @can('distributor')
@@ -94,12 +94,12 @@
                     </a>
                 </li>
 
-                <li>
+                {{-- <li>
                     <a href="{{route('distributor.pembayaran.index')}}" class="waves-effect {{Request::is('/distributor/pembayaran') ? 'active' : '' }}">
                         <i class="bx bx-money"></i>
                         <span key="t-cart">Pembayaran</span>
                     </a>
-                </li>
+                </li> --}}
                 @endcan
             </ul>
         </div>

@@ -22,66 +22,15 @@ $(document).ready(function () {
         '<div class="invalid-feedback error-keterangan"></div>' +
         "</div>";
 
-    $("body").on("click", ".btn-edit", function () {
-        let status = $(this).data("status");
-        let keterangan = $(this).data("keterangan");
+    $("body").on("click", ".btn-pembayaran", function () {
+        let status = $(this).closest('tr').find('td.status-pembayaran').text()
         let id = $(this).data("id");
-        let status_pembayaran = $(this).data("pembayaran");
+        let buktiPembayaran = $(this).data('pembayaran');
 
         $("#modal").modal("show");
-        $(".status").val(status);
-        $(".id").val(id);
-        $(".btn-save").prop("disabled", true);
-
-        if (status == "Dibatalkan") {
-            $(".group-keterangan").append(fill);
-            $(".keterangan").val(keterangan);
-        }
-
-        if (status_pembayaran == "Ditolak") {
-            $(".modal-body")
-                .empty()
-                .append('<h4 class="text-center">Pembayaran Ditolak</h4>');
-            $(".modal-footer").remove();
-        } else if (status_pembayaran == "Menunggu Konfirmasi") {
-            $(".modal-body")
-                .empty()
-                .append(
-                    '<h4 class="text-center">Menunggu Validasi Pembayaran</h4>'
-                );
-            $(".modal-footer").remove();
-        }
-    });
-
-    $("body").on("change", ".status", function () {
-        let value = $("select[name=status] option").filter(":selected").val();
-
-        if (value == "Dibatalkan") {
-            $(".group-keterangan").append(fill);
-
-            // Invalid
-            $(".keterangan").addClass("is-invalid");
-            $(".error-keterangan").text("Keterangan tidak boleh kosong");
-            $(".btn-save").prop("disabled", true);
-        } else {
-            $(".group-keterangan").html("");
-            $(".btn-save").prop("disabled", false);
-        }
-    });
-
-    $("body").on("keyup", ".keterangan", function () {
-        let value = $(this).val();
-        if (value.length > 0) {
-            $(".keterangan").removeClass("is-invalid");
-            $(".error-keterangan").text("");
-
-            $(".btn-save").prop("disabled", false);
-        } else {
-            // Invalid
-            $(".keterangan").addClass("is-invalid");
-            $(".error-keterangan").text("Keterangan tidak boleh kosong");
-            $(".btn-save").prop("disabled", true);
-        }
+        $('#modal .status').val(status)
+        $('#modal .id').val(id)
+        $('#modal .bukti-pembayaran').html('<a href=' + assets(buktiPembayaran) + ' style="text-decoration: none; font-style: italic" target="_blank">Lihat bukti pembayaran</a>')
     });
 
     // on update button
@@ -91,7 +40,7 @@ $(document).ready(function () {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
             },
         });
-        let form = $("#formPesanan")[0];
+        let form = $("#formUpdatePembayaran")[0];
         let data = new FormData(form);
         $.ajax({
             type: "POST",

@@ -4,11 +4,17 @@
 @section('sub-title', 'Data')
 
 @section('content')
-<div class="row render">
-    {{--  --}}
-</div>
+    <div class="row render">
+        {{--  --}}
+    </div>
 @endsection
 
 @push('script')
-<script src="{{asset('assets/functions/transaksi/main.js')}}"></script>
+    <script>
+        function assets(url) {
+            var url = '{{ url('') }}/' + url;
+            return url;
+        }
+    </script>
+    <script src="{{ asset('assets/functions/transaksi/main.js') }}"></script>
 @endpush

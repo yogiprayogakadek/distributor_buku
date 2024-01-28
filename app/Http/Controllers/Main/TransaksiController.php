@@ -19,7 +19,7 @@ class TransaksiController extends Controller
 
     public function render()
     {
-        $transaksi = Transaksi::all();
+        $transaksi = Transaksi::with('distributor', 'buku', 'pembayaran')->get();
 
         $view = [
             'data' => view('main.transaksi.render', compact('transaksi'))->render()
@@ -32,21 +32,19 @@ class TransaksiController extends Controller
     {
         try {
             $transaksi = Transaksi::find($request->id);
-            $transaksi->update([
-                'status_pesanan' => $request->status,
-                'keterangan' => $request->keterangan,
-                'user_id' => auth()->user()->id
+            $transaksi->pembayaran->update([
+                'status_pembayaran' => $request->status,
             ]);
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Transaksi berhasil diubah',
+                'message' => 'Pembayaran berhasil diubah',
                 'title' => 'Berhasil',
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Transaksi gagal diubah',
+                'message' => 'Pembayaran gagal diubah',
                 'title' => 'Gagal',
             ]);
         }

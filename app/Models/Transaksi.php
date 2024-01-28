@@ -17,6 +17,11 @@ class Transaksi extends Model
         return $this->belongsTo(Distributor::class, 'distributor_id', 'id');
     }
 
+    public function buku()
+    {
+        return $this->hasOne(buku::class, 'id', 'buku_id');
+    }
+
     public function validator()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');

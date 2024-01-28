@@ -46,8 +46,8 @@ class DistribusiController extends Controller
                     'kode_buku' => $kode_buku,
                     'status' => false,
                     'total_buku' => $buku->stok_buku,
-                    'terjual' => 0,
-                    'kembali' => 0,
+                    'terjual' => null,
+                    'kembali' => null,
                     'kuantitas' => 10,
                     'updated_at' => null
                 ];

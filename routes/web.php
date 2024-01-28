@@ -172,6 +172,7 @@ Route::middleware(['auth', 'checkProfile:Distributor', 'checkRole:Distributor', 
                 Route::get('', 'index')->name('index');
                 Route::get('/render', 'render')->name('render');
                 Route::get('/detail/{id}', 'detail')->name('detail');
+                Route::post('/pembayaran', 'pembayaran')->name('pembayaran');
                 Route::get('/print', 'print')->name('print');
             });
 
@@ -193,6 +194,15 @@ Route::middleware(['auth', 'checkProfile:Distributor', 'checkRole:Distributor', 
                 Route::get('', 'index')->name('index');
                 Route::get('/find/{id}', 'find')->name('find');
                 Route::post('/validasi', 'validasi')->name('validasi');
+                Route::post('/transaksi-store', 'transaksiStore')->name('transaksi-store');
+            });
+
+        Route::controller(ListDistribusiController::class)
+            ->prefix('list-distribusi')
+            ->as('list-distribusi.')
+            ->middleware(['checkProfile:Distributor'])
+            ->group(function () {
+                Route::get('', 'index')->name('index');
             });
     });
 

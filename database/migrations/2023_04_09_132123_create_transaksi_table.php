@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('transaksi', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_pesanan', 100);
-            $table->date('tanggal_pesanan');
+            $table->string('kode_transaksi', 100);
+            $table->date('tanggal_transaksi');
             $table->foreignId('distributor_id')->references('id')->on('distributor')->onDelete('cascade');
-            $table->foreignId('user_id')->nullable()->comment('validator')->references('id')->on('users')->onDelete('cascade');
-            $table->enum('status_pesanan', ['Belum Bayar', 'Menunggu Konfirmasi', 'Dikemas', 'Dikirim', 'Diterima', 'Dibatalkan'])->default('Belum Bayar');
-            $table->text('keterangan')->comment('apabila transaksi gagal dalam pembayaran')->nullable();
-            $table->integer('total');
+            $table->foreignId('distribusi_buku_id')->references('id')->on('distribusi_buku')->onDelete('cascade');
+            $table->foreignId('buku_id')->references('id')->on('buku')->onDelete('cascade');
+            $table->integer('total_pengembalian');
+            $table->integer('total_pembayaran');
             $table->timestamps();
         });
     }

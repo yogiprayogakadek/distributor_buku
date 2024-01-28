@@ -80,6 +80,12 @@
                         <span key="t-cart">Distribusi Buku</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{route('distributor.list-distribusi.index')}}" class="waves-effect {{Request::is('/distributor/list-distribusi') ? 'active' : '' }}">
+                        <i class="bx bx-cart-alt"></i>
+                        <span key="t-cart">List Distribusi Buku</span>
+                    </a>
+                </li>
 
                 <li>
                     <a href="{{route('distributor.transaksi.index')}}" class="waves-effect {{Request::is('/distributor/transaksi') ? 'active' : '' }}">

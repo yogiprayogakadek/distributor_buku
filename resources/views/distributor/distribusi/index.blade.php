@@ -8,14 +8,14 @@
         <div class="col-12">
             <div class="modal fade" id="modalDistribusi" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                 aria-labelledby="staticBackdropLabel" style="display: none;" aria-hidden="true">
-                <div class="modal-dialog modal-fullscreen" role="document">
+                <div class="modal-dialog modal-xl" role="document">
                     <div class="modal-content">
                         <div class="modal-header bg-primary text-white bg-opacity-75">
                             <h5 class="modal-title" id="staticBackdropLabel">Detail Distribusi Buku</h5>
                             {{-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
                         </div>
                         <div class="modal-body">
-                            <table class="table table-stripped table-bordered table-responsi" id="tableDetail">
+                            <table class="table table-stripped table-bordered" id="tableDetail">
                                 <thead class="text-center">
                                     <tr>
                                         <th>No</th>
@@ -65,7 +65,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Tanggal Distribusi</th>
-                                <th></th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -73,9 +73,12 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $distribusi->tanggal_distribusi }}</td>
-                                    <td>
-                                        <button class="btn btn-success btn-view" data-id="{{ $distribusi->id }}">
-                                            <i class="fa fa-eye"></i>
+                                    <td class="text-center">
+                                        <button class="btn btn-dark btn-view" data-id="{{ $distribusi->id }}">
+                                            <i class="fa fa-eye"></i> Validasi Buku
+                                        </button>
+                                        <button class="btn btn-primary btn-view-book" data-id="{{ $distribusi->id }}">
+                                            <i class="fa fa-book"></i> List Buku
                                         </button>
                                     </td>
                                 </tr>
@@ -181,7 +184,7 @@
             $('#pagination').on('click', 'a', function(event) {
                 event.preventDefault();
                 currentPage = parseInt($(this).text());
-                
+
                 updateTable(currentPage);
                 updatePagination();
             });

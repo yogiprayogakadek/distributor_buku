@@ -15,6 +15,47 @@ class TransaksiController extends Controller
         return view('distributor.transaksi.index', compact('transaksi'));
     }
 
+    public function pembayaran(Request $request)
+    {
+        try {
+            $transaksi = Transaksi::find($request->transaksi_id);
+
+            $data = [
+                'jenis_pembayaran' => $request->jenis_pembayaran,
+                'status_pembayaran' => 'Menunggu Konfirmasi'
+            ];
+
+            if ($request->hasFile('bukti_pembayaran')) {
+                $extension = $request->file('bukti_pembayaran')->getClientOriginalExtension();
+                $filenamestore = $transaksi->kode_transaksi . '.' . $extension;
+                $save_path = 'assets/uploads/pembayaran';
+
+                if (!file_exists($save_path)) {
+                    mkdir($save_path, 666, true);
+                }
+
+                $request->file('bukti_pembayaran')->move($save_path, $filenamestore);
+
+                $data['bukti_pembayaran'] = $save_path . '/' . $filenamestore;
+            }
+
+            $transaksi->pembayaran->update($data);
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Pembayaran berhasil diproses',
+                'title' => 'Berhasil'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage(),
+                // 'message' => 'Terjadi kesalahan',
+                'title' => 'Gagal'
+            ]);
+        }
+    }
+
     public function detail($id)
     {
         $data = DB::table('detail_transaksi')

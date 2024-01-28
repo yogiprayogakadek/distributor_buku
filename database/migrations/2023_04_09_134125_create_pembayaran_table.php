@@ -14,12 +14,11 @@ return new class extends Migration
         Schema::create('pembayaran', function (Blueprint $table) {
             $table->id();
             $table->foreignId('transaksi_id')->references('id')->on('transaksi')->onDelete('cascade');
-            $table->foreignId('user_id')->nullable()->comment('validator')->references('id')->on('users')->onDelete('cascade');
             $table->date('tanggal_pembayaran');
-            $table->enum('jenis_pembayaran', ['Tunai', 'Transfer']);
+            $table->integer('total_pembayaran');
+            $table->enum('jenis_pembayaran', ['Tunai', 'Transfer'])->nullable();
             $table->string('bukti_pembayaran', 100)->nullable();
-            $table->enum('status_pembayaran', ['Menunggu Konfirmasi', 'Diterima', 'Ditolak'])->default('Menunggu Konfirmasi');
-            $table->text('keterangan')->comment('apabila pembyaran gagal')->nullable();
+            $table->enum('status_pembayaran', ['Belum dibayar', 'Menunggu Konfirmasi', 'Diterima'])->default('Belum dibayar');
             $table->timestamps();
         });
     }

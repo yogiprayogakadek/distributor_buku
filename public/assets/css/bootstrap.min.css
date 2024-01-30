@@ -31,6 +31,7 @@
     --bs-primary: #556ee6;
     --bs-secondary: #74788d;
     --bs-success: #34c38f;
+    --bs-success-smooth: #71e7bc;
     --bs-info: #50a5f1;
     --bs-warning: #f1b44c;
     --bs-danger: #f46a6a;
@@ -13142,5 +13143,8 @@ button {
     0% {
         width: 0;
     }
+}
+.row-color {
+    background-color: var(--bs-success-smooth);
 }
 /*# sourceMappingURL=bootstrap.min.css.map */

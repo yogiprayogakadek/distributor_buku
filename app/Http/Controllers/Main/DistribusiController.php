@@ -40,34 +40,77 @@ class DistribusiController extends Controller
     public function store(Request $request)
     {
         try {
-            $data_buku = [];
-            foreach($request->kode_buku as $kode_buku) {
-                $buku = Buku::whereJsonContains('data_buku->kode_buku', $kode_buku)->first();
-                $data_buku[] = [
-                    'kode_buku' => $kode_buku,
-                    'status' => false,
-                    'total_buku' => $buku->stok_buku,
-                    'terjual' => null,
-                    'kembali' => null,
-                    'kuantitas' => 10,
-                    'updated_at' => null
-                ];
-            }
+            // $data_buku = [];
+            // foreach ($request->kode_buku as $kode_buku) {
+            //     $buku = Buku::whereJsonContains('data_buku->kode_buku', $kode_buku)->first();
+            //     $data_buku[] = [
+            //         'kode_buku' => $kode_buku,
+            //         'status' => false,
+            //         'total_buku' => $buku->stok_buku,
+            //         'terjual' => null,
+            //         'kembali' => null,
+            //         'kuantitas' => 10,
+            //         'updated_at' => null
+            //     ];
+            // }
 
+            // $distributor = Distributor::all();
+            // foreach ($distributor as $key => $item) {
             //     DistribusiBuku::create([
             //         'distributor_id' => $item->id,
             //         'data_buku' => json_encode($data_buku),
             //         'tanggal_distribusi' => date('Y-m-d')
             //     ]);
+            // }
 
-            $distributor = Distributor::all();
-            foreach($distributor as $key => $item) {
+
+            // NEW
+            $data_buku = [];
+            $originalArray = json_decode($request->data_buku, true);
+            $finalArray = collect($originalArray)->flatMap(function ($item) {
+                return collect($item['data'])->map(function ($data) use ($item) {
+                    return [
+                        'distributorId' => $data['distributorId'],
+                        'data_buku' => [
+                            'kodeBuku' => $item['kodeBuku'],
+                            'jumlah' => $data['jumlah'],
+                        ],
+                    ];
+                });
+            })->groupBy('distributorId')->map(function ($items, $distributorId) {
+                return [
+                    'distributorId' => $distributorId,
+                    'data_buku' => collect($items)->map(function ($item) {
+                        return [
+                            'kodeBuku' => $item['data_buku']['kodeBuku'],
+                            'jumlah' => $item['data_buku']['jumlah'],
+                        ];
+                    })->all(),
+                ];
+            })->values()->all();
+
+
+            foreach ($finalArray as $index => $distributorData) {
+                foreach ($distributorData['data_buku'] as $key => $value) {
+                    $buku = Buku::whereJsonContains('data_buku->kode_buku', $value['kodeBuku'])->first();
+                    $data_buku[] = [
+                        'kode_buku' => $value['kodeBuku'],
+                        'status' => false,
+                        'total_buku' => $buku->stok_buku,
+                        'terjual' => null,
+                        'kembali' => null,
+                        'kuantitas' => $value['jumlah'],
+                        'updated_at' => null
+                    ];
+                }
                 DistribusiBuku::create([
-                    'distributor_id' => $item->id,
+                    'distributor_id' => $distributorData['distributorId'],
                     'data_buku' => json_encode($data_buku),
                     'tanggal_distribusi' => date('Y-m-d')
                 ]);
             }
+            // dd($data_buku);
+
 
 
             return response()->json([
@@ -136,11 +179,11 @@ class DistribusiController extends Controller
     }
 
 
-//     Distribusi Buku
-//  - id (pk)
-//  - distributor_id (fk)
-//  - data_buku (json) => id_buku, status, total_buku, terjual, kembali
-//  - tanggal_distribusi (date)
+    //     Distribusi Buku
+    //  - id (pk)
+    //  - distributor_id (fk)
+    //  - data_buku (json) => id_buku, status, total_buku, terjual, kembali
+    //  - tanggal_distribusi (date)
 
 
 }

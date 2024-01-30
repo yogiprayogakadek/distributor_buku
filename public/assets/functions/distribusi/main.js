@@ -33,10 +33,12 @@ $(document).ready(function () {
 
 
     $("body").on("click", ".btn-add", function () {
+        $('body').find('.btn-save').prop('disabled', true);
         tambah();
     });
 
     $("body").on("click", ".btn-data", function () {
+        localStorage.clear()
         getData();
     });
 
@@ -47,15 +49,18 @@ $(document).ready(function () {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
             },
         });
-        let form = $("#formAdd")[0];
-        let data = new FormData(form);
+        // let form = $("#formAdd")[0];
+        // let data = new FormData(form);
         $.ajax({
             type: "POST",
             url: "/distribusi/store",
-            data: data,
-            processData: false,
-            contentType: false,
-            cache: false,
+            data: {
+                'data_buku': localStorage.getItem('listDistributor'),
+            },
+            // data: data,
+            // processData: false,
+            // contentType: false,
+            // cache: false,
             beforeSend: function () {
                 $(".btn-save").attr("disable", "disabled");
                 $(".btn-save").html('<i class="fa fa-spin fa-spinner"></i>');
@@ -67,35 +72,11 @@ $(document).ready(function () {
             success: function (response) {
                 $("#formAdd").trigger("reset");
                 $(".invalid-feedback").html("");
-                getData();
+                // getData();
                 Swal.fire(response.title, response.message, response.status);
             },
             error: function (error) {
-                let formName = [];
-                let errorName = [];
-
-                // $.each($("#formAdd").serializeArray(), function (i, field) {
-                //     formName.push(field.name.replace(/\[|\]/g, ""));
-                // });
-                // if (error.status == 422) {
-                //     if (error.responseJSON.errors) {
-                //         $.each(
-                //             error.responseJSON.errors,
-                //             function (key, value) {
-                //                 errorName.push(key);
-                //                 if ($("." + key).val() == "") {
-                //                     $("." + key).addClass("is-invalid");
-                //                     $(".error-" + key).html(value);
-                //                 }
-                //             }
-                //         );
-                //         $.each(formName, function (i, field) {
-                //             $.inArray(field, errorName) == -1 ?
-                //                 $("." + field).removeClass("is-invalid") :
-                //                 $("." + field).addClass("is-invalid");
-                //         });
-                //     }
-                // }
+                //
             },
         });
     });

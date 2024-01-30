@@ -31,10 +31,21 @@ class TransaksiController extends Controller
     public function update(Request $request)
     {
         try {
+            DB::beginTransaction();
             $transaksi = Transaksi::find($request->id);
+            $buku = Buku::find($transaksi->buku_id);
+
             $transaksi->pembayaran->update([
                 'status_pembayaran' => $request->status,
             ]);
+
+            if($request->status == 'Diterima') {
+                $buku->update([
+                    'stok_buku' => $buku->stok_buku - ($transaksi->total_pembayaran / (int)json_decode($buku->data_buku, true)['harga'])
+                ]);
+            }
+
+            DB::commit();
 
             return response()->json([
                 'status' => 'success',
@@ -42,6 +53,7 @@ class TransaksiController extends Controller
                 'title' => 'Berhasil',
             ]);
         } catch (\Exception $e) {
+            DB::rollBack();
             return response()->json([
                 'status' => 'error',
                 'message' => 'Pembayaran gagal diubah',

@@ -22,7 +22,7 @@
                     </div>
                     <div class="col-9 text-stok-buku"></div>
                     <div class="col-2 mb-2">
-                        <button class="btn btn-light broadcast-button float-end" id="broadcastButton">
+                        <button class="btn btn-outline-primary broadcast-button float-end" id="broadcastButton">
                             <i class="fas fa-broadcast-tower"></i> Distribusi Rata
                         </button>
                     </div>
@@ -61,10 +61,14 @@
             </div>
         </div>
     </div>
+    <div class="card-body need-complete" hidden>
+        <div class="col-12 bg-danger text-white p-3">
+            <h4 class="text-center text-italic">Mohon isikan semua buku pada setiap distributor / kolom yang tidak berwarna hijau</h4>
+        </div>
+    </div>
     <div class="card-body">
         <form id="formAdd">
             <div class="row">
-
                 {{-- @foreach ($buku as $buku)
                 <div class="col-3">
                     <div class="form-check">
@@ -77,7 +81,7 @@
                 @endforeach --}}
 
                 <div class="col-12">
-                    <table class="table table-stripped table-bordered">
+                    <table class="table table-stripped table-bordered" id="tableBuku">
                         <thead>
                             <tr>
                                 <th class="text-center"><input type="checkbox" class="check-all"></th>
@@ -95,7 +99,7 @@
                                             id="kodeBuku"></td>
                                     <td class="kode-buku">{{ json_decode($buku->data_buku, true)['kode_buku'] }}</td>
                                     <td class="judul-buku">{{ json_decode($buku->data_buku, true)['judul'] }}</td>
-                                    <td>
+                                    <td class="text-center">
                                         <button type="button"
                                             class="btn btn-outline-light btn-primary btn-list-distributor" disabled
                                             data-stok="{{ $buku->stok_buku }}">
@@ -111,13 +115,14 @@
         </form>
     </div>
     <div class="card-footer text-end">
-        <button class="btn btn-info btn-save pull-right" type="button">
+        <button class="btn btn-info btn-save pull-right" type="button" disabled>
             <i class="fa fa-save"></i> Simpan
         </button>
     </div>
 </div>
 
 <script>
+
     $('.check-all').on('click', function() {
         if (this.checked) {
             $('.form-check-input').each(function() {
@@ -129,6 +134,14 @@
                 this.checked = false;
                 $(this).closest('tr').find('.btn-list-distributor').prop('disabled', true)
             });
+        }
+
+        if($('body').find('.row-color').length == $('body').find('.form-check-input:checked').length) {
+            $('body').find('.btn-save').prop('disabled', false)
+            $('body').find('.need-complete').prop('hidden', true)
+        } else {
+            $('body').find('.btn-save').prop('disabled', true)
+            $('body').find('.need-complete').prop('hidden', false)
         }
     });
 
@@ -143,6 +156,14 @@
             $(this).closest('tr').find('.btn-list-distributor').prop('disabled', false)
         } else {
             $(this).closest('tr').find('.btn-list-distributor').prop('disabled', true)
+        }
+
+        if($('body').find('.row-color').length == $('body').find('.form-check-input:checked').length) {
+            $('body').find('.btn-save').prop('disabled', false)
+            $('body').find('.need-complete').prop('hidden', true)
+        } else {
+            $('body').find('.btn-save').prop('disabled', true)
+            $('body').find('.need-complete').prop('hidden', false)
         }
     });
 
@@ -188,7 +209,7 @@
     $('body').on('click', '.btn-list-distributor', function() {
         $('#modalDistributor').modal('show');
         $('.check-all-distributor').prop('checked', false);
-        $('.btn-save-list').prop('disabled',  true);
+        $('.btn-save-list').prop('disabled', true);
 
         let stokBuku = $(this).data('stok');
         let judulBuku = $(this).closest('tr').find('td.judul-buku').text();
@@ -350,8 +371,14 @@
         });
     }
 
+    // Call the function when the button with id "btn-save-list" is clicked
+    $('#btn-save-list').on('click', function() {
+        highlightRowsBasedOnLocalStorage();
+    });
+
+
     $('#broadcastButton').on('click', function() {
-        if($('.check-all-distributor').prop('checked') == false) {
+        if ($('.check-all-distributor').prop('checked') == false) {
             $('.check-all-distributor').click()
         }
         distributeEvenly();
@@ -363,13 +390,13 @@
         if (this.checked) {
             $('.check-distributor').each(function() {
                 this.checked = true;
-                $('.btn-save-list').prop('disabled',  false);
+                $('.btn-save-list').prop('disabled', false);
                 $(this).closest('tr').find('.jumlah').prop('disabled', false)
             });
         } else {
             $('.check-distributor').each(function() {
                 this.checked = false;
-                $('.btn-save-list').prop('disabled',  true);
+                $('.btn-save-list').prop('disabled', true);
                 $(this).closest('tr').find('.jumlah').prop('disabled', true)
             });
         }
@@ -377,7 +404,7 @@
 
     $('body').on('click', '.check-distributor', function() {
         if ($('.check-distributor:checked').length == $('.check-distributor').length) {
-            $('.btn-save-list').prop('disabled',  false);
+            $('.btn-save-list').prop('disabled', false);
         } else {
             $('.check-all-distributor').prop('checked', false);
         }
@@ -388,12 +415,33 @@
             $(this).closest('tr').find('.jumlah').prop('disabled', true)
         }
 
-        if($('.check-distributor:checked').length > 0) {
-            $('.btn-save-list').prop('disabled',  false);
+        if ($('.check-distributor:checked').length > 0) {
+            $('.btn-save-list').prop('disabled', false);
         } else {
-            $('.btn-save-list').prop('disabled',  true);
+            $('.btn-save-list').prop('disabled', true);
         }
     });
+
+    // New Highlight
+    function highlightRowsBasedOnLocalStorage() {
+        // Retrieve the localStorage data
+        let localStorageData = JSON.parse(localStorage.getItem('listDistributor'));
+
+        // Iterate through each table row
+        $('#tableBuku tbody tr').each(function(index, row) {
+            // Get the kodeBuku for the current row
+            let kodeBuku = $(row).find('.kode-buku').text().trim();
+
+            // Find the corresponding data in localStorage
+            let localStorageItem = localStorageData.find(item => item.kodeBuku === kodeBuku);
+
+            // If a match is found, change the row color
+            if (localStorageItem) {
+                $(row).addClass('row-color');
+            }
+        });
+    }
+    // end
 
     $('body').on('click', '.btn-save-list', function() {
         let kodeBuku = localStorage.getItem('kodeBuku');
@@ -445,6 +493,17 @@
 
         // Update the listDistributor in localStorage
         localStorage.setItem('listDistributor', JSON.stringify(dataArray));
+        highlightRowsBasedOnLocalStorage();
+
+        // enable save button
+        if($('body').find('.row-color').length == $('body').find('.form-check-input:checked').length) {
+            $('body').find('.btn-save').prop('disabled', false)
+            $('body').find('.need-complete').prop('hidden', true)
+        } else {
+            $('body').find('.btn-save').prop('disabled', true)
+            $('body').find('.need-complete').prop('hidden', false)
+        }
+
         $('#modalDistributor').modal('hide');
         Swal.fire('Info', 'Simpan sementara', 'success');
     });

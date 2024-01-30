@@ -33,24 +33,24 @@
                         id="tableData">
                         <tr>
                             <th>No</th>
-                            <th>Kode Pesanan</th>
+                            <th>Kode Transaksi</th>
                             <th>Distributor</th>
-                            <th>Tanggal Pesanan</th>
+                            <th>Tanggal Transaksi</th>
                             <th>Status Pesanaan</th>
                             <th>Total</th>
-                            <th>Keterangan</th>
-                            <th>Validator</th>
+                            {{-- <th>Keterangan</th>
+                            <th>Validator</th> --}}
                         </tr>
                         @foreach ($transaksi as $transaksi)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $transaksi->kode_pesanan }}</td>
-                                <td>{{ $transaksi->distributor->user->nama }}</td>
-                                <td>{{ $transaksi->tanggal_pesanan }}</td>
-                                <td>{!! '<span class="badge bg-info">' . $transaksi->status_pesanan . '</span>' !!}</td>
-                                <td>{{ convertToRupiah($transaksi->total) }}</td>
-                                <td>{{ $transaksi->keterangan ?? '-' }}</td>
-                                <td>{{ $transaksi->validator->nama ?? '-' }}</td>
+                                <td>{{ $transaksi->kode_transaksi }}</td>
+                                <td>{{ $transaksi->distributor->nama_pt }}</td>
+                                <td>{{ $transaksi->tanggal_transaksi }}</td>
+                                <td>{!! '<span class="badge bg-info">' . $transaksi->pembayaran->status_pembayaran . '</span>' !!}</td>
+                                <td>{{ convertToRupiah($transaksi->total_pembayaran) }}</td>
+                                {{-- <td>{{ $transaksi->keterangan ?? '-' }}</td>
+                                <td>{{ $transaksi->validator->nama ?? '-' }}</td> --}}
                             </tr>
                         @endforeach
                     </table>

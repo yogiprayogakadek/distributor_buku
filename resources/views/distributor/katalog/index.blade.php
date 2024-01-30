@@ -161,16 +161,16 @@
             @forelse ($buku as $item)
             <div class="col-xl-4 col-sm-6">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body btn-detail pointer" data-buku="{{$item->data_buku}}" data-id="{{$item->id}}">
                         <div class="product-img position-relative">
                             <div class="image-container">
                                 <img src="{{asset(json_decode($item->data_buku, true)['foto'])}}" alt="" class="img-fluid mx-auto d-block">
                                 {{-- <button class="middle-button btn-keranjang" data-id="{{$item->id}}">
                                     <i class="bx bxs-cart-alt"></i> Tambahkan
                                 </button> --}}
-                                <button class="middle-button btn-detail mt-5" data-buku="{{$item->data_buku}}" data-id="{{$item->id}}" style="background-color: rgb(0,0,128, 0.8) !important;">
+                                {{-- <button class="middle-button btn-detail mt-5" data-buku="{{$item->data_buku}}" data-id="{{$item->id}}" style="background-color: rgb(0,0,128, 0.8) !important;">
                                     <i class="fa fa-eye"></i> Detail
-                                </button>
+                                </button> --}}
                             </div>
                         </div>
                         <div class="mt-4 text-center">

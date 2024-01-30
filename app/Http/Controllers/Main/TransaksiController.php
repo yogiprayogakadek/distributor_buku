@@ -76,7 +76,7 @@ class TransaksiController extends Controller
 
     public function print()
     {
-        $transaksi = Transaksi::all();
+        $transaksi = Transaksi::with('distributor', 'pembayaran')->get();
 
         $view = [
             'data' => view('main.transaksi.print', compact('transaksi'))->render()

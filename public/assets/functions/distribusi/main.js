@@ -72,8 +72,8 @@ $(document).ready(function () {
             success: function (response) {
                 $("#formAdd").trigger("reset");
                 $(".invalid-feedback").html("");
-                // getData();
                 Swal.fire(response.title, response.message, response.status);
+                getData();
             },
             error: function (error) {
                 //

@@ -13147,4 +13147,8 @@ button {
 .row-color {
     background-color: var(--bs-success-smooth);
 }
+
+.pointer {
+    cursor: pointer;
+}
 /*# sourceMappingURL=bootstrap.min.css.map */

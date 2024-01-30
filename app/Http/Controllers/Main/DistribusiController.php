@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Buku;
 use App\Models\DistribusiBuku;
 use App\Models\Distributor;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DistribusiController extends Controller
@@ -125,6 +126,13 @@ class DistribusiController extends Controller
         ];
 
         return response()->json($view);
+    }
+
+    public function listDistributor()
+    {
+        $distributor = User::with('distributor')->where('is_active', true)->where('role', 'Distributor')->get();
+
+        return response()->json($distributor);
     }
 
 

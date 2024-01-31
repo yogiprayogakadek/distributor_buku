@@ -178,6 +178,22 @@ class DistribusiController extends Controller
         return response()->json($distributor);
     }
 
+    public function print()
+    {
+        $distribusi = DistribusiBuku::all();
+        $kodeBukuValues = collect($distribusi->flatMap(function ($item) {
+            return collect(json_decode($item->data_buku, true))->pluck('kode_buku');
+        }))->unique()->values();
+
+        $relatedBuku = Buku::whereIn('data_buku->kode_buku', $kodeBukuValues)->get();
+        // dd($relatedBuku);
+        $view = [
+            'data' => view('main.distribusi.print', compact('distribusi', 'relatedBuku'))->render()
+        ];
+
+        return response()->json($view);
+    }
+
 
     //     Distribusi Buku
     //  - id (pk)

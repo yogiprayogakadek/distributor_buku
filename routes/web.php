@@ -74,7 +74,7 @@ Route::middleware(['auth', 'checkActiveUser'])->namespace('Main')->group(functio
     Route::controller(DistribusiController::class)
         ->prefix('distribusi')
         ->as('distribusi.')
-        ->middleware('checkRole:Admin')
+        ->middleware('checkRole:Admin,Direktur')
         ->group(function () {
             Route::get('', 'index')->name('index');
             Route::get('/render', 'render')->name('render');

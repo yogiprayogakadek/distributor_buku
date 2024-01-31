@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Main;
 use App\Http\Controllers\Controller;
 use App\Models\Buku;
 use App\Models\DistribusiBuku;
+use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -48,7 +49,7 @@ class DashboardController extends Controller
     {
         if ($request->kategori == 'Kategori') {
             // $sum = 'kategori.nama as nama_kategori, SUM(detail_transaksi.kuantitas) as jumlah_transaksi';
-            $distribusi = DistribusiBuku::all();
+            $distribusi = DistribusiBuku::whereBetween('tanggal_distribusi', [$request->awal, $request->akhir])->get();
             $total = [];
 
             foreach ($distribusi as $distribusi) {
@@ -77,8 +78,29 @@ class DashboardController extends Controller
 
             $totalValues = array_values($total);
         } else {
-            // $sum = 'kategori.nama as nama_kategori, SUM(transaksi.total) as jumlah_transaksi';
+            $transaksi = Transaksi::whereBetween('tanggal_transaksi', [$request->awal, $request->akhir])->with('pembayaran')->get();
+            $total = [];
+
+            foreach($transaksi as $transaksi) {
+                $buku = Buku::find($transaksi->buku_id);
+
+                if($transaksi->pembayaran->status_pembayaran == 'Diterima') {
+                    $total_transaksi = $transaksi->total_pembayaran ?? 0;
+                    if (!isset($total[$buku->kategori->nama])) {
+                        $total[$buku->kategori->nama] = [
+                            // 'kode_buku' => $kodeBuku,
+                            'kategori' => $buku->kategori->nama,
+                            'total' => 0,
+                        ];
+                    }
+
+                    $total[$buku->kategori->nama]['total'] += $total_transaksi;
+                }
+            }
+            $totalValues = array_values($total);
         }
+
+        // dd($totalValues);
 
         // $data = DB::table('detail_transaksi')
         //     ->selectRaw($sum)

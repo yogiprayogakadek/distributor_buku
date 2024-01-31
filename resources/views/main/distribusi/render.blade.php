@@ -24,9 +24,9 @@
                 <tr>
                     <th>No</th>
                     <th>Tanggal Distribusi</th>
-                    @can('admin')
+                    {{-- @can('admin') --}}
                     <th>Aksi</th>
-                    @endcan
+                    {{-- @endcan --}}
                 </tr>
             </thead>
             <tbody>
@@ -34,13 +34,13 @@
                 <tr>
                     <td>{{$loop->iteration}}</td>
                     <td>{{$distribusi->tanggal_distribusi}}</td>
-                    @can('admin')
+                    {{-- @can('admin') --}}
                     <td>
                         <button class="btn btn-primary btn-detail" data-id="{{$distribusi->id}}" data-date="{{$distribusi->tanggal_distribusi}}">
                             <i class="fa fa-eye"></i>
                         </button>
                     </td>
-                    @endcan
+                    {{-- @endcan --}}
                 </tr>
                 @endforeach
             </tbody>

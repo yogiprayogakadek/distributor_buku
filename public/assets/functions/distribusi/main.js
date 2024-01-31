@@ -177,10 +177,14 @@ $(document).ready(function () {
                     popClose: close,
                     popTitle: "LaporanDataBuku",
                     popOrient: "landscape",
+                    popSize: {
+                        width: 210,
+                        height: 297
+                    },
                 };
                 $.ajax({
                     type: "GET",
-                    url: "/buku/print/",
+                    url: "/distribusi/print/",
                     dataType: "json",
                     success: function (response) {
                         document.title =

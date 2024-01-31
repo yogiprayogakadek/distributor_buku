@@ -37,13 +37,13 @@
                         <div class="card-title">Data Distribusi Buku</div>
                     </div>
                     <div class="col-6 text-end">
-                        @can('admin')
+                        {{-- @can('admin') --}}
                             <div class="card-options">
                                 <button class="btn btn-primary btn-data" style="margin-left: 2px">
                                     <i class="bx bx-arrow-back"></i> Data
                                 </button>
                             </div>
-                        @endcan
+                        {{-- @endcan --}}
                     </div>
                 </div>
             </div>

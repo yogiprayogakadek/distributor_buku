@@ -33,26 +33,36 @@
                         id="tableData">
                         <tr>
                             <th>No</th>
-                            <th>Kode Pesanan</th>
-                            {{-- <th>Distributor</th> --}}
-                            <th>Tanggal Pesanan</th>
+                            <th>Kode Transaksi</th>
+                            <th>Distributor</th>
+                            <th>Tanggal Transaksi</th>
                             <th>Status Pesanaan</th>
                             <th>Total</th>
-                            <th>Keterangan</th>
-                            <th>Validator</th>
                         </tr>
+                        @php
+                            $total = 0;
+                        @endphp
                         @foreach ($transaksi as $transaksi)
+                            @php
+                                $total +=  $transaksi->total_pembayaran;
+                            @endphp
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $transaksi->kode_pesanan }}</td>
-                                {{-- <td>{{ $transaksi->distributor->user->nama }}</td> --}}
-                                <td>{{ $transaksi->tanggal_pesanan }}</td>
-                                <td>{!! '<span class="badge bg-info">' . $transaksi->status_pesanan . '</span>' !!}</td>
-                                <td>{{ convertToRupiah($transaksi->total) }}</td>
-                                <td>{{ $transaksi->keterangan ?? '-' }}</td>
-                                <td>{{ $transaksi->validator->nama ?? '-' }}</td>
+                                <td>{{ $transaksi->kode_transaksi }}</td>
+                                <td>{{ $transaksi->distributor->nama_pt }}</td>
+                                <td>{{ date_format(date_create($transaksi->tanggal_transaksi), 'd-m-Y') }}</td>
+                                <td>{!! '<span class="badge bg-info">' . $transaksi->pembayaran->status_pembayaran . '</span>' !!}</td>
+                                <td class="text-end">{{ convertToRupiah($transaksi->total_pembayaran) }}</td>
+                                {{-- <td>{{ $transaksi->keterangan ?? '-' }}</td>
+                                <td>{{ $transaksi->validator->nama ?? '-' }}</td> --}}
                             </tr>
                         @endforeach
+                        <tr>
+                            <td colspan="5" class="text-center">Total Keseluruhan</td>
+                            <td class="text-end">
+                                <strong><i>{{convertToRupiah($total)}}</i></strong>
+                            </td>
+                        </tr>
                     </table>
                 </div>
             </div>

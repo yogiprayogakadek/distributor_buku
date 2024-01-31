@@ -1,12 +1,12 @@
 <div class="modal fade" id="modalListBuku" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="staticBackdropLabel" style="display: none;" aria-hidden="true">
-            <div class="modal-dialog modal-xl" role="document">
-                <div class="modal-content">
-                    {{-- <div class="modal-header bg-primary text-white bg-opacity-75">
+    aria-labelledby="staticBackdropLabel" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            {{-- <div class="modal-header bg-primary text-white bg-opacity-75">
                         <h5 class="modal-title" id="staticBackdropLabel">List Buku</h5>
                     </div> --}}
-                    <div class="modal-body">
-                        {{-- <table class="table table-stripped table-bordered" id="tableListBuku">
+            <div class="modal-body">
+                {{-- <table class="table table-stripped table-bordered" id="tableListBuku">
                             <thead class="text-center">
                                 <tr>
                                     <th>No</th>
@@ -21,13 +21,13 @@
                             </thead>
                             <tbody></tbody>
                         </table> --}}
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Keluar</button>
-                    </div>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Keluar</button>
             </div>
         </div>
+    </div>
+</div>
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -38,11 +38,11 @@
                     </div>
                     <div class="col-6 text-end">
                         {{-- @can('admin') --}}
-                            <div class="card-options">
-                                <button class="btn btn-primary btn-data" style="margin-left: 2px">
-                                    <i class="bx bx-arrow-back"></i> Data
-                                </button>
-                            </div>
+                        <div class="card-options">
+                            <button class="btn btn-primary btn-data" style="margin-left: 2px">
+                                <i class="bx bx-arrow-back"></i> Data
+                            </button>
+                        </div>
                         {{-- @endcan --}}
                     </div>
                 </div>

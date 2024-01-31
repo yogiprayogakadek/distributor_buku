@@ -94,8 +94,8 @@
                                     <td>{{json_decode($relatedBukuDetail->data_buku, true)['penerbit']}}</td>
                                     <td>{{convertToRupiah(json_decode($relatedBukuDetail->data_buku, true)['harga'])}}</td>
                                     <td>{{$detail['kuantitas']}} eksemplar</td>
-                                    <td>{{ ($detail['updated_at'] == null ? 'Belum di terima' : ($detail['status'] == true ? 'Diterima (' . $detail['updated_at'] .')' : 'Dibatalkan') ) }}</td>
-                                    {{-- <td>{{$detail['status'] == true ? 'Diterima' : 'Ditolak'}}</td> --}}
+                                    {{-- <td>{{ ($detail['updated_at'] == null ? 'Belum di terima' : ($detail['status'] == true ? 'Diterima (' . $detail['updated_at'] .')' : 'Dibatalkan') ) }}</td> --}}
+                                    <td>{{ ($detail['updated_at'] == null ? 'Belum di terima' : ($detail['status'] == true ? 'Diterima (' . date_format(date_create($detail['updated_at']), 'd-m-Y H:i:s') .')' : 'Dibatalkan') ) }}</td>
                                 </tr>
                             @endforeach
                         @endforeach

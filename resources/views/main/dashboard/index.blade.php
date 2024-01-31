@@ -35,6 +35,9 @@
                             <select class="form-control" id="kategori" name="kategori">
                                 <option value="Kategori">Kategori</option>
                                 <option value="Transaksi">Transaksi</option>
+                                @can('Direktur')
+                                <option value="Distributor">Distributor</option>
+                                @endcan
                             </select>
                         </div>
                     </div>
@@ -112,15 +115,15 @@
                             }
                         });
 
-                        let footer = '<span>Pada bulan ini total penjualan sebanyak <strong>' +
-                            totalPenjualan +
-                            '</strong> dengan penjualan terbanyak dari kategori <strong>' +
-                            kategoriTerpopuler + '</strong> dengan total sebanyak <strong>' +
-                            penjualanTerbanyak +
-                            '</strong>. Sementara untuk penjualan terendah pada bulan ini yaitu buku dengan kategori <strong>' +
+                        let footer = '<span>Pada bulan ini total penjualan sebanyak <strong><i>' +
+                            (kategori != 'Transaksi' ? totalPenjualan : 'Rp. ' + totalPenjualan.toLocaleString('id-ID')) +
+                            '</i></strong> dengan penjualan terbanyak dari kategori <strong><i>' +
+                            kategoriTerpopuler + '</i></strong> dengan total sebanyak <strong><i>' +
+                                (kategori != 'Transaksi' ? penjualanTerbanyak : 'Rp. ' + penjualanTerbanyak.toLocaleString('id-ID')) +
+                            '</i></strong>. Sementara untuk penjualan terendah pada bulan ini yaitu buku dengan kategori <strong><i>' +
                             kategoriKurangPopuler +
-                            '</strong> dengan penjualan sebanyak <strong>' + penjualanTerendah +
-                            '<strong></span>';
+                            '</i></strong> dengan penjualan sebanyak <strong><i>' + (kategori != 'Transaksi' ? penjualanTerendah : 'Rp. ' + penjualanTerendah.toLocaleString('id-ID')) +
+                            '</i><strong></span>';
                         $('.card-footer').append(footer)
 
                         // Initialize the echarts instance based on the prepared dom
@@ -129,7 +132,7 @@
                         // Specify the configuration items and data for the chart
                         var option = {
                             title: {
-                                text: (kategori == 'Kategori' ? 'Penjualan Buku' : 'Transaksi Buku'),
+                                text: (kategori == 'Kategori' ? 'Penjualan Buku' : (kategori == 'Transaksi' ? 'Transaksi Buku' : 'Distributor')),
                                 subtext: 'Berdasarkan kategori',
                                 left: 'center'
                             },
@@ -165,7 +168,8 @@
             }
 
             // initial first chart
-            chartByKategori($('#awal').val(), $('#akhir').val(), 'Kategori')
+            let userLevel = "{{auth()->user()->role == 'Direktur' ? 'Distributor' : 'Kategori'}}"
+            chartByKategori($('#awal').val(), $('#akhir').val(), userLevel)
 
             $('body').on('click', '.btn-search', function() {
                 chartByKategori($('#awal').val(), $('#akhir').val(), $('select[name=kategori] option').filter(':selected').val())

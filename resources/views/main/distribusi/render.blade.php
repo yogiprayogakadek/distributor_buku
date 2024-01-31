@@ -33,7 +33,7 @@
                 @foreach ($distribusi as $distribusi)
                 <tr>
                     <td>{{$loop->iteration}}</td>
-                    <td>{{$distribusi->tanggal_distribusi}}</td>
+                    <td>{{date_format(date_create($distribusi->tanggal_distribusi), 'd-m-Y')}}</td>
                     {{-- @can('admin') --}}
                     <td>
                         <button class="btn btn-primary btn-detail" data-id="{{$distribusi->id}}" data-date="{{$distribusi->tanggal_distribusi}}">

@@ -30,7 +30,8 @@
                     <td>{{$distribusi['penulis']}}</td>
                     <td>{{$distribusi['harga']}}</td>
                     <td>{{$distribusi['kuantitas']}}</td>
-                    <td>{{ ($distribusi['updated_at'] == null ? 'Belum di terima' : ($distribusi['status'] == true ? 'Diterima (' . $distribusi['updated_at'] .')' : 'Dibatalkan') ) }}</td>
+                    {{-- {{date_format(date_create($distribusi['updated_at']), 'd-m-Y H:i:s')}} --}}
+                    <td>{{ ($distribusi['updated_at'] == null ? 'Belum di terima' : ($distribusi['status'] == true ? 'Diterima (' . date_format(date_create($distribusi['updated_at']), 'd-m-Y H:i:s') .')' : 'Dibatalkan') ) }}</td>
                 </tr>
                 @endforeach
             </tbody>

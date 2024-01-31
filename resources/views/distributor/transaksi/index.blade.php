@@ -90,9 +90,9 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $transaksi->kode_transaksi }}</td>
-                                    <td>{{ $transaksi->tanggal_transaksi }}</td>
+                                    <td>{{ date_format(date_create($transaksi->tanggal_transaksi), 'd-m-Y') }}</td>
                                     <td>{{ json_decode($transaksi->buku->data_buku, true)['kode_buku'] }}</td>
-                                    <td class="total-pembayaran">{{ convertToRupiah($transaksi->total_pembayaran) }}</td>
+                                    <td class="total-pembayaran text-end">{{ convertToRupiah($transaksi->total_pembayaran) }}</td>
                                     <td>{{ $transaksi->pembayaran->status_pembayaran }}</td>
                                     <td>
                                         @if ($transaksi->pembayaran->status_pembayaran != 'Diterima')

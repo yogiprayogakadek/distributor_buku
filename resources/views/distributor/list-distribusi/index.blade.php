@@ -102,10 +102,10 @@
                             @foreach ($data as $data)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $data['tanggal_distribusi'] }}</td>
+                                    <td>{{ date_format(date_create($data['tanggal_distribusi']), 'd-m-Y') }}</td>
                                     <td class="kode-buku">{{ $data['kode_buku'] }}</td>
                                     <td class="judul-buku">{{ $data['judul'] }}</td>
-                                    <td class="harga-buku">{{ $data['harga'] }}</td>
+                                    <td class="harga-buku text-end">{{ $data['harga'] }}</td>
                                     <td class="kuantitas-buku">{{ $data['kuantitas'] }} eksemplar</td>
                                     <td class="keterangan">{!! $data['terjual'] != null ? 'Buku yang di kembalikan <i><strong>' . $data['kembali'] . ' eksemplar</strong></i>, terjual <i><strong>' . $data['terjual'] . ' eksemplar</strong></i>.</p>' : '-' !!}</td>
                                     <td class="text-center">

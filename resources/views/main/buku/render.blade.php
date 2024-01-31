@@ -48,7 +48,7 @@
                     <td>{{json_decode($buku->data_buku, true)['penerbit']}}</td>
                     <td>{{json_decode($buku->data_buku, true)['penulis']}}</td>
                     <td>{{json_decode($buku->data_buku, true)['tahun_terbit']}}</td>
-                    <td>{{convertToRupiah(json_decode($buku->data_buku, true)['harga'])}}</td>
+                    <td class="text-end">{{convertToRupiah(json_decode($buku->data_buku, true)['harga'])}}</td>
                     <td><img src="{{json_decode($buku->data_buku, true)['foto']}}" width="70px"></td>
                     <td>{{$buku->stok_buku}}</td>
                     <td>{!! $buku->status == true ? '<span class="badge bg-success">Aktif</span>' : '<span class="badge bg-danger">Tidak Aktif</span>' !!}</td>

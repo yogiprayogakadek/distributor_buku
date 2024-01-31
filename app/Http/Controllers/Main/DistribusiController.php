@@ -40,30 +40,6 @@ class DistribusiController extends Controller
     public function store(Request $request)
     {
         try {
-            // $data_buku = [];
-            // foreach ($request->kode_buku as $kode_buku) {
-            //     $buku = Buku::whereJsonContains('data_buku->kode_buku', $kode_buku)->first();
-            //     $data_buku[] = [
-            //         'kode_buku' => $kode_buku,
-            //         'status' => false,
-            //         'total_buku' => $buku->stok_buku,
-            //         'terjual' => null,
-            //         'kembali' => null,
-            //         'kuantitas' => 10,
-            //         'updated_at' => null
-            //     ];
-            // }
-
-            // $distributor = Distributor::all();
-            // foreach ($distributor as $key => $item) {
-            //     DistribusiBuku::create([
-            //         'distributor_id' => $item->id,
-            //         'data_buku' => json_encode($data_buku),
-            //         'tanggal_distribusi' => date('Y-m-d')
-            //     ]);
-            // }
-
-
             // NEW
             $data_buku = [];
             $originalArray = json_decode($request->data_buku, true);
@@ -102,6 +78,12 @@ class DistribusiController extends Controller
                         'kuantitas' => $value['jumlah'],
                         'updated_at' => null
                     ];
+
+                    // UPDATE BARU DECREASE STOK
+                    // $buku->update([
+                    //     'stok_buku' => $buku->stok_buku - (int)$value['jumlah']
+                    // ]);
+
                 }
                 DistribusiBuku::create([
                     'distributor_id' => $distributorData['distributorId'],
@@ -109,9 +91,6 @@ class DistribusiController extends Controller
                     'tanggal_distribusi' => date('Y-m-d')
                 ]);
             }
-            // dd($data_buku);
-
-
 
             return response()->json([
                 'status' => 'success',

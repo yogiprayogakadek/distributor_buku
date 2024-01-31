@@ -101,6 +101,7 @@
                                         </button>
                                         @else
                                         <i>Pembayaran berhasil</i>
+                                        (<a href="{{$transaksi->pembayaran->bukti_pembayaran}}" target="_blank">Lihat  bukti transfer</a>)
                                         @endif
                                     </td>
                                 </tr>

@@ -57,6 +57,7 @@
                         <th>Nama Distributor</th>
                         <th>Tanggal Transaksi</th>
                         <th>Kode Buku</th>
+                        <th>Kuantitas</th>
                         <th>Total Pembayaran</th>
                         <th>Status</th>
                         <th>Aksi</th>
@@ -65,26 +66,27 @@
                 <tbody>
                     @foreach ($transaksi as $transaksi)
                     <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $transaksi->kode_transaksi }}</td>
-                            <td>{{ $transaksi->distributor->user->nama }}</td>
-                            <td>{{ date_format(date_create($transaksi->tanggal_transaksi), 'd-m-Y') }}</td>
-                            <td>{{ json_decode($transaksi->buku->data_buku, true)['kode_buku'] }}</td>
-                            <td class="total-pembayaran text-end">{{ convertToRupiah($transaksi->total_pembayaran) }}</td>
-                            <td class="status-pembayaran">{{ $transaksi->pembayaran->status_pembayaran }}</td>
-                            <td>
-                                @if ($transaksi->pembayaran->status_pembayaran == 'Menunggu Konfirmasi')
-                                <button class="btn btn-primary btn-pembayaran" data-id="{{$transaksi->id}}" data-pembayaran="{{$transaksi->pembayaran->bukti_pembayaran != '' ? $transaksi->pembayaran->bukti_pembayaran : '-'}}">
-                                    <i class="fas fa-money-bill"></i> Validasi
-                                </button>
-                                @elseif ($transaksi->pembayaran->status_pembayaran == 'Belum dibayar')
-                                <i>Menunggu pembayaran</i>
-                                @else
-                                <i>Pembayaran berhasil</i><br>
-                                (<a href="{{$transaksi->pembayaran->bukti_pembayaran}}" target="_blank">Lihat  bukti transfer</a>)
-                                @endif
-                            </td>
-                        </tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $transaksi->kode_transaksi }}</td>
+                        <td>{{ $transaksi->distributor->user->nama }}</td>
+                        <td>{{ date_format(date_create($transaksi->tanggal_transaksi), 'd-m-Y') }}</td>
+                        <td>{{ json_decode($transaksi->buku->data_buku, true)['kode_buku'] }}</td>
+                        <td>{{ getKuantitas(json_decode($transaksi->distribusi_buku->data_buku, true), json_decode($transaksi->buku->data_buku, true)['kode_buku']) }}</td>
+                        <td class="total-pembayaran text-end">{{ convertToRupiah($transaksi->total_pembayaran) }}</td>
+                        <td class="status-pembayaran">{{ $transaksi->pembayaran->status_pembayaran }}</td>
+                        <td>
+                            @if ($transaksi->pembayaran->status_pembayaran == 'Menunggu Konfirmasi')
+                            <button class="btn btn-primary btn-pembayaran" data-id="{{$transaksi->id}}" data-pembayaran="{{$transaksi->pembayaran->bukti_pembayaran != '' ? $transaksi->pembayaran->bukti_pembayaran : '-'}}">
+                                <i class="fas fa-money-bill"></i> Validasi
+                            </button>
+                            @elseif ($transaksi->pembayaran->status_pembayaran == 'Belum dibayar')
+                            <i>Menunggu pembayaran</i>
+                            @else
+                            <i>Pembayaran berhasil</i><br>
+                            (<a href="{{$transaksi->pembayaran->bukti_pembayaran}}" target="_blank">Lihat bukti transfer</a>)
+                            @endif
+                        </td>
+                    </tr>
                     @endforeach
                 </tbody>
             </table>

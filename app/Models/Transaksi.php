@@ -36,4 +36,9 @@ class Transaksi extends Model
     {
         return $this->hasOne(Pembayaran::class, 'transaksi_id', 'id');
     }
+
+    public function distribusi_buku()
+    {
+        return $this->hasOne(DistribusiBuku::class, 'id', 'distribusi_buku_id');
+    }
 }

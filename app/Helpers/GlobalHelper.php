@@ -45,3 +45,18 @@ function cartQuantity()
 
     return $total;
 }
+
+function getKuantitas($data, $key)
+{
+    // $kodeBuku = [];
+    // $kuantitas = '';
+    foreach ($data as $data) {
+        // $kodeBuku[] = $data['kode_buku'];
+        // if (in_array($key, $data['kode_buku'])) {
+        //     return $data['kuantitas'];
+        // }
+        if ($data['kode_buku'] == $key) {
+            return $data['terjual'] . ' eksemplar';
+        }
+    }
+}

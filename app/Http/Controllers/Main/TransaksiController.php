@@ -19,7 +19,8 @@ class TransaksiController extends Controller
 
     public function render()
     {
-        $transaksi = Transaksi::with('distributor', 'buku', 'pembayaran')->get();
+        $transaksi = Transaksi::with('distributor', 'buku', 'pembayaran', 'distribusi_buku')->get();
+        // dd($transaksi);
 
         $view = [
             'data' => view('main.transaksi.render', compact('transaksi'))->render()
@@ -39,7 +40,7 @@ class TransaksiController extends Controller
                 'status_pembayaran' => $request->status,
             ]);
 
-            if($request->status == 'Diterima') {
+            if ($request->status == 'Diterima') {
                 $buku->update([
                     'stok_buku' => $buku->stok_buku - ($transaksi->total_pembayaran / (int)json_decode($buku->data_buku, true)['harga'])
                 ]);
@@ -65,11 +66,11 @@ class TransaksiController extends Controller
     public function detail($id)
     {
         $data = DB::table('detail_transaksi')
-                    ->select('kategori.nama as nama_kategori', 'buku.data_buku->judul as judul', 'buku.data_buku->penerbit as penerbit', 'buku.data_buku->penulis as penulis', 'buku.data_buku->harga as harga', 'detail_transaksi.kuantitas as kuantitas')
-                    ->join('buku', 'buku.id', 'detail_transaksi.buku_id')
-                    ->join('kategori', 'kategori.id', 'buku.kategori_id')
-                    ->where('detail_transaksi.transaksi_id', $id)
-                    ->get();
+            ->select('kategori.nama as nama_kategori', 'buku.data_buku->judul as judul', 'buku.data_buku->penerbit as penerbit', 'buku.data_buku->penulis as penulis', 'buku.data_buku->harga as harga', 'detail_transaksi.kuantitas as kuantitas')
+            ->join('buku', 'buku.id', 'detail_transaksi.buku_id')
+            ->join('kategori', 'kategori.id', 'buku.kategori_id')
+            ->where('detail_transaksi.transaksi_id', $id)
+            ->get();
 
         return response()->json($data);
     }
@@ -84,5 +85,4 @@ class TransaksiController extends Controller
 
         return response()->json($view);
     }
-
 }

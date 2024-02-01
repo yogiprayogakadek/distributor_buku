@@ -15,7 +15,8 @@ class PenggunaController extends Controller
 
     public function render()
     {
-        $pengguna = User::where('role', 'Admin')->orWhere('role', 'Distributor')->get();
+        // $pengguna = User::where('role', 'Admin')->orWhere('role', 'Distributor')->get();
+        $pengguna = User::where('role', 'Distributor')->get();
 
         $view = [
             'data' => view('main.pengguna.render', compact('pengguna'))->render(),
@@ -26,7 +27,8 @@ class PenggunaController extends Controller
 
     public function print()
     {
-        $pengguna = User::where('role', 'Admin')->orWhere('role', 'Distributor')->get();
+        // $pengguna = User::where('role', 'Admin')->orWhere('role', 'Distributor')->get();
+        $pengguna = User::where('role', 'Distributor')->get();
 
         $view = [
             'data' => view('main.pengguna.print', compact('pengguna'))->render(),

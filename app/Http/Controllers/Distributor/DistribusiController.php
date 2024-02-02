@@ -57,7 +57,7 @@ class DistribusiController extends Controller
             foreach ($data_buku as $key => &$item) {
                 $kode_buku = $data_buku[$key]['kode_buku'];
 
-                if($kode_buku == $request->kode_buku) {
+                if ($kode_buku == $request->kode_buku) {
                     $item['status'] = (int)$request->status;
                     $item['updated_at'] = date('Y-m-d H:i:s');
                 }
@@ -94,7 +94,7 @@ class DistribusiController extends Controller
             $terjual = 0;
 
             foreach ($data_buku as $key => &$item) {
-                if($item['kode_buku'] == $request->kode_buku) {
+                if ($item['kode_buku'] == $request->kode_buku) {
                     $item['kembali'] = (int)$request->pengembalian;
                     $item['terjual'] = $item['kuantitas'] - $request->pengembalian;
                     $terjual = $item['terjual'];

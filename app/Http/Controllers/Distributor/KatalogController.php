@@ -57,11 +57,11 @@ class KatalogController extends Controller
 
     public function index(Request $request)
     {
-        $this->bookList();
-        // dd($this->data);
+        // $this->bookList();
         $kategori = Kategori::where('status', true)->pluck('nama', 'id')->toArray();
-        // $buku = Buku::where('status', true)->paginate($this->page);
-        $buku = Buku::where('status', true)->whereIn('data_buku->kode_buku', $this->kodeBuku)->paginate($this->page);
+        // $buku = Buku::where('status', true)->whereIn('data_buku->kode_buku', $this->kodeBuku)->paginate($this->page);
+
+        $buku = Buku::where('status', true)->paginate($this->page);
         // dd($buku);
         if ($request->ajax()) {
             return view('distributor.katalog.render')->with([
@@ -74,9 +74,10 @@ class KatalogController extends Controller
 
     public function render()
     {
-        $this->bookList();
-        $buku = Buku::where('status', true)->whereIn('data_buku->kode_buku', $this->kodeBuku)->paginate($this->page);
+        // $this->bookList();
+        // $buku = Buku::where('status', true)->whereIn('data_buku->kode_buku', $this->kodeBuku)->paginate($this->page);
 
+        $buku = Buku::where('status', true)->paginate($this->page);
         $view = [
             'data' => view('distributor.katalog.render', compact('buku'))->render(),
         ];
@@ -84,27 +85,46 @@ class KatalogController extends Controller
         return response()->json($view);
     }
 
+    // public function search($value)
+    // {
+    //     $this->bookList();
+    //     if ($value != 'null') {
+    //         $buku = Buku::where(function ($query) use ($value) {
+    //             $query->where('data_buku->judul', 'LIKE', '%' . $value . '%')
+    //                 ->orWhere('data_buku->penerbit', 'LIKE', '%' . $value . '%')
+    //                 ->orWhere('data_buku->penulis', 'LIKE', '%' . $value . '%');
+    //         })
+    //             ->where('status', true)
+    //             ->whereIn('data_buku->kode_buku', $this->kodeBuku)
+    //             ->paginate($this->page);
+
+
+    //         return view('distributor.katalog.search')->with([
+    //             'buku' => $buku
+    //         ])->render();
+    //     } else {
+    //         return view('distributor.katalog.render')->with([
+    //             'buku' => Buku::where('status', true)->whereIn('data_buku->kode_buku', $this->kodeBuku)->paginate($this->page)
+    //         ])->render();
+    //     }
+    // }
+
     public function search($value)
     {
-        $this->bookList();
         if ($value != 'null') {
-            // dd($this->kodeBuku);
-            $buku = Buku::where(function ($query) use ($value) {
-                $query->where('data_buku->judul', 'LIKE', '%' . $value . '%')
-                      ->orWhere('data_buku->penerbit', 'LIKE', '%' . $value . '%')
-                      ->orWhere('data_buku->penulis', 'LIKE', '%' . $value . '%');
-            })
-            ->where('status', true)
-            ->whereIn('data_buku->kode_buku', $this->kodeBuku)
-            ->paginate($this->page);
-
+            $buku = Buku::where('data_buku->judul', 'LIKE', '%' . $value . '%')
+                ->orWhere('data_buku->penerbit', 'LIKE', '%' . $value . '%')
+                ->orWhere('data_buku->penulis', 'LIKE', '%' . $value . '%')
+                ->where('status', true)
+                ->where('stok_buku', '>', 0)
+                ->paginate($this->page);
 
             return view('distributor.katalog.search')->with([
                 'buku' => $buku
             ])->render();
         } else {
             return view('distributor.katalog.render')->with([
-                'buku' => Buku::where('status', true)->whereIn('data_buku->kode_buku', $this->kodeBuku)->paginate($this->page)
+                'buku' => Buku::where('status', true)->paginate($this->page)
             ])->render();
         }
     }
